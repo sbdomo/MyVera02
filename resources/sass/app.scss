@@ -1,0 +1,42 @@
+$base-color: #4a4848;
+//$base-gradient: 'glossy';
+$active-color: #8bc531;
+$alert-color: #6ba00c;
+
+$tabs-bar-gradient: 'matte';
+$toolbar-gradient: 'glossy';
+
+@import 'sencha-touch/default/all';
+
+// You may remove any of the following modules that you
+// do not use in order to create a smaller css file.
+@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-layout;
+@include sencha-carousel;
+@include sencha-form;
+@include sencha-msgbox;
+
+// Your custom code goes here...
+@include sencha-button-ui('decline', #bc3314, 'matte');
+@include pictos-iconmask('home');
+
+.bg {
+	.x-body {
+		background-color: rgba(43,45,44, 0.2);
+	}
+}
+
+.x-list-header {
+	background-image: -webkit-linear-gradient(top, #ccff7c, #c3f171 3%, #a7ca72) !important;
+	text-shadow: none !important;
+	border-top: 1px solid #c3f171 !important;
+	border-bottom: 1px solid #85ad43 !important;
+}
