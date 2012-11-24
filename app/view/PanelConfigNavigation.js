@@ -17,7 +17,7 @@ Ext.define('myvera.view.PanelConfigNavigation', {
 			pop:function(e,d){
 				Ext.getCmp('main').getTabBar().show();
 				Ext.getCmp('PanelConfig').getTabBar().show();
-				this.getNavigationBar().setDocked('top');
+				Ext.getCmp('PanelConfigNavigation').setNavigationBar({docked: 'top'});
 			}
 		}
 	}

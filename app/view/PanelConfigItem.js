@@ -127,7 +127,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			handler: function(){
 				Ext.getCmp('main').getTabBar().hide();
 				Ext.getCmp('PanelConfig').getTabBar().hide();
-				Ext.getCmp('PanelConfigNavigation').getNavigationBar().setDocked('bottom');
+				Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
 				Ext.getCmp('PanelConfigNavigation').push({
 					xtype: 'PanelImage',
 					title: 'Positionner le module sur la vue',

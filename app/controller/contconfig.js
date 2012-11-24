@@ -275,7 +275,7 @@ Ext.define('myvera.controller.contconfig', {
 		
 		Ext.getCmp('main').getTabBar().hide();
 		Ext.getCmp('PanelConfig').getTabBar().hide();
-		Ext.getCmp('PanelConfigNavigation').getNavigationBar().setDocked('bottom');
+		Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
 		this.getConfigDevices().push({
 				xtype: 'carouselitemmove',
 				title: 'Faire glisser les modules'

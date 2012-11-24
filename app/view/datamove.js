@@ -23,7 +23,7 @@ Ext.define('myvera.view.datamove', {
 				currentdrag.revert = true;
 			},
 			itemtouchend: function(me, index, target, record, e, eOpts) {
-				console.log('element x'+ target.getX() + 'y:' + target.getY());
+				console.log('element x'+ target.getX() + ' y:' + (target.getY()));
 				record.set('left', record.get('left')+target.getX());
 				record.set('top', record.get('top')+target.getY());
 				Ext.getCmp('carouselitemmove').toggleSwipe(true);
