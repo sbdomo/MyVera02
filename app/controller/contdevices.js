@@ -11,7 +11,7 @@ Ext.define('myvera.controller.contdevices', {
 		
 		refs: {
 			plan: 'dataplan',
-			liste1: 'datalist',
+			liste1: 'datalist [id=listInRoom]',
 			listeon: 'dataliston',
 			listeoff: 'datalistoff',
 			listclock: 'listclock',
@@ -165,6 +165,13 @@ Ext.define('myvera.controller.contdevices', {
 			//Bug avec Sencha Touch 2.1, load après le load de FloorsStore dans pushplans
 			//DevicesStore.load();
 			this.pushplans();
+			var listroom = Ext.getCmp('datalist').down('#list');
+			if(listroom.getStore().getAt(0).get('id')!=0||storeRooms.getCount()==1) {
+				listroom.select(0);
+			} else {
+				listroom.select(1);
+			}
+			
 		} else {
 			Ext.Msg.confirm('Erreur', 'Liste des pièces vide. La créer?', function(confirmed) {
 				if (confirmed == 'yes') {
@@ -424,7 +431,7 @@ Ext.define('myvera.controller.contdevices', {
 			return;
 		}
 		
-		if (Ext.Array.contains(["datalist", "dataliston", "datalistoff", "listclock"], view.id)) {
+		if (Ext.Array.contains(["listInRoom", "dataliston", "datalistoff", "listclock"], view.id)) {
 			var tap = Ext.get(event.target);
 			if (tap.hasCls('deviceImage')) {
 				icontap = true;

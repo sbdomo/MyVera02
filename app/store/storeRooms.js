@@ -5,10 +5,10 @@ Ext.define('myvera.store.storeRooms', {
 	    //autoLoad: true,
 	    storeId: 'Rooms',
 	    sorters: [
-	    {
-		    property: 'section',
-		    direction: 'ASC'
-	    },
+	    //{
+		//    property: 'section',
+		//    direction: 'ASC'
+	    //},
 	    {
 		    property: 'name',
 		    direction: 'ASC'

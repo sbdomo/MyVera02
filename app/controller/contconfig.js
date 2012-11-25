@@ -540,6 +540,14 @@ Ext.define('myvera.controller.contconfig', {
 								RoomsStore.remove(testroom);
 							}
 						});
+						
+						var listroom = Ext.getCmp('datalist').down('#list');
+						if(listroom.getStore().getAt(0).get('id')!=0||RoomsStore.getCount()==1) {
+							listroom.select(0);
+						} else {
+							listroom.select(1);
+						}
+						
 						Ext.Viewport.setMasked(false);
 						Ext.Msg.confirm('Mise à jour', 'Enregister la liste des pièces?', function(confirmed) {
 							if (confirmed == 'yes') {
