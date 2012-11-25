@@ -31,7 +31,7 @@ Ext.define('myvera.controller.contdevices', {
 			clockheuredebCt: 'paneloverlay [name=heuredeb]',
 			clockheurefinCt: 'paneloverlay [name=heurefin]',
 			clockmessageCt: 'paneloverlay [name=message]',
-			clocksaveclockBt: 'paneloverlay [name=saveclock]',
+			clocksaveclockBt: 'paneloverlay [name=saveclock]'
 		},
 		control: {
 			liste1: {
@@ -923,8 +923,9 @@ Ext.define('myvera.controller.contdevices', {
 		var syncheader = "";
 		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
 		FloorsStore.getProxy().setHeaders(syncheader);
+		//Pour ne pas perdre "this"
 		var contdevives=this;
-		console.log(contdevives.storeloaded);
+		//console.log(contdevives.storeloaded);
 		FloorsStore.load(function(floors) {
 				console.log("loading floors");
 				var items = [];
@@ -939,12 +940,13 @@ Ext.define('myvera.controller.contdevices', {
 				});
 				Ext.getCmp('carouselplan').setItems(items);
 				Ext.getCmp('carouselplan').setActiveItem(0);
+				//Charge devicesStore seulement la première fois.
 				if(contdevives.storeloaded==false) {
 					var DevicesStore = Ext.getStore('devicesStore');
 					DevicesStore.load();
 					contdevives.storeloaded=true;
 				}
-				console.log(contdevives.storeloaded);
+				//console.log(contdevives.storeloaded);
 		});
 	},
 	

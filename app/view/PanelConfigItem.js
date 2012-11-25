@@ -61,7 +61,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 						var options = [
 						{text: 'Alarm Clock',  value: '0'},
 						{text: 'Electrical timer',  value: '1'},
-						{text: 'Timer',  value: '2'},
+						{text: 'Timer',  value: '2'}
 						];
 						subcat.setOptions(options);
 						subcat.show();
@@ -341,10 +341,10 @@ Ext.define('myvera.view.PanelConfigItem', {
 									    out  : true,
 									    scope: this
 							    });
-						    },
+						    }
 					    }
 				    }
-				    ],
+				    ]
 			    });
 			    
 			    

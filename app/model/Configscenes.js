@@ -14,7 +14,7 @@ Ext.define('myvera.model.Configscenes', {
 			{name: 'top', type: 'int'},
 			{name: 'etage', type: 'int'},
 			{name:'color', type: 'string'},
-			{name: 'icon', type: 'int'},
+			{name: 'icon', type: 'int'}
 		],
 		idProperty: 'id'
 	}

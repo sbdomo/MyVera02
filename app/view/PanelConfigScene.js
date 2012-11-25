@@ -224,10 +224,10 @@ Ext.define('myvera.view.PanelConfigScene', {
 									    out  : true,
 									    scope: this
 							    });
-						    },
+						    }
 					    }
 				    }
-				    ],
+				    ]
 			    });
 			    
 			    

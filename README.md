@@ -1,4 +1,4 @@
-# MyVera version Sencha Touc 2.1
+# MyVera version Sencha Touch 2.1
 ======
 ![MyVera Icon](http://sbdomotique.files.wordpress.com/2012/09/myvera.png)
 ### MyVera - Interface domotique sur iPad pour Vera (Zwave)

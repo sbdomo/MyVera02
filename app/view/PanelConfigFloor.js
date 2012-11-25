@@ -13,7 +13,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		items: [
 		{
 			html:"",
-			itemId: 'titlePanelConfigFloor',
+			itemId: 'titlePanelConfigFloor'
 		},
 		{
 			xtype: 'textfield',

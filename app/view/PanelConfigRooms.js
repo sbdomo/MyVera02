@@ -5,7 +5,7 @@ Ext.define('myvera.view.PanelConfigRooms', {
 	//requires: ['myvera.store.ConfigDevicesStore'],
 	config: {
 		itemTpl: '{name}',
-		store: 'Rooms',
+		store: 'Rooms'
 		//grouped: true,
 		//onItemDisclosure: true
 	}

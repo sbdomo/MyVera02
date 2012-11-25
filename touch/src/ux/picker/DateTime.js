@@ -80,7 +80,7 @@ Ext.define('Ext.ux.picker.DateTime', {
          * @cfg {Boolean} ampm
          * @accessor
          */
-        ampm : false,
+        ampm : false
 
 
         /**
