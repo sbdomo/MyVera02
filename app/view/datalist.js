@@ -8,10 +8,21 @@ Ext.define('myvera.view.datalist', {
 	   
            items: [
 	   {
-		xtype: 'list',
+		xtype: 'dataview',
 		itemId: 'list',
 		cls: 'slidelist',
-		itemTpl: '{name}',
+		selectedCls: 'listroomselect',
+		//baseCls: 'listroom',
+		itemTpl: '<tpl if="hidden!=true"><div class="listroom"><tpl if="icon!=null&&icon!=\'\'">'+ 
+			'<div class="listroomimg"><img  style="height:40px;" src="resources/images/rooms/{icon}.png" /></div>' +
+			'<div class="listroomtext"><span class="listroomtext">{name}</span></div>'+
+			'<tpl else><div class="listroomnoicon"><span class="listroomtext2">{name}</span>'+
+			'</div></tpl></div></tpl>',
+			
+		itemTplz: '<tpl if="hidden!=true"><div class="listroom2"><tpl if="icon!=null&&icon!=\'\'"><div class="listconfigimg2">'+
+		'<img style="height:40px;" src="resources/images/rooms/{icon}.png" /></div></tpl><div class="listconfig2"><span class="listconfig2">{name}</span></div></div></tpl>',
+		
+		
 		store: 'Rooms',
 		
 		docked: 'left',
@@ -32,6 +43,9 @@ Ext.define('myvera.view.datalist', {
 		listeners: {
 			select: function(view, record) {
 				this.getParent().onSelect(view, record);
+			},
+			updatedata:function(e,d){
+				console.log('updatedata datalist-list');
 			}
 		}
 
@@ -73,9 +87,10 @@ Ext.define('myvera.view.datalist', {
     toggleContainer: function(duration) {
 	list = this.down('#list');
 	if(list.isHidden()) {
-	    this.down('#list').show({type: 'slide', direction: 'right'});
+	    this.down('#list').show();
+	    //{type: 'slide', direction: 'right'}
 	} else {
-	    this.down('#list').hide({type: 'slide', direction: 'left'});
+	    this.down('#list').hide();
 	}
     },
     

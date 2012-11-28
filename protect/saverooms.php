@@ -13,6 +13,8 @@ if ($json = @file_get_contents('php://input'))
 		$Rooms[]= array (
 			'id' => $room['id'],
 			'name' => $room['name'],
+			'icon' => $room['icon'],
+			'hidden' => $room['hidden'],
 			'section' => $room['section']
 			);
 	}

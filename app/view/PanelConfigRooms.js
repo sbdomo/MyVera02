@@ -4,9 +4,10 @@ Ext.define('myvera.view.PanelConfigRooms', {
 	id:'PanelConfigRooms',
 	//requires: ['myvera.store.ConfigDevicesStore'],
 	config: {
-		itemTpl: '{name}',
-		store: 'Rooms'
+		itemTpl: '<tpl if="icon!=null&&icon!=\'\'"><div class="listconfigimg">'+
+		'<img style="height:40px;" src="resources/images/rooms/{icon}.png" /></div></tpl><div class="listconfig"><span class="<tpl if="hidden!=true">listconfig<tpl else>hideitem</tpl>">{name}</span></div>',
+		store: 'Rooms',
 		//grouped: true,
-		//onItemDisclosure: true
+		onItemDisclosure: true
 	}
 });

@@ -403,9 +403,58 @@ span.listconfig {
     border-right: 2px solid #999;
 	box-shadow: 1px 1px 12px #555 inset;
 	-webkit-box-shadow: 1px 1px 12px #555 inset;
+	background: #ffffff;
 }
 
-		
+.listroom {
+    height:45px;
+    /*font-size:14px;*/
+    border-bottom: 1px solid #ccc;
+}
+div.listroomimg {
+	margin-top:2px;
+	float:left;
+	width:40px;
+	height:40px;
+	margin-left: 8px;
+}
+div.listroomtext {
+	line-height:40px;
+}
+div.listroomnoicon {
+	margin-left: 10px;
+	line-height:40px;
+}
+span.listroomtext {
+	margin-left: 5px;
+	width: 170px;
+	vertical-align:middle;
+	display:inline-block;
+	line-height:35px; /* on rétablit le line-height */
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+}
+span.listroomtext2 {
+	width: 213px;
+	vertical-align:middle;
+	display:inline-block;
+	line-height:35px; /* on rétablit le line-height */
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+}
+
+span.hideitem {
+	vertical-align:middle;
+	display:inline-block;
+	line-height:1.2; /* on rétablit le line-height */
+	color: #ccc;
+}
+
+.listroomselect {
+	background: rgba(213, 255, 147, 0.5);
+}
     </style>
     <!-- The line below must be kept intact for Sencha Command to build your application -->
     <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>

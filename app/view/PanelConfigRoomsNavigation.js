@@ -2,7 +2,7 @@ Ext.define('myvera.view.PanelConfigRoomsNavigation', {
 	extend: 'Ext.navigation.View',
 	xtype: 'PanelConfigRoomsNavigation',
 	id:'PanelConfigRoomsNavigation',
-	requires: ['myvera.view.PanelConfigRooms'],
+	requires: ['myvera.view.PanelConfigRooms','myvera.view.PanelConfigRoom'],
 	config: {
 		iconCls: '',
 		title: 'Pièces',
@@ -12,10 +12,19 @@ Ext.define('myvera.view.PanelConfigRoomsNavigation', {
 			{
 				xtype: 'button',
 				id: 'RefreshRoomsButton',
+				itemId: 'RefreshRoomsButton',
 				text: 'Mettre à jour la liste',
 				align: 'right',
 				hidden: false
-			}]
+			},
+			{
+				ui: 'normal',
+				text: 'Sauver', 
+				itemId: 'sauver', 
+				disabled: true,
+				align: 'right'
+			}
+			]
 		},
 		items: [
 		{
@@ -24,10 +33,14 @@ Ext.define('myvera.view.PanelConfigRoomsNavigation', {
 		],
 		listeners:{
 			pop:function(e,d){
-				Ext.getCmp('RefreshRoomsButton').show();
+				//Ext.getCmp('RefreshRoomsButton').show();
+				e.down('#RefreshRoomsButton').show();
+				e.down('#sauver').show();
 			},
 			push:function(e,d){
-				Ext.getCmp('RefreshRoomsButton').hide();
+				//Ext.getCmp('RefreshRoomsButton').hide();
+				e.down('#RefreshRoomsButton').hide();
+				e.down('#sauver').hide();
 		}}
 	}
 });

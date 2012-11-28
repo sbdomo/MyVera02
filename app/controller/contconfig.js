@@ -9,8 +9,9 @@ Ext.define('myvera.controller.contconfig', {
 			panelConfigScenesOpen: 'PanelConfigItemsMenu [name=openPanelConfigScenes]',
 			panelItemsMoveOpen: 'PanelConfigItemsMenu [name=openPanelMove]',
 			listItemsSave: 'PanelConfigItemsMenu [name=sauver]',
-			
 			configFloors: 'PanelConfigFloorsNavigation',
+			configRooms: 'PanelConfigRoomsNavigation',
+			roomsSave: 'PanelConfigRoomsNavigation [itemId=sauver]',
 			panelConfigFloor: 'PanelConfigFloor',
 			savefloor: 'PanelConfigFloor [name=savefloor]',
 			deletefloor: 'PanelConfigFloor [name=deletefloor]'
@@ -18,6 +19,7 @@ Ext.define('myvera.controller.contconfig', {
 		//0 si rien à sauver et qu'il n'y a pas eu de message d'alerte, 1 si plus rien à sauver mais qu'il y a eu le message d'alerte, 2 s'il faut sauver
 		//pour la sauvegarde de devicesStore
 		dirtydevices: 0,
+		dirtyrooms: 0,
 		
 		control: {
 			configDevices: {
@@ -46,8 +48,15 @@ Ext.define('myvera.controller.contconfig', {
 			'PanelConfigFloors': {
 				disclose: 'showDetailFloor'
 			},
+			'PanelConfigRooms': {
+				disclose: 'showDetailRoom'
+			},
 			'PanelConfigScenes': {
 				disclose: 'showDetailScene'
+			},
+			
+			roomsSave: {
+				tap: 'saveRooms'
 			},
 			
 			savefloor: {
@@ -366,6 +375,15 @@ Ext.define('myvera.controller.contconfig', {
 		});
        },
        
+       	showDetailRoom: function(list, record) {
+		console.info('Pièces ' + record.get('name'));
+		this.getConfigRooms().push({
+				xtype: 'PanelConfigRoom',
+				title: 'Détail de la pièce',
+				data: record.getData()
+		});
+       },
+       
        onsavefloor: function() {
 		Ext.Viewport.setMasked({
                      xtype: 'loadmask',
@@ -547,7 +565,11 @@ Ext.define('myvera.controller.contconfig', {
 						} else {
 							listroom.select(1);
 						}
-						
+						var contconfig = myvera.app.getController('myvera.controller.contconfig');
+						contconfig.dirtyrooms = 2;
+						contconfig.getRoomsSave().setUi('decline');
+						contconfig.getRoomsSave().setDisabled(false);
+
 						Ext.Viewport.setMasked(false);
 						Ext.Msg.confirm('Mise à jour', 'Enregister la liste des pièces?', function(confirmed) {
 							if (confirmed == 'yes') {
@@ -602,6 +624,10 @@ Ext.define('myvera.controller.contconfig', {
 				//Le texte de  Ext.Msg.alert n'est pas correct si on l'ouvre après confirmation
 				//de Ext.Msg.confirm de "onRefreshRooms"
 				if (result.responseText=="true") {
+					var control =myvera.app.getController('myvera.controller.contconfig');
+					control.getRoomsSave().setUi('normal');
+					control.getRoomsSave().setDisabled(true);
+					control.dirtyrooms = 1;
 					Ext.Viewport.setMasked(false);
 					//new Ext.MessageBox().show({
 					//		title: 'Pièces',
@@ -640,6 +666,29 @@ Ext.define('myvera.controller.contconfig', {
 			this.dirtydevices = 2;
 			this.getListItemsSave().setUi('decline');
 			this.getListItemsSave().setDisabled(false);
+			new Ext.MessageBox().show({
+				title: 'Modules',
+				message: msg
+			});
+			break;
+		}
+	},
+	
+	alertDirtyrooms: function(msg) {
+		if(!msg) msg='Pensez à sauvegarder !';
+		switch (this.dirtyrooms) {
+		case 1: //si plus rien à sauver mais qu'il y a eu le message d'alerte
+			this.getRoomsSave().setUi('decline');
+			this.getRoomsSave().setDisabled(false);
+			this.dirtyrooms = 2;
+			break;
+		case 2: //s'il faut sauver
+			//nothing
+			break;
+		default://0 si rien à sauver et qu'il n'y a pas eu de message d'alerte
+			this.dirtyrooms = 2;
+			this.getRoomsSave().setUi('decline');
+			this.getRoomsSave().setDisabled(false);
 			new Ext.MessageBox().show({
 				title: 'Modules',
 				message: msg

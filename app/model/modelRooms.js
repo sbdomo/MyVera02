@@ -5,6 +5,8 @@ Ext.define('myvera.model.modelRooms', {
         fields: [
 	            {name: 'id',  type: 'int'},
 		    {name: 'name',   type: 'string'},
+		    {name: 'icon', type: 'string'},
+		    {name: 'hidden', type: 'boolean'},
 		    {name: 'section',   type: 'string'}
 		    ],
 	    idProperty: 'id'
