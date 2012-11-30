@@ -35,6 +35,21 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 				placeHolder: 'Exemple: 192.168.0.1'
 			},
 			{
+				xtype: 'selectfield',
+				label: 'Profil (pour les vues)',
+				name:'viewprofil',
+				itemId:'viewprofil',
+				options: [
+				{text: 'Par défaut', value:'0'},
+				{text: 'Profil 1',  value: '1'},
+				{text: 'Profil 2',  value: '2'},
+				{text: 'Profil 3',  value: '3'},
+				{text: 'Profil 4',  value: '4'},
+				{text: 'Profil 5',  value: '5'},
+				{text: 'Profil 6',  value: '6'}
+				]
+			},
+			{
 				xtype: 'button',
 				text: 'S\'identifier',
 				name: 'loginbutton',

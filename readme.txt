@@ -8,4 +8,3 @@ require valid-user
 
 
 2. Le fichiers de configurations seront créer dans \protect\config (les images des vues dans resources\config\img).
-Avant le premier lancement, renommer le fichier floors.ini en floors.json

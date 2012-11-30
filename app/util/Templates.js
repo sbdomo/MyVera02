@@ -33,10 +33,10 @@ Ext.define('myvera.util.Templates', {
 	    '<tpl elseif="category==17&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1} °C</div>'+
 	    '<tpl elseif="category==18&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1} %</div>'+
 	    '<tpl elseif="category==21&&watts!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{watts} W</div>'+
-	    '<tpl elseif="(category==2||category==8)&&level!=null&&watts!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{level} % <br/>{watts} W</div>'+
+	    '<tpl elseif="(category==2||category==8)&&level!=null&&watts!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{level} %<br/>{watts} W</div>'+
 	    '<tpl elseif="(category==2||category==8)&&level!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{level} %</div>'+
 	    '<tpl elseif="category==3&&watts!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{watts} W</div>'+
-	    '<tpl elseif="category==120&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1}</div>'+
+	    '<tpl elseif="category==120&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1}<tpl if="subcategory==1&&var2!=null"><br/>{var2}</tpl></div>'+
 	    '</tpl>'+
 	'</div></tpl>',
 	tpllist: '<div class="devtitle">{name}</div>'+

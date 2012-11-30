@@ -262,33 +262,30 @@ Ext.define('myvera.controller.contconfig', {
        },
        
        	onPanelItemsMoveOpen: function() {
-		//Ext.Msg.alert('Message', "non implémenté");
 		var FloorsStore = Ext.getStore('FloorsStore');
 		if(FloorsStore.getCount()>1) {
-		//Chercher pourquoi il faut faire load, j'ai une erreur si je ne le fait pas...
-		FloorsStore.load(function(floors) {
 			var items = [];
-			Ext.each(floors, function(floor) {
-				if(floor.data.id!=-1) {
+			FloorsStore.each(function(floor) {
+				if(floor.get('id')!=-1) {
 					items.push({
 						xtype: 'datamove',
-						style: 'background:url(./resources/config/img/'+floor.data.path+') no-repeat left top;',
-						itemTpl: '<tpl if="etage=='+floor.data.id+'">' + myvera.util.Templates.getTplplan() + '</tpl>'
+						style: 'background:url(./resources/config/img/'+floor.get('path')+') no-repeat left top;',
+						itemTpl: '<tpl if="etage=='+floor.get('id')+'">' + myvera.util.Templates.getTplplan() + '</tpl>'
 					});
 				}
 			});
+			
+			Ext.getCmp('main').getTabBar().hide();
+			Ext.getCmp('PanelConfig').getTabBar().hide();
+			Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
+			this.getConfigDevices().push({
+				xtype: 'carouselitemmove',
+				title: 'Faire glisser les modules'
+			});
+			
 			Ext.getCmp('carouselitemmove').setItems(items);
 			Ext.getCmp('carouselitemmove').setActiveItem(0);
 			
-		});
-		
-		Ext.getCmp('main').getTabBar().hide();
-		Ext.getCmp('PanelConfig').getTabBar().hide();
-		Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
-		this.getConfigDevices().push({
-				xtype: 'carouselitemmove',
-				title: 'Faire glisser les modules'
-		});
 		} else {
 			Ext.Msg.alert('Il n\'y a pas de vue.');
 		}
@@ -318,6 +315,9 @@ Ext.define('myvera.controller.contconfig', {
 			url: './protect/savedevices.php',
 			headers: syncheader,
 			method: 'POST',
+			params: {
+				profil: contdevices.profilchoice
+			},
 			jsonData: {
 				devices: allDataStore
 			},
@@ -403,6 +403,9 @@ Ext.define('myvera.controller.contconfig', {
 			url: './protect/savefloors.php',
 			headers: syncheader,
 			method: 'POST',
+			params: {
+				profil: contdevices.profilchoice
+			},
 			jsonData: {
 				floor: floor
 			},
@@ -448,7 +451,8 @@ Ext.define('myvera.controller.contconfig', {
 			headers: syncheader,
 			method: 'GET',
 			params: {
-				id: idfloor
+				id: idfloor,
+				profil: contdevices.profilchoice
 			},
 			success: function(result){
 				var response = Ext.decode(result.responseText, true);

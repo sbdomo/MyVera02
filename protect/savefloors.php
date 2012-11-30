@@ -1,7 +1,17 @@
 <?php
 $success="false";
 $result="";
-$fichierjson="./config/floors.json";
+
+$profil=$_GET["profil"];
+$fichierjson="./config/floors";
+//echo $profil;
+if($profil!=""&&$profil!="0") {
+	$fichierjson=$fichierjson.$profil.".json";
+} else {
+	$profil="0";
+	$fichierjson=$fichierjson.".json";
+}
+
 $cheminImg="../resources/config/img/";
 $floorpathold="";
 if ($json = @file_get_contents('php://input'))
@@ -27,7 +37,7 @@ if ($json = @file_get_contents('php://input'))
 			  
 			  if($floor['linkimage']!='') {
 				$floorpathold=$floors[$floorkey]['path'];
-				$floor['path']='vue'.$id.time().'.jpg';
+				$floor['path']='vue'.$profil.$id.time().'.jpg';
 				$floors[$floorkey]['path']=$floor['path'];
 			  }
 			  
@@ -46,7 +56,7 @@ if ($json = @file_get_contents('php://input'))
 			  if($newid<=$fid) $newid=$fid + 1;
 		  }
 		  if($floor['linkimage']!='') {
-			  $floor['path']='vue'.$newid.time().'.jpg';
+			  $floor['path']='vue'.$profil.$newid.time().'.jpg';
 		  }
 		  
 		  

@@ -3,9 +3,9 @@
 #################
 
 tmp/
-devices.json
+devices*.json
 rooms.json
-floors.json
+floors*.json
 resources/config/img/*.jpg
 protect/.htaccess
 resources/sass/.sass-cache

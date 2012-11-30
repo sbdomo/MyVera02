@@ -39,11 +39,11 @@ Ext.define('myvera.store.devicesStore', {
 		//the local contacts.json file
 		proxy: {
 			type: 'ajax',
-			//url: 'devices.json',
-			api: {
-				read: './protect/config/devices.json',
-				update: "./protect/savedevices.php"
-			},
+			url: './protect/config/devices.json',
+			//api: {
+			//	read: './protect/config/devices.json',
+			//	update: "./protect/savedevices.php"
+			//},
 			reader: {
 				type: 'json',
 				rootProperty: 'devices'

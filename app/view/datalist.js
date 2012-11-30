@@ -35,7 +35,7 @@ Ext.define('myvera.view.datalist', {
 			ui: 'light',                    
 			title: {
 				title: 'Pièces',
-				centered: true,
+				centered: true
 				//width: 200,
 				//left: 0
 			}
@@ -79,9 +79,9 @@ Ext.define('myvera.view.datalist', {
 				    }
 			    }
 			    ]
-		    }],
+		    }]
 	    }
-	    ],
+	    ]
     },
     
     toggleContainer: function(duration) {

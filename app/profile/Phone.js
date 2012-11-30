@@ -2,7 +2,7 @@ Ext.define('myvera.profile.Phone', {
     extend: 'Ext.app.Profile',
 
     config: {
-        name: 'Phone',
+        name: 'Phone'
         //views: ['Main','datalist']
     },
 
@@ -13,7 +13,7 @@ Ext.define('myvera.profile.Phone', {
 	} else {
 		return false;
 	}
-    },
+    }
     
 //    launch: function() {
 //	    Ext.Viewport.add(Ext.create('myvera.view.phone.Main'));

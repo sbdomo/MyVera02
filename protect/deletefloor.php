@@ -2,7 +2,15 @@
 $success="false";
 $result="";
 $id=$_GET["id"];
-$fichierjson="./config/floors.json";
+
+$profil=$_GET["profil"];
+$fichierjson="./config/floors";
+if($profil!=""&&$profil!="0") {
+	$fichierjson=$fichierjson.$profil.".json";
+} else {
+	$fichierjson=$fichierjson.".json";
+}
+
 $cheminImg="../resources/config/img/";
 $floorpath="";
 if($id!="" && $json = @file_get_contents($fichierjson)) {

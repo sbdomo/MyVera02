@@ -5,9 +5,11 @@ Ext.define('myvera.controller.contdevices', {
 		views: ['dataplan', 'datalist', 'listclock', 'PanelConfigGenerale'],
 		//profile: Ext.os.deviceType.toLowerCase(),
 		
+		//jsonpath: './protect/config/',
 		loggedUserId: null,
 		logged: null,
 		ipvera: null,
+		profilchoice: null,
 		
 		refs: {
 			plan: 'dataplan',
@@ -24,6 +26,7 @@ Ext.define('myvera.controller.contdevices', {
 			isVueL: 'PanelConfigGenerale [name=isVueL]',
 			isVueP: 'PanelConfigGenerale [name=isVueP]',
 			isReveil: 'PanelConfigGenerale [name=isReveil]',
+			viewprofil: 'PanelConfigGenerale [name=viewprofil]',
 			loginBt: 'PanelConfigGenerale [name=loginbutton]',
 			
 			clockfieldsetCt: 'paneloverlay [name=fieldset1]',
@@ -72,6 +75,7 @@ Ext.define('myvera.controller.contdevices', {
 	launch: function() {
 		//Utilisé pour charger devicesStore après FloorsStore s'il n'est pas encore chargé.
 		this.storeloaded=false;
+		this.jsonpath='./protect/config/';
 		Ext.ModelMgr.getModel('myvera.model.CurrentUser').load(1, {
 			scope: this,
 			success: function(cachedLoggedInUser) {
@@ -86,6 +90,10 @@ Ext.define('myvera.controller.contdevices', {
 				this.getIsVueL().setValue(cachedLoggedInUser.get('isVueL'));
 				this.getIsVueP().setValue(cachedLoggedInUser.get('isVueP'));
 				this.getIsReveil().setValue(cachedLoggedInUser.get('isReveil'));
+				
+				this.profilchoice=cachedLoggedInUser.get('profil');
+				if(this.profilchoice==null) this.profilchoice=0;
+				this.getViewprofil().setValue(this.profilchoice);
 				
 				console.info('Auto-Login succeeded.');
 				
@@ -129,6 +137,7 @@ Ext.define('myvera.controller.contdevices', {
 		this.getUsernameCt().hide();
 		this.getPasswordCt().hide();
 		this.getIpveraCt().hide();
+		this.getViewprofil().disable();
 	},
 	
 	startstore: function() {
@@ -161,6 +170,10 @@ Ext.define('myvera.controller.contdevices', {
 			});
 			
 			Ext.getStore('devicesStore').getProxy().setExtraParam( 'ipvera',  this.getIpveraCt().getValue());
+			if(this.profilchoice>0) {
+				var jsonfile=this.jsonpath+"devices" + this.profilchoice +".json";
+				Ext.getStore('devicesStore').getProxy().setUrl(jsonfile);
+			}
 			
 			//Bug avec Sencha Touch 2.1, load après le load de FloorsStore dans pushplans
 			//DevicesStore.load();
@@ -725,6 +738,7 @@ Ext.define('myvera.controller.contdevices', {
 				isVueL = this.getIsVueL().getValue(),
 				isVueP = this.getIsVueP().getValue(),
 				isReveil = this.getIsReveil().getValue();
+				profil = this.getViewprofil().getValue();
 				
 			if(!Ext.isEmpty(password) && !Ext.isEmpty(username) && !Ext.isEmpty(ipvera)) {
 				var user = Ext.create('myvera.model.CurrentUser', {
@@ -734,11 +748,14 @@ Ext.define('myvera.controller.contdevices', {
 					ipvera: ipvera,
 					isVueL: isVueL,
 					isVueP: isVueP,
-					isReveil: isReveil
+					isReveil: isReveil,
+					profil: profil
 				});
 				user.save();
 				this.loggedUserId=this.base64_encode(username+":"+password);
 				this.ipvera=this.getIpveraCt().getValue();
+				this.profilchoice=this.getViewprofil().getValue();
+				
 				console.log('logUserIn: ', username);
 				//this.startstore();
 				this.LogIn();
@@ -930,11 +947,20 @@ Ext.define('myvera.controller.contdevices', {
 		var syncheader = "";
 		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
 		FloorsStore.getProxy().setHeaders(syncheader);
+		
+		if(this.profilchoice>0) {
+			var jsonfile=this.jsonpath+"floors" + this.profilchoice +".json";
+			FloorsStore.getProxy().setUrl(jsonfile);
+		}
+		
 		//Pour ne pas perdre "this"
 		var contdevives=this;
 		//console.log(contdevives.storeloaded);
 		FloorsStore.load(function(floors) {
-				console.log("loading floors");
+			console.log("loading floors");
+			//Vérifie qu'il y a au moins une vue (en principe -1 - Aucun étage)
+			//Initialise floors.json sion.
+			if(FloorsStore.getCount()>0) {
 				var items = [];
 				Ext.each(floors, function(floor) {
 					if(floor.data.id!=-1) {
@@ -954,7 +980,49 @@ Ext.define('myvera.controller.contdevices', {
 					contdevives.storeloaded=true;
 				}
 				//console.log(contdevives.storeloaded);
+			} else {
+				contdevives.initfloors();
+			}
 		});
+	},
+	
+	initfloors: function() {
+		Ext.Msg.confirm('Erreur', 'Liste des vues vide. La créer?', function(confirmed) {
+				if (confirmed == 'yes') {
+					Ext.Viewport.setMasked({
+						xtype: 'loadmask',
+						message: 'Initialisation de la liste...'
+					});
+
+					console.log("Create Floors");
+					var url = './protect/initfloors.php';
+					var syncheader = "";
+					syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
+					Ext.Ajax.request({
+							url: url,
+							headers: syncheader,
+							method: 'GET',
+							timeout: 35000,
+							scope: this,
+							params: {
+								timeout: '30',
+								profil: this.profilchoice
+							},
+							success: function(result) {
+								Ext.Viewport.setMasked(false);
+								if (result.responseText=="OK") {
+									this.pushplans();
+								} else {
+									Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des vues.');
+								}
+							},
+							failure: function(response) {
+								Ext.Viewport.setMasked(false);
+								Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des vues.');
+							}
+					});
+				}
+			}, this);
 	},
 	
 	base64_encode: function(data) {

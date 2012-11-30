@@ -3,7 +3,15 @@
 header('Cache-Control: no-cache, must-revalidate');
 header("content-type:application/json");
 $success="false";
-$fichierjson="./config/devices.json";
+
+$profil=$_GET["profil"];
+$fichierjson="./config/devices";
+
+if($profil!=""&&$profil!="0") {
+	$fichierjson=$fichierjson.$profil.".json";
+} else {
+	$fichierjson=$fichierjson.".json";
+}
 
 if ($json = @file_get_contents('php://input'))
 {
