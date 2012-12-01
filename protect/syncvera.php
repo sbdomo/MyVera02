@@ -1,6 +1,6 @@
 <?php
+//inclog
 header('Content-Type: text/html; charset=utf-8');
-
 // Load config
 //include "param.php";
 

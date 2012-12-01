@@ -1,4 +1,5 @@
 <?php
+//inclog
 $success="false";
 $result="";
 

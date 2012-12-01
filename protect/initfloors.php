@@ -1,4 +1,5 @@
 <?php
+//inclog
 $profil=$_GET["profil"];
 $fichierjson="./config/floors";
 
