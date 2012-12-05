@@ -2,7 +2,9 @@ Ext.define('myvera.controller.contdevices', {
 	extend : 'Ext.app.Controller',
 	config: {
 		stores: ['devicesStore', 'storeRooms'],
-		views: ['dataplan', 'datalist', 'listclock', 'PanelConfigGenerale'],
+		views: ['dataplan'],
+		//views: ['dataplan', 'listclock', 'PanelConfigGenerale'],
+		//'datalist',
 		//profile: Ext.os.deviceType.toLowerCase(),
 		
 		//jsonpath: './protect/config/',
@@ -14,6 +16,8 @@ Ext.define('myvera.controller.contdevices', {
 		refs: {
 			plan: 'dataplan',
 			liste1: 'datalist [id=listInRoom]',
+			liste2: 'datalistphone [id=listInRoom]',
+			
 			listeon: 'dataliston',
 			listeoff: 'datalistoff',
 			listclock: 'listclock',
@@ -40,6 +44,10 @@ Ext.define('myvera.controller.contdevices', {
 			liste1: {
 				itemtap: 'onDeviceTap'
 			},
+			liste2: {
+				itemtap: 'onDeviceTap'
+			},
+			
 			listeon: {
 				itemtap: 'onDeviceTap'
 			},
@@ -475,7 +483,7 @@ Ext.define('myvera.controller.contdevices', {
 				} else {
 					newstatus = "1";
 				}
-			} else if (tap.hasCls('clock')) {
+			} else if (tap.hasCls('clocknext')) {
 				dservice = 'urn:upnp-org:serviceId:VClock1';
 				daction = 'SetNext';
 				dtargetvalue = 'newNextValue';

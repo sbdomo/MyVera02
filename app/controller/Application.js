@@ -3,10 +3,10 @@ Ext.define('myvera.controller.Application', {
 	requires: ['Ext.DataView', 'Ext.util.DelayedTask'],
 
 	config: {
-		views: ['Main','carouselplan','HomePanel', 'PanelConfig', 'PanelConfigGenerale', 'PanelConfigFloorsNavigation', 'PanelConfigNavigation', 'PanelConfigRoomsNavigation', 'datalist','panelinfo','dataliston','datalistoff','listclock','paneloverlay'],
+		views: ['carouselplan', 'PanelConfig', 'PanelConfigGenerale', 'PanelConfigFloorsNavigation', 'PanelConfigNavigation', 'PanelConfigRoomsNavigation','paneloverlay'],
 		stores: ['ConfigDevicesStore', 'devicesStore', 'FloorsStore', 'ConfigScenesStore'],
 		models: ['Veradevices', 'Configdevices', 'modelRooms','CurrentUser', 'Floors', 'Configscenes'],
-		
+		//'Main','datalist','HomePanel','listclock', 'panelinfo','dataliston','datalistoff',
 		panel3dL: false,
 		panel3dP: false,
 		
@@ -24,7 +24,7 @@ Ext.define('myvera.controller.Application', {
 				this.initViewport();
 	},
 	initViewport: function() {
-		Ext.Viewport.add(Ext.create('myvera.view.Main'));
+		//Ext.Viewport.add(Ext.create('myvera.view.Main'));
 		Ext.getCmp('homepanel').getTabBar().hide();		
 		
 //		if (Ext.os.is.Android) {

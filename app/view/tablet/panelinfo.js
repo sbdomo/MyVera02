@@ -1,6 +1,6 @@
-Ext.define('myvera.view.panelinfo', {
+Ext.define('myvera.view.tablet.panelinfo', {
 	extend: 'Ext.Container',
-	id:'panelinfo',
+	//id:'panelinfo',
 	xtype: 'panelinfo',
 	config: {
 		layout: 'vbox',
@@ -13,6 +13,7 @@ Ext.define('myvera.view.panelinfo', {
 		},
 		{
 			xtype: 'dataliston',
+			id:'dataliston',
 			flex: 2
 		},
 		{
@@ -23,6 +24,7 @@ Ext.define('myvera.view.panelinfo', {
 		},
 		{
 			xtype: 'datalistoff',
+			id:'datalistoff',
 			flex: 1
 		}
 		]

@@ -49,10 +49,7 @@
             }
         }
 		
-		
-		
-		
-div.devtitle {
+.devicecadre div.devtitle {
         width:157px;
         text-align:left;
 	overflow: hidden;
@@ -70,16 +67,10 @@ div.devtitle {
 	-webkit-border-top-left-radius: 0.4em !important;
 }
 
-div.devmain {
+.devicecadre div.devmain {
 	max-width:150px;
 }
-div.devicon {
-	float:left;
-	padding-left: 1px;
-	padding-top: 2px;
-	width: 51px;
-	/*background-color:#FF3366;*/
-}
+
 img.deviceImage {
 	width:50px;
 	height: 50px;
@@ -146,28 +137,6 @@ img.d100 {
 	height: 50px;
 	/*background-color:red;*/
 }
-div.footer {
-	margin-left:1px;
-	margin-right:1px;
-	margin-top:5px;
-	/*background-color:#669933;*/
-	max-width:150px;
-	width:150px;
-	text-align:left;
-	font-size:9px;
-	overflow: hidden;
-	white-space : nowrap;
-	text-overflow: ellipsis;
-	clear:both;
-}
-
-img.armed {
-	width:32px;
-	height: 32px;
-	margin-left: 20px;
-	margin-top: 10px;
-	/*background-color:red;*/
-}
 
 div.var {
 	text-align:left;
@@ -192,43 +161,6 @@ padding-top: 5px;
 
 }
 
-div.clock1 {
-	text-align:left;
-	overflow: hidden;
-	white-space : nowrap;
-	text-overflow: ellipsis;
-	font-size:10px;
-	padding-left:5px;
-	padding-top: 5px;
-	float:left;
-	/*background-color:red;*/
-	width: 60px;
-}
-div.clock2 {
-	margin-left:57px;
-	height:30px;
-	/*background-color:green;*/
-}
-img.armed2 {
-	width:32px;
-	height: 32px;
-	margin-top: 5px;
-	/*background-color:red;*/
-}
-img.clock {
-	/*width:32px;
-	height: 32px;
-	margin-top: 5px;*/
-	/*background-color:red;*/
-}
-div.var2 {
-	text-align:left;
-	overflow: hidden;
-	white-space : nowrap;
-	text-overflow: ellipsis;
-	font-size:10px;
-	padding-left:5px;
-}
 div.longvar {
 	text-align:left;
 	float:left;
@@ -253,7 +185,7 @@ line-height: 9px;
 /*background-color:green;*/
 }
 
-div.scene {
+.scene {
 	position: absolute !important;
 	width: 130px;
 	height: 55px;
@@ -266,6 +198,14 @@ div.scene {
 	-webkit-border-radius: 0.4em;
 	box-shadow: 0px 2px 2px 0px rgba(210, 210, 210, 0.4);
 	-webkit-box-shadow: 0px 2px 2px 0px rgba(210, 210, 210, 0.4);
+}
+
+.scene div.devicon {
+	float:left;
+	padding-left: 1px;
+	padding-top: 2px;
+	width: 51px;
+	/*background-color:#FF3366;*/
 }
 
 div.txtscene {
@@ -310,93 +250,22 @@ span.listconfig {
 	display:inline-block;
 	line-height:1.2; /* on rétablit le line-height */
 }
-
-/*non utilisé*/
-        .nextIcon
-        {
-            float:right;
-        }
-
 	
-        .deviceSelect
-        {
-            /*I want that nothing should happen, so blank*/
-	/*	background-color:#efefef;*/
-        }
-
-        .devicePress
-        {  
-            /*I want that nothing should happen, so blank*/
-        }
-
-        .devicetHtml
-        {
-            font-family:'Helvetica Neue', HelveticaNeue, Helvetica-Neue, Helvetica, 'BBAlpha Sans', sans-serif;
-            font-size:15px;
-	    /*display: inline-block;*/
-        }
-        .deviceOver
-        {
-            /*background-color:#aaaaaa;*/
-        }
-	
-	.devicelist .x-list-item {
-		display: inline-block;
-		margin: 3px;
-	}
+/*Servait à mettre une couleur sur les picèes en fonction de la section, non utilisé */
 	.head1 {
 		color: #5C8A00;
 	}
 	.head0 {
 		color: #1F5C3D;
 	}
+/*-----*/
 
-	.devicelist .x-list-header {
-		padding-left: 0px !important;
-		background-image: none !important;
-		background-color: transparent !important;
-		border-top: none !important;
-		border-bottom: none !important;
-	}
-	
-	.devicelist .x-list-item-label {
-	-webkit-border-radius: 0.4em !important;
-	/*-webkit-border-top-right-radius: 0.4em !important;
-	-webkit-border-bottom-left-radius: 0.4em !important;
-	-webkit-border-bottom-right-radius: 0.4em !important;*/
-	border-radius: 0.4em !important;
-	/*border-top-right-radius: 0.4em !important;
-	border-bottom-left-radius: 0.4em !important;
-	border-bottom-right-radius: 0.4em !important;*/
-	border-width: 1px !important;
-	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;
-	-webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;
-	padding: 0px 0px 0px 0px !important;
-	}
-
-.device-item {
-		display: inline-block;
-		margin: 3px;
-}	
-		
 .deviceview {
 	/*font-family:'Helvetica Neue', HelveticaNeue, Helvetica-Neue, Helvetica, 'BBAlpha Sans', sans-serif;
 	font-size:15px;*/
 	display: inline-block;
 	margin: 0px;
 	padding: 0px;
-}
-.devicecadre {
-	margin: 3px;
-	-webkit-border-radius: 0.4em !important;
-	border-radius: 0.4em !important;
-	border-width: 1px !important;
-	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;
-	-webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;
-	/*padding: 0px 0px 0px 0px !important;*/
-	padding-top:1px;
-	border-top: 1px solid #dedede;
-	background-color:#ffffff;
 }
 
 .slidelist {
@@ -408,7 +277,8 @@ span.listconfig {
 
 .listroom {
     height:45px;
-    /*font-size:14px;*/
+    font-size:14px;
+    font-weight:bold;
     border-bottom: 1px solid #ccc;
 }
 div.listroomimg {
@@ -434,6 +304,7 @@ span.listroomtext {
 	overflow: hidden;
 	white-space : nowrap;
 	text-overflow: ellipsis;
+	/*background-color:red !important;*/
 }
 span.listroomtext2 {
 	width: 213px;
@@ -443,6 +314,7 @@ span.listroomtext2 {
 	overflow: hidden;
 	white-space : nowrap;
 	text-overflow: ellipsis;
+	/*background-color:blue !important;*/
 }
 
 span.hideitem {
@@ -455,6 +327,181 @@ span.hideitem {
 .listroomselect {
 	background: rgba(213, 255, 147, 0.5);
 }
+
+/*Rangement des styles pour les templates*/
+.devicecadre {
+	margin: 3px;
+	-webkit-border-radius: 0.4em !important;
+	border-radius: 0.4em !important;
+	border-width: 1px !important;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;
+	-webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 2px 0px rgba(255, 255, 255, 0.5) inset;
+	/*padding: 0px 0px 0px 0px !important;*/
+	padding-top:1px;
+	border-top: 1px solid #dedede;
+	background-color:#ffffff;
+}
+
+.listdevice {
+    /*height:100px;*/
+    /*font-size:14px;*/
+    border-bottom: 1px solid #ccc;
+}
+
+div.listdevicename {
+	/*margin: 60px;
+	width: 100%;*/
+	/*vertical-align:middle;
+	display:inline-block;
+	line-height:35px; on rétablit le line-height */
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	font-size:14px;
+	height:19px;
+	/*background-color: red !important;*/
+}
+
+.devicecadre div.devicon {
+	float:left;
+	padding-left: 1px;
+	padding-top: 2px;
+	width: 51px;
+	/*background-color:#FF3366;*/
+}
+
+.listdevice div.devicon {
+	margin-top:2px;
+	float:left;
+	width:50px;
+	height:50px;
+	margin-left: 2px;
+	margin-right: 4px;
+	/*background-color: yellow !important;*/
+}
+
+
+.devicecadre div.footer {
+	margin-left:1px;
+	margin-right:1px;
+	margin-top:5px;
+	/*background-color:#669933;*/
+	max-width:150px;
+	width:150px;
+	text-align:left;
+	font-size:9px;
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	clear:both;
+}
+
+.listdevice div.footer {
+	/*background-color: green !important;*/
+	margin-left:1px;
+	margin-right:2px;
+	/*margin-top:1px;*/
+	/*background-color:#669933;*/
+	/*max-width:150px;
+	width:150px;*/
+	text-align:left;
+	font-size:9px;
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	clear:both;
+}
+
+.devicecadre img.armed {
+	width:32px;
+	height: 32px;
+	margin-left: 20px;
+	margin-top: 10px;
+	/*background-color:red;*/
+}
+.listdevice img.armed {
+	width:30px;
+	/*height: 30px;*/
+	/*margin-top: 1px;*/
+	/*background-color:red !important;*/
+}
+
+.devicecadre div.clock1 {
+	text-align:left;
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	font-size:10px;
+	padding-left:5px;
+	padding-top: 5px;
+	float:left;
+	/*background-color:red;*/
+	width: 60px;
+}
+
+.listdevice div.clock1 {
+	text-align:left;
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	font-size:10px;
+	padding-left:5px;
+	padding-top: 5px;
+	float:left;
+	/*background-color:blue;*/
+	width: 60px;
+}
+
+.devicecadre div.clock2 {
+	margin-left:57px;
+	height:30px;
+	/*background-color:green;*/
+}
+.listdevice div.clock2 {
+	/*margin-left:57px;*/
+	height:30px;
+	display: inline-block;
+	/*background-color:blue !important;*/
+}
+
+.devicecadre img.armed2 {
+	width:32px;
+	height: 32px;
+	margin-top: 5px;
+	/*background-color:red;*/
+}
+
+.listdevice img.armed2 {
+	width:30px;
+	/*height: 30px;*/
+	/*margin-top: 1px;*/
+	/*background-color:red !important;*/
+}
+
+.devicecadre div.clock3 {
+	
+}
+
+.listdevice div.clock3 {
+	/*margin-left:57px;*/
+	height:28px;
+	margin-left: 5px;
+	display: inline-block;
+	/*background-color:yellow !important;*/
+}
+
+.devicecadre img.clocknext {
+	
+}
+
+.listdevice img.clocknext {
+	/*width:42px;*/
+	height: 28px;
+	/*margin-top: 1px;*/
+	/*background-color:red !important;*/
+}
+
+
     </style>
     <!-- The line below must be kept intact for Sencha Command to build your application -->
     <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>

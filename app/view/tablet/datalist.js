@@ -1,10 +1,9 @@
-Ext.define('myvera.view.datalist', {
+Ext.define('myvera.view.tablet.datalist', {
     extend: 'Ext.Container',
-    id:'datalist',
     xtype: 'datalist',
     config: {
 	   layout:'card',
-	   tpl: '<div class="devicecadre">'+ myvera.util.Templates.getTpllist() + '</div>',
+	   //tpl: myvera.util.Templates.getTpllist(),
 	   
            items: [
 	   {
@@ -18,10 +17,6 @@ Ext.define('myvera.view.datalist', {
 			'<div class="listroomtext"><span class="listroomtext">{name}</span></div>'+
 			'<tpl else><div class="listroomnoicon"><span class="listroomtext2">{name}</span>'+
 			'</div></tpl></div></tpl>',
-			
-		itemTplz: '<tpl if="hidden!=true"><div class="listroom2"><tpl if="icon!=null&&icon!=\'\'"><div class="listconfigimg2">'+
-		'<img style="height:40px;" src="resources/images/rooms/{icon}.png" /></div></tpl><div class="listconfig2"><span class="listconfig2">{name}</span></div></div></tpl>',
-		
 		
 		store: 'Rooms',
 		
@@ -33,12 +28,7 @@ Ext.define('myvera.view.datalist', {
 			xtype: 'toolbar',
 			docked: 'top',
 			ui: 'light',                    
-			title: {
-				title: 'Pièces',
-				centered: true
-				//width: 200,
-				//left: 0
-			}
+			title: 'Pièces'
 		}],
 		listeners: {
 			select: function(view, record) {
@@ -57,9 +47,6 @@ Ext.define('myvera.view.datalist', {
 		    styleHtmlContent:true,
 		    itemCls:'deviceview',
 		    disableSelection: true,
-		    //itemTpl:  '<tpl for="."><div class="devicecadre">'+
-		    //	myvera.util.Templates.getTpllist() +
-			//'</div></tpl>',
 		    emptyText: 'Aucun module',
 		    store: 'devicesStore',
 		    items: [{
@@ -98,7 +85,7 @@ Ext.define('myvera.view.datalist', {
             //console.log('You selected ' + record.get('name'));
 	    var listInRoom = this.down('#listInRoom');
 	    listInRoom.down('#toolbar').setTitle(record.get('name'));
-	    var tpl ='<tpl if="room==' + record.get('id') + '">' + this.config.tpl +'</tpl>';
+	    var tpl ='<tpl if="room==' + record.get('id') + '">' + myvera.util.Templates.getTpllist() +'</tpl>';
 	    listInRoom.setItemTpl(tpl);
 	    listInRoom.refresh();
         }
