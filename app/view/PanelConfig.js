@@ -1,31 +1,18 @@
 Ext.define('myvera.view.PanelConfig', {
 	extend: 'Ext.tab.Panel',
 	xtype: 'PanelConfig',
-	id:'PanelConfig',
+	//id:'PanelConfig',
 		config: {
 		ui: 'light',
 		tabBar: {
 			layout:{
 				pack:'center'
+			},
+			scrollable: {
+				direction: 'horizontal',
+				directionLock: true
 			}
 		},
-		activeTab: 1,
-		
-		items: [
-		{
-			xtype:'PanelConfigGenerale',
-			title: 'Config. générale'
-		},
-		{
-			xtype: 'PanelConfigRoomsNavigation'
-		},
-		{
-			xtype: 'PanelConfigFloorsNavigation'
-		},
-		{
-			xtype: 'PanelConfigNavigation'
-			
-		}
-		]
+		activeTab: 1
 	}
 });

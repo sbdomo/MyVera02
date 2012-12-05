@@ -3,10 +3,10 @@ Ext.define('myvera.controller.Application', {
 	requires: ['Ext.DataView', 'Ext.util.DelayedTask'],
 
 	config: {
-		views: ['carouselplan', 'PanelConfig', 'PanelConfigGenerale', 'PanelConfigFloorsNavigation', 'PanelConfigNavigation', 'PanelConfigRoomsNavigation','paneloverlay'],
+		views: ['carouselplan', 'PanelConfigGenerale', 'PanelConfigFloorsNavigation', 'PanelConfigNavigation', 'PanelConfigRoomsNavigation','paneloverlay'],
 		stores: ['ConfigDevicesStore', 'devicesStore', 'FloorsStore', 'ConfigScenesStore'],
 		models: ['Veradevices', 'Configdevices', 'modelRooms','CurrentUser', 'Floors', 'Configscenes'],
-		//'Main','datalist','HomePanel','listclock', 'panelinfo','dataliston','datalistoff',
+		//'Main','datalist','HomePanel','listclock', 'panelinfo','dataliston','datalistoff', 'PanelConfig',
 		panel3dL: false,
 		panel3dP: false,
 		

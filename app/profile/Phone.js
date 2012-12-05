@@ -4,7 +4,8 @@ Ext.define('myvera.profile.Phone', {
     config: {
         name: 'Phone',
         //views: ['myvera.view.phone.Main', 'myvera.view.phone.HomePanelphone', 'myvera.view.phone.datalistphone', 'myvera.view.phone.listclockphone']
-        views: ['Main', 'HomePanelphone', 'datalistphone', 'listclockphone', 'panelinfophone', 'datalistonphone', 'datalistoffphone']
+        views: ['Main', 'HomePanelphone', 'datalistphone', 'listclockphone', 'panelinfophone', 'datalistonphone', 'datalistoffphone',
+		 'PanelConfigphone']
     },
 
     isActive: function() {

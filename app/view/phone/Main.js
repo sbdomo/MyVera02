@@ -31,7 +31,8 @@ Ext.define("myvera.view.phone.Main", {
 			hidden: true
 		},
 		{
-			xtype: 'PanelConfig',
+			xtype: 'PanelConfigphone',
+			id:'PanelConfig',
 			title: 'Config.',
 			iconCls: 'user'
 		}

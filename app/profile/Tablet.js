@@ -4,7 +4,8 @@ Ext.define('myvera.profile.Tablet', {
     config: {
         name: 'Tablet',
         //views: ['myvera.view.tablet.Main', 'myvera.view.tablet.HomePanel', 'myvera.view.tablet.datalist','myvera.view.tablet.listclock']
-	views: ['Main', 'HomePanel', 'datalist','listclock', 'panelinfo', 'dataliston', 'datalistoff']
+	views: ['Main', 'HomePanel', 'datalist','listclock', 'panelinfo', 'dataliston', 'datalistoff',
+		 'PanelConfig']
     },
 
     isActive: function() {

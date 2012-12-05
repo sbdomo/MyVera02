@@ -6,10 +6,13 @@ Ext.define('myvera.view.PanelConfigFloor', {
     ],
     
 	config: {
-		tpl: [ '<div style="text-align:center"><img style="width:450px" src="./resources/config/img/{path}"></div>' ],
+		tpl: [ '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/{path}"></div>' ],
 		name:'PanelConfigFloor',
 		//styleHtmlContent: true,
 		scrollable: 'vertical',
+		defaults: {
+			labelWidth: '120px'
+		},
 		items: [
 		{
 			html:"",

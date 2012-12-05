@@ -32,6 +32,7 @@ Ext.define("myvera.view.tablet.Main", {
 		},
 		{
 			xtype: 'PanelConfig',
+			id:'PanelConfig',
 			title: 'Config.',
 			iconCls: 'user'
 		}

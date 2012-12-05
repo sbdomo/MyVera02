@@ -6,6 +6,9 @@ Ext.define('myvera.view.PanelConfigRoom', {
     ],
     
 	config: {
+		defaults: {
+				labelWidth: '135px'
+		},
 		items: [
 		{
 			html:"",
@@ -15,7 +18,7 @@ Ext.define('myvera.view.PanelConfigRoom', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. icône (facultatif)',
+			label: 'Num. icône',
 			name: 'icon',
 			itemId: 'icon'
 		},

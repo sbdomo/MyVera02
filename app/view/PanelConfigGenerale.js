@@ -7,6 +7,9 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 		items: [
 		{
 			xtype: 'fieldset',
+			defaults: {
+				labelWidth: '140px'
+			},
 			title: 'Connexion locale',
 			//iconCls: 'home',
 			//instructions: 'Connexion locale',
@@ -32,11 +35,11 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 				label: 'IP de la Vera',
 				//id: 'ipvera',
 				name: 'ipvera',
-				placeHolder: 'Exemple: 192.168.0.1'
+				placeHolder: 'Ex: 192.168.0.1'
 			},
 			{
 				xtype: 'selectfield',
-				label: 'Profil (pour les vues)',
+				label: 'Profil',
 				name:'viewprofil',
 				itemId:'viewprofil',
 				options: [
@@ -59,6 +62,9 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 		},
 		{
 			xtype: 'fieldset',
+			defaults: {
+				labelWidth: '190px'
+			},
 			title: 'Affichage',
 			items: [
 			{
@@ -66,7 +72,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 				name: 'isVueL',
 				value: 1,
 				label: 'Vues en mode paysage'//,
-				//labelWidth: '40%'
+				//labelWidth: '60%'
 			},
 			{
 				xtype: 'togglefield',

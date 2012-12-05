@@ -280,7 +280,7 @@ Ext.define('myvera.controller.contconfig', {
 			Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
 			this.getConfigDevices().push({
 				xtype: 'carouselitemmove',
-				title: 'Faire glisser les modules'
+				title: 'Déplacer les icônes'
 			});
 			
 			Ext.getCmp('carouselitemmove').setItems(items);
@@ -347,7 +347,7 @@ Ext.define('myvera.controller.contconfig', {
 		console.info('Record ' + record.get('name'));
 		this.getConfigDevices().push({
 				xtype: 'PanelConfigItem',
-				title: 'Détail du module',
+				title: 'Edition',
 				data: record.getData()
 		});
        },
@@ -357,7 +357,7 @@ Ext.define('myvera.controller.contconfig', {
 		if( record.get('id') != -1 ) {
 			this.getConfigFloors().push({
 					xtype: 'PanelConfigFloor',
-					title: 'Détail de la vue',
+					title: 'Edition',
 					layout: 'vbox',
 					data: record.getData()
 			});
@@ -370,7 +370,7 @@ Ext.define('myvera.controller.contconfig', {
 		console.info('Record ' + record.get('name'));
 		this.getConfigDevices().push({
 				xtype: 'PanelConfigScene',
-				title: 'Détail d\'une scène',
+				title: 'Edition',
 				data: record.getData()
 		});
        },

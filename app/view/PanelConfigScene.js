@@ -9,6 +9,9 @@ Ext.define('myvera.view.PanelConfigScene', {
 	config: {
 		name:'PanelConfigScene',
 		scrollable: 'vertical',
+		defaults: {
+			labelWidth: '150px'
+		},
 		items: [
 		{
 			html:"",
@@ -19,7 +22,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue étage ou pièce',
+			label: 'Vue',
 			name: 'etage',
 			itemId: 'etage',
 			store: 'FloorsStore',
@@ -42,7 +45,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Affichage dans une vue',
+			label: 'Affichage',
 			name: 'subcategory',
 			itemId: 'subcategory',
 			options: [
@@ -73,17 +76,18 @@ Ext.define('myvera.view.PanelConfigScene', {
 			handler: function(){
 				Ext.getCmp('main').getTabBar().hide();
 				Ext.getCmp('PanelConfig').getTabBar().hide();
-				Ext.getCmp('PanelConfigNavigation').getNavigationBar().setDocked('bottom');
+				Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
 				Ext.getCmp('PanelConfigNavigation').push({
 					xtype: 'PanelImage',
-					title: 'Positionner la scène sur la vue',
+					//title: 'Positionner la scène sur la vue',
+					title: 'Positionner',
 					data: {id: this.getParent().down('#etage').getValue(), typepanel: 'scene'}
 				});
 			}
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Couleur du texte sous l\'icône',
+			label: 'Couleur du texte',
 			    defaultType: 'panel',
 			name:'color',
 			itemId:'color',
@@ -108,7 +112,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. icône (facultatif)',
+			label: 'Num. icône',
 			name: 'icon',
 			itemId: 'icon'
 		},

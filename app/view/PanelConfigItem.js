@@ -10,6 +10,9 @@ Ext.define('myvera.view.PanelConfigItem', {
 		name:'PanelConfigItem',
 		scrollable: 'vertical',
 		//tpl: ['<img src="resources/images/l<tpl if="icon!=null&#icon!=\'\'">{icon}<tpl else>{category}</tpl>_0.png" /> ID:{id}<br/>Nom: {name}'],
+		defaults: {
+			labelWidth: '150px'
+		},
 		items: [
 		{
 			html:"",
@@ -83,7 +86,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue étage ou pièce',
+			label: 'Vue',
 			name: 'etage',
 			itemId: 'etage',
 			store: 'FloorsStore',
@@ -130,24 +133,25 @@ Ext.define('myvera.view.PanelConfigItem', {
 				Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
 				Ext.getCmp('PanelConfigNavigation').push({
 					xtype: 'PanelImage',
-					title: 'Positionner le module sur la vue',
+					//title: 'Positionner le module sur la vue',
+					title: 'Positionner',
 					data: {id: this.getParent().down('#etage').getValue(), typepanel: 'item'}
 				});
 			}
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Affichage dans "Allumés ?"',
+			label: 'Dans "Allumés ?"',
 			name: 'verif',
 			options: [
-			{text: 'si allumé et/ou déclenché',  value: 'yes'},
+			{text: 'si allumé',  value: 'yes'},
 			{text: 'si éteint',  value: 'off'},
 			{text: 'jamais', value: 'no'}
 			]
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Couleur du texte sous l\'icône',
+			label: 'Couleur du texte',
 			    defaultType: 'panel',
 			name:'color',
 			itemId:'color',
@@ -172,18 +176,18 @@ Ext.define('myvera.view.PanelConfigItem', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. icône (facultatif)',
+			label: 'Num. icône',
 			name: 'icon',
 			itemId: 'icon'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. scène "on" (facultatif)',
+			label: 'Num. scène on',
 			name: 'sceneon'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. scène "off" (facultatif)',
+			label: 'Num. scène off',
 			name: 'sceneoff'
 		},
 		{
@@ -203,7 +207,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 		{
 			xtype: 'textfield',
 			itemId: 'GraphlinkItem',
-			label: 'Lien vers le graphique',
+			label: 'Lien vers graph.',
 			hidden: true,
 			name: 'graphlink'
 		},
