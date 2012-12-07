@@ -1,13 +1,9 @@
 Ext.define('myvera.util.Templates', {
     alias : 'widget.Templates',
     singleton : true,
-//    tpl2: '<div class="x-img x-floating" style="height: 50px; width: 50px; top: {top}px; left: {left}px; z-index: 6; background-image: url(./img/d{category}_{status}.png); ">' +
-//		'<tpl if="state==-2"><img src="./img/jaune.png" /><tpl elseif="state==-3"><img src="./img/rouge.png" /></tpl>'
-//		+'</div>',
-
     config: {
 tplplan: '<tpl if="category==1000&&subcategory!=1">'+
-		 '<div class="scene" style="top: {top}px; left: {left}px;">'+
+		 '" class="scene">'+
 		 	'<div class="devicon">'+
 		 		'<img class="deviceImage" src="./resources/images/'+
 					'<tpl if="state==-2">jaune<tpl elseif="state==-3">rouge<tpl else>vide</tpl>'+
@@ -17,12 +13,12 @@ tplplan: '<tpl if="category==1000&&subcategory!=1">'+
 		 	 '</div>'+
 	'<tpl else>'+
 	
-	'<div class="x-img x-floating" style="height: 50px; width: 50px; top: {top}px; left: {left}px; z-index: 6; background-image: url(./resources/images/d'+
+	' height: 50px; width: 50px; z-index: 6; background-image: url(./resources/images/d'+
 	    '<tpl if="category==2||category==3||category==4||category==8||category==101||category==103||category==120">'+
 	    	'<tpl if="icon!=null">{icon}<tpl elseif="category==4&&subcategory==4">44<tpl else>{category}</tpl>_<tpl if="category==4||category==103||category==120">{tripped}<tpl else>{status}</tpl>'+
 	    '<tpl elseif="category==6||category==16||category==17||category==18||category==21||category==102||category==1000">'+
 		'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_0'+
-	    '<tpl else>0_0</tpl>.png); ">'+
+	    '<tpl else>0_0</tpl>.png); " class="x-img x-floating">'+
 	    
 	    '<tpl if="state==-2"><img src="./resources/images/jaune.png" /><tpl elseif="state==-3"><img src="./resources/images/rouge.png" />'+
 	    '<tpl elseif="(category==4||category==103)&&armed==0"><img src="./resources/images/darm.png" />'+

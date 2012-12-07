@@ -340,20 +340,21 @@ Ext.define('myvera.controller.contdevices', {
 							}
 						}
 						
-						for (idrecord in response.scenes) {
-							device = devices.getById("s" + response.scenes[idrecord].id);
-							if (device) {
+						//Pas de mise à jour des status car non utilisé (ne remonte pas toujours.
+						//for (idrecord in response.scenes) {
+						//	device = devices.getById("s" + response.scenes[idrecord].id);
+						//	if (device) {
 								//Pas de synchro des champs active et comment car le sdata le remonte après le lancement d'une scène
 								//mais il ne le réinitialise jamais (alors qu'il le fait pour les devices).
 								//device.set('status', response.scenes[idrecord].active);
 								//device.set('comment', response.scenes[idrecord].comment);
-								if (response.scenes[idrecord].state == null) {
-									device.set('state', 0);
-								} else {
-									device.set('state', response.scenes[idrecord].state);
-								}
-							}
-						}
+						//		if (response.scenes[idrecord].state == null) {
+						//			device.set('state', 0);
+						//		} else {
+						//			device.set('state', response.scenes[idrecord].state);
+						//		}
+						//	}
+						//}
 						
 						
 						// Maj indicateur nb allumés/éteints
@@ -516,8 +517,28 @@ Ext.define('myvera.controller.contdevices', {
 					task.delay(700);
 				}
 				
+				var vheight = Ext.Viewport.getWindowHeight();
+				var vwidth = Ext.Viewport.getWindowWidth();
+				var defwidth = 640;
+				var defheight = 480;
+				var width = defwidth;
+				var height = defheight;
+				var space=50;
+				if((defwidth>vwidth-space)||(defheight>vheight-space)) {
+					width = vwidth - space;
+					height = Math.floor(defheight*width/defwidth);
+					if(height>vheight-space) {
+						var diff=height-(vheight-space);
+						diff=Math.ceil(diff*defwidth/width);
+						width = width - diff;
+						height = Math.floor(defheight*width/defwidth);
+					}
+				}
+				
 				if(Ext.getCmp('popup_cam')){
-					Ext.getCmp('popup_cam').setHtml('<img src="http://'+record.get('var1')+record.get('var2')+'?user='+record.get('camuser')+'&pwd='+record.get('campassword')+'" width=640 height=480 border=0 id="cam'+record.get('id')+'" />');
+					Ext.getCmp('popup_cam').setWidth(width+10);
+					Ext.getCmp('popup_cam').setHeight(height+10);
+					Ext.getCmp('popup_cam').setHtml('<img src="http://'+record.get('var1')+record.get('var2')+'?user='+record.get('camuser')+'&pwd='+record.get('campassword')+'" width='+width+' height='+height+' border=0 id="cam'+record.get('id')+'" />');
 					RefreshCam();
 					Ext.getCmp('popup_cam').show();
 				}else{
@@ -525,10 +546,10 @@ Ext.define('myvera.controller.contdevices', {
 						modal:true,
 						id: 'popup_cam',
 						hideOnMaskTap: true,
-						width:650,
-						height:490,
+						width:width+10,
+						height:height+10,
 						centered: true,
-						html:'<img src="http://'+record.get('var1')+record.get('var2')+'?user='+record.get('camuser')+'&pwd='+record.get('campassword')+'" width=640 height=480 border=0 id="cam'+record.get('id')+'" />',
+						html:'<img src="http://'+record.get('var1')+record.get('var2')+'?user='+record.get('camuser')+'&pwd='+record.get('campassword')+'" width='+width+' height='+height+' border=0 id="cam'+record.get('id')+'" />',
 						listeners: {
 							hide: function(panel) {
 								task.cancel();
@@ -548,18 +569,38 @@ Ext.define('myvera.controller.contdevices', {
 			//Humidity, Temperature sensor ou Power Meter
 			if(Ext.Array.contains([16, 17, 21], cat)&&record.get('sceneon') == null) {
 				if(record.get('graphlink')!=null){
+					var vheight = Ext.Viewport.getWindowHeight();
+					var vwidth = Ext.Viewport.getWindowWidth();
+					var defwidth = 640;
+					var defheight = 480;
+					var width = defwidth;
+					var height = defheight;
+					var space=50;
+					if((defwidth>vwidth-space)||(defheight>vheight-space)) {
+						width = vwidth - space;
+						height = Math.floor(defheight*width/defwidth);
+						if(height>vheight-space) {
+							var diff=height-(vheight-space);
+							diff=Math.ceil(diff*defwidth/width);
+							width = width - diff;
+							height = Math.floor(defheight*width/defwidth);
+						}
+					}
+					
 					if(Ext.getCmp('popup_cam')){
-						Ext.getCmp('popup_cam').setHtml('<img src="'+record.get('graphlink')+'" width=640 height=480 border=0 />');
+						Ext.getCmp('popup_cam').setWidth(width+10);
+						Ext.getCmp('popup_cam').setHeight(height+10);
+						Ext.getCmp('popup_cam').setHtml('<img src="'+record.get('graphlink')+'" width='+width+' height='+height+' border=0 />');
 						Ext.getCmp('popup_cam').show();
 					}else{
 						var popup=new Ext.Panel({
 							modal:true,
 							id: 'popup_cam',
 							hideOnMaskTap: true,
-							width:650,
-							height:490,
+							width:width+10,
+							height:height+10,
 							centered: true,
-							html:'<img src="'+record.get('graphlink')+'" width=640 height=480 border=0 />',
+							html:'<img src="'+record.get('graphlink')+'" width='+width+' height='+height+' border=0 />',
 							listeners: {
 								hide: function(panel) {
 									//delete myvera.view.dataplan.lastTapHold;
@@ -967,20 +1008,34 @@ Ext.define('myvera.controller.contdevices', {
 		FloorsStore.load(function(floors) {
 			console.log("loading floors");
 			//Vérifie qu'il y a au moins une vue (en principe -1 - Aucun étage)
-			//Initialise floors.json sion.
+			//Initialise floors.json sinon.
 			if(FloorsStore.getCount()>0) {
 				var items = [];
 				Ext.each(floors, function(floor) {
 					if(floor.data.id!=-1) {
 						items.push({
-								xtype: 'dataplan',
-								style: 'background:url(./resources/config/img/'+floor.data.path+') no-repeat left top;',
-								itemTpl: '<tpl if="etage=='+floor.data.id+'">' + myvera.util.Templates.getTplplan() + '</tpl>'
+							xtype: 'dataplan',
+							style: 'background:url(./resources/config/img/'+floor.data.path+') no-repeat left top;',
+							itemTpl: '<tpl if="etage=='+floor.data.id+'||etage1=='+floor.data.id+'||etage2=='+floor.data.id+'">'+
+							'<div style="top:<tpl if="etage=='+floor.data.id+'">{top}px; left:{left}px;'+
+							'<tpl elseif="etage1=='+floor.data.id+'">{top1}px; left:{left1}px;'+
+							'<tpl elseif="etage1=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
+							myvera.util.Templates.getTplplan() + '</tpl>'
 						});
 					}
 				});
-				Ext.getCmp('carouselplan').setItems(items);
-				Ext.getCmp('carouselplan').setActiveItem(0);
+				var carouselplan=Ext.getCmp('carouselplan');
+				//Désactive l'effet carousel s'il n'y a qu'une vue
+				//A faire avant d'ajouter des vues sinon "indicator" n'apparait pas
+				if(FloorsStore.getCount()<3) {
+					carouselplan.toggleSwipe(false);
+					carouselplan.setIndicator(false);
+				} else {
+					carouselplan.toggleSwipe(true);
+					carouselplan.setIndicator(true);
+				}
+				carouselplan.setItems(items);
+				carouselplan.setActiveItem(0);
 				//Charge devicesStore seulement la première fois.
 				if(contdevives.storeloaded==false) {
 					var DevicesStore = Ext.getStore('devicesStore');

@@ -269,8 +269,13 @@ Ext.define('myvera.controller.contconfig', {
 				if(floor.get('id')!=-1) {
 					items.push({
 						xtype: 'datamove',
+						idfloor: floor.data.id,
 						style: 'background:url(./resources/config/img/'+floor.get('path')+') no-repeat left top;',
-						itemTpl: '<tpl if="etage=='+floor.get('id')+'">' + myvera.util.Templates.getTplplan() + '</tpl>'
+						itemTpl: '<tpl if="etage=='+floor.data.id+'||etage1=='+floor.data.id+'||etage2=='+floor.data.id+'">'+
+								'<div style="top:<tpl if="etage=='+floor.data.id+'">{top}px; left:{left}px;'+
+								'<tpl elseif="etage1=='+floor.data.id+'">{top1}px; left:{left1}px;'+
+								'<tpl elseif="etage1=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
+								myvera.util.Templates.getTplplan() + '</tpl>'
 					});
 				}
 			});
@@ -327,6 +332,16 @@ Ext.define('myvera.controller.contconfig', {
 					control.getListItemsSave().setUi('normal');
 					control.getListItemsSave().setDisabled(true);
 					control.dirtydevices = 1;
+					
+					//Enlève la sphère orange après sauvegarde des modules non synchronisés
+					//(le state n'est pas utilisé pour les scènes car il semble ne pas toujours être remonté).
+					var devices = Ext.getStore('devicesStore');
+					devices.data.each(function(device) {
+								if ( device.get('category') == '1000') {
+									device.set('state', '0');
+								}
+					});					
+					
 					Ext.Viewport.setMasked(false);
 				} else {
 					Ext.Viewport.setMasked(false);
@@ -458,23 +473,34 @@ Ext.define('myvera.controller.contconfig', {
 				var response = Ext.decode(result.responseText, true);
 				if (response) {
 					if (response.success=="true") {
-						
 						// réallocation des modules de la vue
-						movemodule=false;
-						var ConfigDevicesStore = Ext.getStore('ConfigDevicesStore');
+						var movemodule=false;
+						//var ConfigDevicesStore = Ext.getStore('ConfigDevicesStore');
 						var devices = Ext.getStore('devicesStore');
 						if (devices.getCount()>0) {
 							devices.data.each(function(device) {
-								if ( device.get('etage') == idfloor) {
+								move1=false;
+								if (device.get('etage') == idfloor) {
 									device.set('etage', '-1');
 									device.set('state', '-3');
-									var id = device.get('id');
-									var configdevice = ConfigDevicesStore.getById(id);
-									if (configdevice) {
-										configdevice.set('etage', '-1');
-									}
+									//Pourquoi ??
+									//Mis en commentaire
+									//var id = device.get('id');
+									//var configdevice = ConfigDevicesStore.getById(id);
+									//if (configdevice) {
+									//	configdevice.set('etage', '-1');
+									//}
+									movemodule=true;
+								} else if (device.get('etage1') == idfloor) {
+									device.set('etage1', '-1');
+									device.set('state', '-3');
+									movemodule=true;
+								} else if (device.get('etage2') == idfloor) {
+									device.set('etage2', '-1');
+									device.set('state', '-3');
 									movemodule=true;
 								}
+								
 							});
 						}
 						

@@ -19,17 +19,25 @@ if ($json = @file_get_contents('php://input'))
 $array_json = json_decode($json, true);
 $data=array();
 foreach ($array_json['devices'] as $device) {
+	$state=-3;
+	if($device['category']=="1000") $state=0;
 	$data[]=array (
 		'id' => $device["id"],
 		'name' => $device["name"],
 		'status' => '0',
-		'state' => '-3',
+		'state' => $state,
 		'room' => $device['room'],
 		'category' => $device['category'],
 		'subcategory' => $device['subcategory'],
+		'etage' => $device['etage'],
 		'left' => $device['left'],
 		'top' => $device['top'],
-		'etage' => $device['etage'],
+		'etage1' => $device['etage1'],
+		'left1' => $device['left1'],
+		'top1' => $device['top1'],
+		'etage2' => $device['etage2'],
+		'left2' => $device['left2'],
+		'top2' => $device['top2'],
 		'color' => $device['color'],
 		'tripped' => '0',
 		'icon' => $device['icon'],

@@ -7,14 +7,20 @@ Ext.define('myvera.view.paneloverlay', {
 		modal: true,
 		hideOnMaskTap: true,
 		centered: true,
+		hidden: true,
 		width: '400px',
 		height: '290px',
+		maxWidth: '95%',
+		maxHeight: '95%',
 		items:[
 			{
 				xtype: 'fieldset',
 				name:'fieldset1',
 				id:'titleform',
 				instructions: 'Programmation du réveil...',
+				defaults: {
+					labelWidth: '90px'
+				},
 				items: [
 				{
 					xtype: 'hiddenfield',
@@ -23,7 +29,7 @@ Ext.define('myvera.view.paneloverlay', {
 				{
 					xtype: 'datetimepickerfield',
 					name: 'heuredeb',
-					label: 'Heure début',
+					label: 'Début',
 					dateTimeFormat : 'H:i:s',
 					picker: {
 						yearFrom: 1998,

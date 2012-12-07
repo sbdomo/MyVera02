@@ -44,7 +44,7 @@ Ext.define('myvera.controller.Application', {
 		Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('datalist'));
 //		}
 		Ext.Viewport.add(Ext.create('myvera.view.paneloverlay'));
-		Ext.getCmp('paneloverlay').hide();
+		//Ext.getCmp('paneloverlay').hide();
 	},
 	onOrientationchange: function(viewport, orientation, width, height) {
 		

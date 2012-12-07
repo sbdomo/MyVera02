@@ -18,8 +18,10 @@ Ext.define('myvera.view.PanelImage', {
 						typepanel = 'PanelConfigScene';
 					}
 					var itempanel = Ext.getCmp(typepanel);
-					Ext.getCmp(typepanel).down('#LeftItem').setValue(t.pageX);
-					Ext.getCmp(typepanel).down('#TopItem').setValue(t.pageY);
+					var numetage = this.getParent().config.data.etage;
+					
+					Ext.getCmp(typepanel).down('#LeftItem'+numetage).setValue(t.pageX);
+					Ext.getCmp(typepanel).down('#TopItem'+numetage).setValue(t.pageY);
 					Ext.getCmp('PanelConfigNavigation').pop();
 				}
 			}

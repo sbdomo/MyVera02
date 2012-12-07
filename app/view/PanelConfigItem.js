@@ -86,7 +86,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue',
+			label: 'Vue 0',
 			name: 'etage',
 			itemId: 'etage',
 			store: 'FloorsStore',
@@ -128,15 +128,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			iconMask: true,
 			text: 'Définir l\'emplacement',
 			handler: function(){
-				Ext.getCmp('main').getTabBar().hide();
-				Ext.getCmp('PanelConfig').getTabBar().hide();
-				Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
-				Ext.getCmp('PanelConfigNavigation').push({
-					xtype: 'PanelImage',
-					//title: 'Positionner le module sur la vue',
-					title: 'Positionner',
-					data: {id: this.getParent().down('#etage').getValue(), typepanel: 'item'}
-				});
+			this.getParent().openpanelimage('');
 			}
 		},
 		{
@@ -212,6 +204,100 @@ Ext.define('myvera.view.PanelConfigItem', {
 			name: 'graphlink'
 		},
 		{
+			xtype: 'selectfield',
+			label: 'Vue 1',
+			name: 'etage1',
+			itemId: 'etage1',
+			store: 'FloorsStore',
+   			displayField:'name',
+   			valueField: 'id',
+			listeners: 
+			{
+				change:function(selectbox,value,oldvalue){
+					if(value=="-1"){
+						this.getParent().down('#PlaceItem1').hide();
+						this.getParent().down('#LeftItem1').hide();
+						this.getParent().down('#TopItem1').hide();
+					} else {
+ 						this.getParent().down('#PlaceItem1').show();
+						this.getParent().down('#LeftItem1').show();
+						this.getParent().down('#TopItem1').show();
+					}
+				}
+			}
+		},
+		{
+			xtype: 'textfield',
+			label: 'Position gauche',
+			itemId: 'LeftItem1',
+			name: 'left1'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Position haut',
+			itemId: 'TopItem1',
+			name: 'top1'
+		},
+		{
+			xtype: 'button',
+			margin: 15,
+			align: 'center',
+			itemId: 'PlaceItem1',
+			iconCls: 'locate',
+			iconMask: true,
+			text: 'Définir l\'emplacement',
+			handler: function(){
+			this.getParent().openpanelimage('1');
+			}
+		},
+		{
+			xtype: 'selectfield',
+			label: 'Vue 2',
+			name: 'etage2',
+			itemId: 'etage2',
+			store: 'FloorsStore',
+   			displayField:'name',
+   			valueField: 'id',
+			listeners: 
+			{
+				change:function(selectbox,value,oldvalue){
+					if(value=="-1"){
+						this.getParent().down('#PlaceItem2').hide();
+						this.getParent().down('#LeftItem2').hide();
+						this.getParent().down('#TopItem2').hide();
+					} else {
+ 						this.getParent().down('#PlaceItem2').show();
+						this.getParent().down('#LeftItem2').show();
+						this.getParent().down('#TopItem2').show();
+					}
+				}
+			}
+		},
+		{
+			xtype: 'textfield',
+			label: 'Position gauche',
+			itemId: 'LeftItem2',
+			name: 'left2'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Position haut',
+			itemId: 'TopItem2',
+			name: 'top2'
+		},
+		{
+			xtype: 'button',
+			margin: 15,
+			align: 'center',
+			itemId: 'PlaceItem2',
+			iconCls: 'locate',
+			iconMask: true,
+			text: 'Définir l\'emplacement',
+			handler: function(){
+			this.getParent().openpanelimage('2');
+			}
+		},
+		{
 			xtype: 'button',
 			margin: 5,
 			itemId: 'SaveItem',
@@ -232,9 +318,15 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device = devices.getById(data.id);
 					device.set("category", formdata.category);
 					device.set("subcategory", formdata.subcategory);
+					device.set("etage", formdata.etage);
 					device.set("left", formdata.left);
 					device.set("top", formdata.top);
-					device.set("etage", formdata.etage);
+					device.set("etage1", formdata.etage1);
+					device.set("left1", formdata.left1);
+					device.set("top1", formdata.top1);
+					device.set("etage2", formdata.etage2);
+					device.set("left2", formdata.left2);
+					device.set("top2", formdata.top2);
 					device.set("color", formdata.color);
 					device.set("icon", formdata.icon);
 					device.set("verif", formdata.verif);
@@ -254,9 +346,15 @@ Ext.define('myvera.view.PanelConfigItem', {
 					room: data.room,
 					category: formdata.category,
 					subcategory: formdata.subcategory,
+					etage: formdata.etage,
 					left: formdata.left,
 					top: formdata.top,
-					etage: formdata.etage,
+					etage1: formdata.etage1,
+					left1: formdata.left1,
+					top1: formdata.top1,
+					etage2: formdata.etage2,
+					left2: formdata.left2,
+					top2: formdata.top2,
 					color: formdata.color,
 					icon: formdata.icon,
 					verif: formdata.verif,
@@ -301,9 +399,15 @@ Ext.define('myvera.view.PanelConfigItem', {
 				var formdata = form.getValues();
 				listdevice.set("category", formdata.category);
 				listdevice.set("subcategory", formdata.subcategory);
+				listdevice.set("etage", formdata.etage);
 				listdevice.set("left", formdata.left);
 				listdevice.set("top", formdata.top);
-				listdevice.set("etage", formdata.etage);
+				listdevice.set("etage1", formdata.etage);
+				listdevice.set("left1", formdata.left);
+				listdevice.set("top1", formdata.top);
+				listdevice.set("etage2", formdata.etage);
+				listdevice.set("left2", formdata.left);
+				listdevice.set("top2", formdata.top);
 				listdevice.set("color", formdata.color);
 				listdevice.set("icon", formdata.icon);
 				listdevice.set("verif", formdata.verif);
@@ -358,18 +462,26 @@ Ext.define('myvera.view.PanelConfigItem', {
 				    var devices = Ext.getStore('devicesStore');
 				    device = devices.getById(e.config.data.id);
 				    e.setValues(device.getData());
-				    if(device.get('verif')==null) e.setValues({verif:"yes"});
-				    if(device.get('color')==null) e.setValues({color:'000000'});
+				    //if(device.get('verif')==null) e.setValues({verif:"yes"});
+				    //if(device.get('color')==null) e.setValues({color:'000000'});
 				    //Problème dans le selectfield : si etage est un entier et pas un string ??
 				    //Ce serait un bug (fix dans V. 2.02)
-				    e.setValues({etage: "" + device.get("etage")});
-				    e.setValues({category: "" + device.get("category")});
-				    e.setValues({subcategory: "" + device.get("subcategory")});
+				    //e.setValues({category: "" + device.get("category")});
+				    //e.setValues({subcategory: "" + device.get("subcategory")});
+				    //e.setValues({etage: "" + device.get("etage")});
 				    
 				    if(device.get('etage')=="-1") {
-					    this.down('#PlaceItem').hide();
-					    this.down('#LeftItem').hide();
-					    this.down('#TopItem').hide();
+						    this.down('#PlaceItem').hide();
+						    this.down('#LeftItem').hide();
+						    this.down('#TopItem').hide();
+				    }
+				    var etage = ['1','2'];
+				    for (var key in etage) {
+					    if(device.get('etage'+ key)=="-1") {
+						    this.down('#PlaceItem'+ key).hide();
+						    this.down('#LeftItem'+ key).hide();
+						    this.down('#TopItem'+ key).hide();
+					    }
 				    }
 				    if(device.get('category')=="6") {
 					    this.down('#CamuserItem').show();
@@ -380,18 +492,28 @@ Ext.define('myvera.view.PanelConfigItem', {
 				    }
 				    this.down('#DeleteItem').show();
 			    } else {
-				    if(e.config.data.etage==null) e.config.data.etage="-1";
-				    if(e.config.data.etage=="-1") {
-					    this.down('#PlaceItem').hide();
-					    this.down('#LeftItem').hide();
-					    this.down('#TopItem').hide();
-				    }
-				    if(e.config.data.verif==null) e.config.data.verif="yes";
-				    if(e.config.data.color==null) e.config.data.color="000000";
+					    //if(e.config.data.etage==null) e.config.data.etage="-1";
+					    if(e.config.data.etage=="-1") {
+						    this.down('#PlaceItem').hide();
+						    this.down('#LeftItem').hide();
+						    this.down('#TopItem').hide();
+					    }
+					    if(e.config.data.etage1=="-1") {
+						    this.down('#PlaceItem1').hide();
+						    this.down('#LeftItem1').hide();
+						    this.down('#TopItem1').hide();
+					    }
+					    if(e.config.data.etage2=="-1") {
+						    this.down('#PlaceItem2').hide();
+						    this.down('#LeftItem2').hide();
+						    this.down('#TopItem2').hide();
+					    }
+				    //if(e.config.data.verif==null) e.config.data.verif="yes";
+				    //if(e.config.data.color==null) e.config.data.color="000000";
 				    e.setValues(e.config.data);
 				    //Bug avec entier ??
-				    e.setValues({category: "" + e.config.data.category});
-				    e.setValues({subcategory: "" + e.config.data.subcategory});
+				    //e.setValues({category: "" + e.config.data.category});
+				    //e.setValues({subcategory: "" + e.config.data.subcategory});
 			    }
 			    //Pour changer l'icone du titre quand icon est modifié
 			    this.down('#icon').addListener('change', function(me,newvalue,oldvalue, opt){
@@ -411,5 +533,17 @@ Ext.define('myvera.view.PanelConfigItem', {
 				});
 		    }
 	}
+	},
+	
+    openpanelimage: function(numetage) {
+				Ext.getCmp('main').getTabBar().hide();
+				Ext.getCmp('PanelConfig').getTabBar().hide();
+				Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
+				Ext.getCmp('PanelConfigNavigation').push({
+					xtype: 'PanelImage',
+					//title: 'Positionner le module sur la vue',
+					title: 'Positionner',
+					data: {id: this.getParent().down('#etage'+numetage).getValue(), typepanel: 'item', etage: numetage}
+					});
 	}
 });
