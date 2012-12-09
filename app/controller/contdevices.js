@@ -449,7 +449,7 @@ Ext.define('myvera.controller.contdevices', {
 		
 		var icontap = false;
 		var cat=record.get('category');
-		if (!Ext.Array.contains([2, 3, 4, 6, 8, 16, 17, 21, 101, 102, 103, 120, 1000], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
+		if (!Ext.Array.contains([2, 3, 4, 6, 8, 16, 17, 21, 101, 102, 103, 104, 120, 1000], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
 			return;
 		}
 		
@@ -493,6 +493,14 @@ Ext.define('myvera.controller.contdevices', {
 				} else {
 					newstatus = "on";
 				}
+			} else if (tap.hasCls('i0')) {
+				newstatus = '0';
+			} else if (tap.hasCls('i1')) {
+				newstatus = '1';
+			} else if (tap.hasCls('i2')) {
+				newstatus = '2';
+			} else if (tap.hasCls('i3')) {
+				newstatus = '3';
 			} else {
 				return;
 			}
@@ -647,6 +655,111 @@ Ext.define('myvera.controller.contdevices', {
 				dtargetvalue = 'newTargetValue';
 			}
 			
+			//Pilote Wire Controlle
+			if(record.get('category') == 104&&record.get('sceneon') == null) {
+				var html0 = '<img class="i0" src="./resources/images/plugin/pw0_';
+				if(record.get('status')==0) {
+					html0=html0+'1';
+					press0= true;
+				} else {
+					html0=html0+'0';
+					press0=false;
+				}
+				html0= html0+'.png" />';
+				var html1 = '<img class="i1" src="./resources/images/plugin/pw1_';
+				if(record.get('status')==1) {
+					html1=html1+'1';
+					press1= true;
+				} else {
+					html1=html1+'0';
+					press1=false;
+				}
+				html1= html1+'.png" />';
+				var html2 = '<img class="i2" src="./resources/images/plugin/pw2_';
+				if(record.get('status')==2) {
+					html2=html2+'1';
+					press2= true;
+				} else {
+					html2=html2+'0';
+					press2=false;
+				}
+				html2= html2+'.png" />';
+				var html3 = '<img class="i3" src="./resources/images/plugin/pw3_';
+				if(record.get('status')==3) {
+					html3=html3+'1';
+					press3= true;
+				} else {
+					html3=html3+'0';
+					press3=false;
+				}
+				html3= html3+'.png" />';
+				me =this;
+				var segmentedButton = Ext.create('Ext.SegmentedButton', {
+						numid: record.get('id'),
+						allowMultiple: true,
+						items: [
+						{
+							text: "0",
+							pressed: press0,
+							html: html0
+						},
+						{
+							text: "1",
+							pressed: press1,
+							html: html1
+						},
+						{
+							text: "2",
+							pressed: press2,
+							html: html2
+						},
+						{
+							text: "3",
+							pressed: press3,
+							html: html3
+						}
+						],
+						listeners: {
+							toggle: function(container, button, pressed){
+								if(pressed) {
+									//console.log(container.numid + " - " + button.getText());
+									me.onPilotWireTap(container.numid, button.getText());
+								}
+								Ext.getCmp('popup_tap').hide();
+							}
+						}
+				});
+				
+				if(Ext.getCmp('popup_tap')){
+					var popup = Ext.getCmp('popup_tap');
+					//popup.setWidth(width+10);
+					//popup.setHeight(height+10);
+					//popup.setHtml(html);
+					popup.setItems(segmentedButton);
+					popup.show();
+				}else{
+					var popup=new Ext.Panel({
+						modal:true,
+						id: 'popup_tap',
+						hideOnMaskTap: true,
+						padding: 10,
+						//width:width+10,
+						//height:height+10,
+						centered: true,
+						items: [segmentedButton],
+						//html:html,
+						listeners: {
+							hide: function(panel) {
+								//Ext.getCmp('popup_tap').setHtml('');
+							}
+						}
+					});
+					Ext.Viewport.add(popup);
+					popup.show();
+				}
+				return;
+			}
+			
 			if (record.get('category') == 1000) {
 				dservice = "urn:micasaverde-com:serviceId:HomeAutomationGateway1";
 				daction = 'RunScene';
@@ -665,6 +778,13 @@ Ext.define('myvera.controller.contdevices', {
 				return;
 			}
 			
+		} else {
+			//Action lors d'un clic aillues que sur l'icône
+			if (record.get('category') == 104) {
+				dservice = "urn:antor-fr:serviceId:PilotWire1";
+				daction = 'SetTarget';
+				dtargetvalue = 'newTargetValue';
+			}
 		}
 
 		//switch status
@@ -989,6 +1109,46 @@ Ext.define('myvera.controller.contdevices', {
 			//Ext.Msg.alert('Message',''+heuredeb+' '+heurefin);
 		}
 	
+	},
+	
+	onPilotWireTap: function(iddevice, newstatus) {
+		dservice = "urn:antor-fr:serviceId:PilotWire1";
+		daction = 'SetTarget';
+		dtargetvalue = 'newTargetValue';
+		var devices = Ext.getStore('devicesStore');
+		device = devices.getById(iddevice);
+		//switch status
+		console.log("switch : " + device.get('name'));
+		device.set('state', -2);
+		var vera_url = './protect/syncvera.php';
+		var syncheader = "";
+		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
+		var ipvera = this.ipvera;
+		Ext.Ajax.request({
+			url: vera_url,
+			headers: syncheader,
+			method: 'GET',
+			timeout: 10000,
+			scope: this,
+			params: {
+				id: 'lu_action',
+				ipvera: ipvera,
+				DeviceNum: iddevice,
+				serviceId: dservice,
+				action: daction,
+				newvalue: newstatus,
+				targetvalue: dtargetvalue
+			},
+			success: function(response) {
+				//var category = device.get('category');
+				//device.set('state', -2);
+				
+			},
+			failure: function(response) {
+				console.log("switch error :" + device.get('name'));
+				Ext.Msg.alert('Erreur','Switch Error');
+			}
+		});
 	},
 	
 	pushplans: function() {

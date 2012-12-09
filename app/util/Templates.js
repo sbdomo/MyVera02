@@ -18,6 +18,8 @@ tplplan: '<tpl if="category==1000&&subcategory!=1">'+
 	    	'<tpl if="icon!=null">{icon}<tpl elseif="category==4&&subcategory==4">44<tpl else>{category}</tpl>_<tpl if="category==4||category==103||category==120">{tripped}<tpl else>{status}</tpl>'+
 	    '<tpl elseif="category==6||category==16||category==17||category==18||category==21||category==102||category==1000">'+
 		'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_0'+
+	    '<tpl elseif="category==104">'+
+	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
 	    '<tpl else>0_0</tpl>.png); " class="x-img x-floating">'+
 	    
 	    '<tpl if="state==-2"><img src="./resources/images/jaune.png" /><tpl elseif="state==-3"><img src="./resources/images/rouge.png" />'+
@@ -49,7 +51,7 @@ tpllisticon:'<div class="devicon">'+
 					'<tpl elseif="category==120&&subcategory==1">121<tpl elseif="category==120&&subcategory==2">122'+
 					'<tpl else>{category}</tpl>'+
 					'_<tpl if="category==4||category==103||category==120">{tripped}<tpl else>{status}</tpl>'+
-				'<tpl elseif="category==6||category==16||category==17||category==18||category==21||category==102||category==1000">'+
+				'<tpl elseif="category==6||category==16||category==17||category==18||category==21||category==102||category==104||category==1000">'+
 					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_0'+
 	   			'<tpl else>0_0</tpl>.png);" />'+
 			'</div>',
@@ -68,6 +70,11 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 			'<tpl elseif="category==102"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null">&nbsp;<tpl else>{var2}</tpl><br /><tpl if="var3==null">&nbsp;<tpl else>{var3}</tpl><br /><tpl if="var4==null">&nbsp;<tpl else>{var4}</tpl> <tpl if="var5==null">&nbsp;<tpl else>{var5}</tpl></div>'+
 			'<tpl elseif="category==103"><div><div class="longvar"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
 					'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/arm{armed}.png" /></div></tpl></div>'+
+			'<tpl elseif="category==104">'+
+					'<img class="i0" src="./resources/images/plugin/pw0_<tpl if="status==0">1<tpl else>0</tpl>.png" />'+
+					'&nbsp;&nbsp;&nbsp;<img class="i1" src="./resources/images/plugin/pw1_<tpl if="status==1">1<tpl else>0</tpl>.png" />'+
+					'&nbsp;&nbsp;&nbsp;<img class="i2" src="./resources/images/plugin/pw2_<tpl if="status==1">1<tpl else>0</tpl>.png" />'+
+					'&nbsp;&nbsp;&nbsp;<img class="i3" src="./resources/images/plugin/pw3_<tpl if="status==3">1<tpl else>0</tpl>.png" />'+
 			'<tpl elseif="category==120"><div><div class="clock1"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null||subcategory!=1">&nbsp;<tpl else>{var2}</tpl></div>'+
 					'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/arm{armed}.png" /></div></tpl>'+
 					'<div class="clock3"><tpl if="var3==null">&nbsp;<tpl else><img class="clocknext" src="./resources/images/{var3}.png" /></tpl></div></div>'+

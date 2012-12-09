@@ -32,6 +32,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			{text: 'Variable Container (plugin)',  value: '102'},
 			{text: 'Google Calendar Switch (plugin)',  value: '103'},
 			{text: 'Virtual Clock',  value: '120'},
+			{text: 'Pilot wire controller',  value: '104'},
 			{text: 'Interface',  value: '1'},
 			{text: 'Dimmable light',  value: '2'},
 			{text: 'Switch',  value: '3'},

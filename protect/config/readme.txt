@@ -1,1 +1,1 @@
-Répertoire contenant les fichiers json de configuration.
+﻿Répertoire contenant les fichiers json de configuration.
