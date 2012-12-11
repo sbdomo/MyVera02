@@ -39,6 +39,7 @@ foreach ($array_json['devices'] as $device) {
 		'left2' => $device['left2'],
 		'top2' => $device['top2'],
 		'color' => $device['color'],
+		'fontsize' => $device['fontsize'],
 		'tripped' => '0',
 		'icon' => $device['icon'],
 		'verif' => $device['verif'],

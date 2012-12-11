@@ -13,29 +13,33 @@ tplplan: '<tpl if="category==1000&&subcategory!=1">'+
 		 	 '</div>'+
 	'<tpl else>'+
 	
-	' height: 50px; width: 50px; z-index: 6; background-image: url(./resources/images/d'+
+	' z-index: 6;" class="x-img x-floating">'+
+	    '<img src="./resources/images/d'+
 	    '<tpl if="category==2||category==3||category==4||category==8||category==101||category==103||category==120">'+
 	    	'<tpl if="icon!=null">{icon}<tpl elseif="category==4&&subcategory==4">44<tpl else>{category}</tpl>_<tpl if="category==4||category==103||category==120">{tripped}<tpl else>{status}</tpl>'+
 	    '<tpl elseif="category==6||category==16||category==17||category==18||category==21||category==102||category==1000">'+
 		'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_0'+
 	    '<tpl elseif="category==104">'+
 	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
-	    '<tpl else>0_0</tpl>.png); " class="x-img x-floating">'+
+	    '<tpl else>0_0</tpl>.png" />'+
 	    
-	    '<tpl if="state==-2"><img src="./resources/images/jaune.png" /><tpl elseif="state==-3"><img src="./resources/images/rouge.png" />'+
-	    '<tpl elseif="(category==4||category==103)&&armed==0"><img src="./resources/images/darm.png" />'+
-	    '<tpl elseif="category==120"><tpl if="armed==1&&var3==\'off\'"><img src="./resources/images/doff.png" />'+
-	    	'<tpl elseif="armed==0&&var3==\'off\'"><img src="./resources/images/darmoff.png" /><tpl elseif="armed==0&&var3==\'on\'"><img src="./resources/images/darm.png" /></tpl>'+
+	    '<tpl if="state==-2"><img class="indic" src="./resources/images/indic/jaune.png" />'+
+	    '<tpl elseif="state==-3"><img class="indic" src="./resources/images/indic/rouge.png" />'+
+	    '<tpl elseif="(category==4||category==103)&&armed==0"><img class="indic" src="./resources/images/indic/darm.png" />'+
+	    '<tpl elseif="category==120"><tpl if="armed==1&&var3==\'off\'"><img class="indic" src="./resources/images/indic/doff.png" />'+
+	    	'<tpl elseif="armed==0&&var3==\'off\'"><img class="indic" src="./resources/images/indic/darmoff.png" /><tpl elseif="armed==0&&var3==\'on\'"><img class="indic" src="./resources/images/indic/darm.png" /></tpl>'+
 	    '</tpl>'+
 	    
-	    '<tpl if="category==16&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1} %</div>'+
-	    '<tpl elseif="category==17&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1} °C</div>'+
-	    '<tpl elseif="category==18&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1} %</div>'+
-	    '<tpl elseif="category==21&&watts!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{watts} W</div>'+
-	    '<tpl elseif="(category==2||category==8)&&level!=null&&watts!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{level} %<br/>{watts} W</div>'+
-	    '<tpl elseif="(category==2||category==8)&&level!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{level} %</div>'+
-	    '<tpl elseif="category==3&&watts!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{watts} W</div>'+
-	    '<tpl elseif="category==120&&var1!=null"><div class="texticon"<tpl if="color!=null> style="color:#{color};"</tpl> >{var1}<tpl if="subcategory==1&&var2!=null"><br/>{var2}</tpl></div>'+
+	    '<tpl if="category==16&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1} %</div>'+
+	    '<tpl elseif="category==17&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1} °C</div>'+
+	    '<tpl elseif="category==18&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1} %</div>'+
+	    '<tpl elseif="category==21&&watts!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{watts} W</div>'+
+	    '<tpl elseif="(category==2||category==8)&&level!=null&&watts!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{level} %<br/>{watts} W</div>'+
+	    '<tpl elseif="(category==2||category==8)&&level!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{level} %</div>'+
+	    '<tpl elseif="category==3&&watts!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{watts} W</div>'+
+	    '<tpl elseif="category==120&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1}<tpl if="subcategory==1&&var2!=null"><br/>{var2}</tpl></div>'+
+	    '<tpl elseif="category==104"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
+	    		'<tpl if="status==0">OFF<tpl elseif="status==1">HG<tpl elseif="status==2">ECO<tpl elseif="status==3">CONF</tpl></div>'+
 	    '</tpl>'+
 	'</div></tpl>',
 	
@@ -56,7 +60,9 @@ tpllisticon:'<div class="devicon">'+
 	   			'<tpl else>0_0</tpl>.png);" />'+
 			'</div>',
 			
-tplfooter: '<div class="footer"><tpl if="watts != null&&category!=3&&category!=21"><span class="wattfooter">{watts} W</span></tpl>' +
+tplfooter: '<div class="footer"><tpl if="watts != null&&category!=3&&category!=21"><span class="wattfooter">{watts} W</span>'+
+		'<tpl elseif="category==104"><span class="wattfooter"><tpl if="status==0">OFF<tpl elseif="status==1">HG<tpl elseif="status==2">ECO<tpl elseif="status==3">CONF</tpl></span>'+
+		'</tpl>' +
     	'<tpl if="comment!=\'\'&&comment!=null">{comment}<tpl else>&nbsp;</tpl></div>',
 
 tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
@@ -73,7 +79,7 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 			'<tpl elseif="category==104">'+
 					'<img class="i0" src="./resources/images/plugin/pw0_<tpl if="status==0">1<tpl else>0</tpl>.png" />'+
 					'&nbsp;&nbsp;&nbsp;<img class="i1" src="./resources/images/plugin/pw1_<tpl if="status==1">1<tpl else>0</tpl>.png" />'+
-					'&nbsp;&nbsp;&nbsp;<img class="i2" src="./resources/images/plugin/pw2_<tpl if="status==1">1<tpl else>0</tpl>.png" />'+
+					'&nbsp;&nbsp;&nbsp;<img class="i2" src="./resources/images/plugin/pw2_<tpl if="status==2">1<tpl else>0</tpl>.png" />'+
 					'&nbsp;&nbsp;&nbsp;<img class="i3" src="./resources/images/plugin/pw3_<tpl if="status==3">1<tpl else>0</tpl>.png" />'+
 			'<tpl elseif="category==120"><div><div class="clock1"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null||subcategory!=1">&nbsp;<tpl else>{var2}</tpl></div>'+
 					'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/arm{armed}.png" /></div></tpl>'+
@@ -91,7 +97,7 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 				'</div>'+
 			'</tpl>',
 
-tplliston: '<tpl if="(verif!=\'off\'&&verif!=\'no\')&&(((category==4||category==103||category==120)&&tripped==1)||(category!=4&&status==1))">',
+tplliston: '<tpl if="(verif!=\'off\'&&verif!=\'no\')&&(((category==4||category==103||category==120)&&tripped==1)||(category!=4&&category!=104&&status==1))">',
 tpllistoff: '<tpl if="(verif==\'off\'&&(((category==4||category==103||category==120)&&tripped==0)||(category!=4&&category!=103&&category!=120&&status==0)))||'+
 	'(verif!=\'no\'&&(category==4||category==103||category==120)&&armed==0)">'
 },

@@ -13,7 +13,7 @@ $floors=array();
 
 $floors[]= array (
 	'id' => -1,
-	'name' => "Aucun étage",
+	'name' => "Aucune vue",
 	'path' => ""
 	);
 $floorsencode='{"floors":'.json_encode($floors).'}';

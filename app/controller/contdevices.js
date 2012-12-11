@@ -370,7 +370,7 @@ Ext.define('myvera.controller.contdevices', {
 									(
 										((category == 4 || category == 103 || category == 120) && isTripped)
 										||
-										(category !=4 && status == 1)
+										(category !=4 && category !=104 && status == 1)
 									)
 							) {
 								count1++;
@@ -695,7 +695,7 @@ Ext.define('myvera.controller.contdevices', {
 				html3= html3+'.png" />';
 				me =this;
 				var segmentedButton = Ext.create('Ext.SegmentedButton', {
-						numid: record.get('id'),
+						//numid: record.get('id'),
 						allowMultiple: true,
 						items: [
 						{
@@ -722,8 +722,7 @@ Ext.define('myvera.controller.contdevices', {
 						listeners: {
 							toggle: function(container, button, pressed){
 								if(pressed) {
-									//console.log(container.numid + " - " + button.getText());
-									me.onPilotWireTap(container.numid, button.getText());
+										me.onPilotWireTap(record.get('id'), button.getText());
 								}
 								Ext.getCmp('popup_tap').hide();
 							}
@@ -1117,6 +1116,7 @@ Ext.define('myvera.controller.contdevices', {
 		dtargetvalue = 'newTargetValue';
 		var devices = Ext.getStore('devicesStore');
 		device = devices.getById(iddevice);
+		if(device) {
 		//switch status
 		console.log("switch : " + device.get('name'));
 		device.set('state', -2);
@@ -1149,6 +1149,9 @@ Ext.define('myvera.controller.contdevices', {
 				Ext.Msg.alert('Erreur','Switch Error');
 			}
 		});
+		} else {
+			console.log("PilotWireTap - module non trouvé.");
+		}
 	},
 	
 	pushplans: function() {

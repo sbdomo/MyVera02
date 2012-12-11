@@ -70,6 +70,16 @@ Ext.define('myvera.view.PanelConfigItem', {
 						subcat.setOptions(options);
 						subcat.show();
 					} else {
+						var options = [
+						{text: '0', value:'0'},
+						{text: '1', value:'1'},
+						{text: '2', value:'2'},
+						{text: '3', value:'3'},
+						{text: '4', value:'4'},
+						{text: '5', value:'5'},
+						{text: '6', value:'6'}
+						];
+						subcat.setOptions(options);
 						subcat.hide();
 					}
 					this.getParent().config.data.category = value;
@@ -83,7 +93,16 @@ Ext.define('myvera.view.PanelConfigItem', {
 			xtype: 'selectfield',
 			label: 'Sub-catégorie',
 			name: 'subcategory',
-			itemId: 'subcategory'
+			itemId: 'subcategory'//,
+			//options: [
+			//{text: '0', value:'0'},
+			//{text: '1', value:'1'},
+			//{text: '2', value:'2'},
+			//{text: '3', value:'3'},
+			//{text: '4', value:'4'},
+			//{text: '5', value:'5'},
+			//{text: '6', value:'6'},
+			//]
 		},
 		{
 			xtype: 'selectfield',
@@ -166,6 +185,13 @@ Ext.define('myvera.view.PanelConfigItem', {
 			{text: 'Blue',  value: '0000FF'},
 			{text: 'Navy',  value: '000080'}
 			]
+		},
+		{
+			xtype: 'textfield',
+			label: 'Taille du texte',
+			name: 'fontsize',
+			itemId: 'fontsize',
+			placeHolder: '10px'
 		},
 		{
 			xtype: 'textfield',
@@ -329,6 +355,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device.set("left2", formdata.left2);
 					device.set("top2", formdata.top2);
 					device.set("color", formdata.color);
+					device.set("fontsize", formdata.fontsize);
 					device.set("icon", formdata.icon);
 					device.set("verif", formdata.verif);
 					device.set("sceneon", formdata.sceneon);
@@ -357,6 +384,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					left2: formdata.left2,
 					top2: formdata.top2,
 					color: formdata.color,
+					fontsize: formdata.fontsize,
 					icon: formdata.icon,
 					verif: formdata.verif,
 					sceneon: formdata.sceneon,
@@ -410,6 +438,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 				listdevice.set("left2", formdata.left);
 				listdevice.set("top2", formdata.top);
 				listdevice.set("color", formdata.color);
+				listdevice.set("fontsize", formdata.fontsize);
 				listdevice.set("icon", formdata.icon);
 				listdevice.set("verif", formdata.verif);
 				listdevice.set("sceneon", formdata.sceneon);
@@ -476,13 +505,15 @@ Ext.define('myvera.view.PanelConfigItem', {
 						    this.down('#LeftItem').hide();
 						    this.down('#TopItem').hide();
 				    }
-				    var etage = ['1','2'];
-				    for (var key in etage) {
-					    if(device.get('etage'+ key)=="-1") {
-						    this.down('#PlaceItem'+ key).hide();
-						    this.down('#LeftItem'+ key).hide();
-						    this.down('#TopItem'+ key).hide();
-					    }
+				    if(device.get('etage1')=="-1") {
+						    this.down('#PlaceItem1').hide();
+						    this.down('#LeftItem1').hide();
+						    this.down('#TopItem1').hide();
+				    }
+				    if(device.get('etage2')=="-1") {
+						    this.down('#PlaceItem2').hide();
+						    this.down('#LeftItem2').hide();
+						    this.down('#TopItem2').hide();
 				    }
 				    if(device.get('category')=="6") {
 					    this.down('#CamuserItem').show();

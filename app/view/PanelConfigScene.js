@@ -366,13 +366,15 @@ Ext.define('myvera.view.PanelConfigScene', {
 						    this.down('#LeftItem').hide();
 						    this.down('#TopItem').hide();
 				    }
-				    var etage = ['1','2'];
-				    for (var key in etage) {
-					    if(device.get('etage'+ key)=="-1") {
-						    this.down('#PlaceItem'+ key).hide();
-						    this.down('#LeftItem'+ key).hide();
-						    this.down('#TopItem'+ key).hide();
-					    }
+				    if(device.get('etage1')=="-1") {
+						    this.down('#PlaceItem1').hide();
+						    this.down('#LeftItem1').hide();
+						    this.down('#TopItem1').hide();
+				    }
+				    if(device.get('etage2')=="-1") {
+						    this.down('#PlaceItem2').hide();
+						    this.down('#LeftItem2').hide();
+						    this.down('#TopItem2').hide();
 				    }
 				    this.down('#DeleteItem').show();
 			    } else {

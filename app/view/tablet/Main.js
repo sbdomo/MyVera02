@@ -13,6 +13,7 @@ Ext.define("myvera.view.tablet.Main", {
 			xtype: 'homepanel',
 			id: 'homepanel',
 			title: ' Tableau de bord ',
+			//iconCls: 'tab8',
 			iconCls: 'home',
 			hidden: true
 		},

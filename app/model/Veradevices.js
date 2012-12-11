@@ -23,6 +23,7 @@ Ext.define('myvera.model.Veradevices', {
 			{name: 'left2', type: 'int'},
 			{name: 'top2', type: 'int'},
 			{name:'color', type: 'string', defaultValue:'000000'},
+			{name:'fontsize', type: 'string', defaultValue:'10px'},
 			{name: 'tripped', type: 'int'},
 			{name: 'icon', type: 'int'},
 			{name: 'verif', type: 'string', defaultValue:"yes"},
