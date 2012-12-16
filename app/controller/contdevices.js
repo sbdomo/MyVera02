@@ -306,6 +306,9 @@ Ext.define('myvera.controller.contdevices', {
 								case 18: //light sensor
 									device.set('var1', response.devices[idrecord].light);
 									break;
+								case 21: //Power Meter : watts (déjà ajouté) + kwh
+									device.set('var1', response.devices[idrecord].kwh);
+									break;
 								case 101: //vswitch
 									device.set('var1', response.devices[idrecord].text1);
 									device.set('var2', response.devices[idrecord].text2);
@@ -1182,7 +1185,7 @@ Ext.define('myvera.controller.contdevices', {
 							itemTpl: '<tpl if="etage=='+floor.data.id+'||etage1=='+floor.data.id+'||etage2=='+floor.data.id+'">'+
 							'<div style="top:<tpl if="etage=='+floor.data.id+'">{top}px; left:{left}px;'+
 							'<tpl elseif="etage1=='+floor.data.id+'">{top1}px; left:{left1}px;'+
-							'<tpl elseif="etage1=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
+							'<tpl elseif="etage2=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
 							myvera.util.Templates.getTplplan() + '</tpl>'
 						});
 					}

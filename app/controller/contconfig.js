@@ -274,7 +274,7 @@ Ext.define('myvera.controller.contconfig', {
 						itemTpl: '<tpl if="etage=='+floor.data.id+'||etage1=='+floor.data.id+'||etage2=='+floor.data.id+'">'+
 								'<div style="top:<tpl if="etage=='+floor.data.id+'">{top}px; left:{left}px;'+
 								'<tpl elseif="etage1=='+floor.data.id+'">{top1}px; left:{left1}px;'+
-								'<tpl elseif="etage1=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
+								'<tpl elseif="etage2=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
 								myvera.util.Templates.getTplplan() + '</tpl>'
 					});
 				}
