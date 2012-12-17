@@ -135,6 +135,7 @@ Ext.define('myvera.controller.contconfig', {
 							contconfig.dirtydevices = 2;
 							contconfig.getListItemsSave().setUi('decline');
 							contconfig.getListItemsSave().setDisabled(false);
+							if(letexte.length > 500) letexte = letexte.substr(0, 500) + "... "
 							Ext.Msg.alert('Message', letexte + ' Sauver la liste des modules');
 						}
 						

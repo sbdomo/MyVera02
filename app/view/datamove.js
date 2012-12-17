@@ -24,8 +24,9 @@ Ext.define('myvera.view.datamove', {
 			},
 			itemtouchend: function(me, index, target, record, e, eOpts) {
 				console.log('element x'+ target.getX() + ' y:' + (target.getY()));
-				
+				//console.log('etage ' + record.get('etage') + " / " + this.config.idfloor);
 				if(record.get('etage')==this.config.idfloor) {
+					//console.log("left: " + record.get('left') + " target: " + target.getX());
 					record.set('left', record.get('left')+target.getX());
 					record.set('top', record.get('top')+target.getY());
 				} else if(record.get('etage1')==this.config.idfloor) {
@@ -34,6 +35,9 @@ Ext.define('myvera.view.datamove', {
 				} else if(record.get('etage2')==this.config.idfloor) {
 					record.set('left2', record.get('left2')+target.getX());
 					record.set('top2', record.get('top2')+target.getY());
+				} else {
+					alert("Pas d'étage trouvé !");
+					return;
 				}
 				
 				Ext.getCmp('carouselitemmove').toggleSwipe(true);
