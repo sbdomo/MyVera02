@@ -1,5 +1,6 @@
 Ext.define('myvera.controller.contdevices', {
-	extend : 'Ext.app.Controller',
+	extend: 'Ext.app.Controller',
+	
 	config: {
 		stores: ['devicesStore', 'storeRooms'],
 		views: ['dataplan'],
@@ -81,6 +82,21 @@ Ext.define('myvera.controller.contdevices', {
 	},
 
 	launch: function() {
+		//*******************Debug mode
+		this.nbrsync = 0;
+		this.nbrtimer=0;
+		this.nbrforce = 0;
+		this.syncdate = 0;
+		this.synccount=0;
+		this.autosync = true;
+		var tabbarlabel = {
+		    id: 'tabbarlabel',
+                    docked: 'right',
+                    html: this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce
+                };
+		Ext.getCmp('main').getTabBar().add(tabbarlabel);
+		//*******************
+		
 		//Utilisé pour charger devicesStore après FloorsStore s'il n'est pas encore chargé.
 		this.storeloaded=false;
 		this.jsonpath='./protect/config/';
@@ -131,6 +147,26 @@ Ext.define('myvera.controller.contdevices', {
 			},
 			failure : function() {
 				console.warn('Auto-Login failed (user was not logged in).');
+				//Lecture des paramètre par défaut
+				var url = './conf.json';
+				Ext.Ajax.request({
+					url: url,
+					method: 'GET',
+					timeout: 10000,
+					scope: this,
+					success: function(result) {
+						var response = Ext.decode(result.responseText, true);
+						//console.log(response.config[0].ipvera);
+						if (response) {
+							if(response.config[0].ipvera) this.getIpveraCt().setValue(response.config[0].ipvera);
+						}
+					},
+					failure: function(result) {
+						console.log("Pas de config par défaut");
+						//Ext.Msg.alert('Erreur',"Erreur lors de la sauvegarde de l'adresse IP");
+					}
+				});
+				
 				Ext.getCmp('main').setActiveItem(Ext.getCmp('PanelConfig'));
 				Ext.Msg.alert('Erreur','Vous devez vous identifier !');
 			}
@@ -242,11 +278,39 @@ Ext.define('myvera.controller.contdevices', {
 			Ext.getCmp('main').setActiveItem(Ext.getCmp('PanelConfig'));
 			Ext.Msg.alert('Pas de modules', 'Vous devriez ajouter des modules et, si nécessaire, des vues.');
 		}
+		//*******************Debug mode
+		//this.verifsync(0);
+		//*******************
 	},
+	
+	//*******************Debug mode
+	verifsync: function(timer) {
+		if(timer!=0) timer=15000;
+		taskverifsync = Ext.create('Ext.util.DelayedTask', function() {
+			//console.log("New Timer");
+			this.nbrtimer = this.nbrtimer +1;
+			if((Date.now()-this.syncdate>90000) && this.autosync==true) {
+				this.nbrforce = this.nbrforce + 1;
+				//this.devicesync(0, 0);
+			}
+			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
+			this.verifsync();
+		}, this);
+		taskverifsync.delay(timer);
+	},
+	//*******************
 	
 	devicesync: function(newloadtime, newdataversion, nonewsync) {
 		console.log("New Vera Sync");
 		if (nonewsync != true) nonewsync=false;
+		//*******************Debug mode
+		if(nonewsync==false) {
+			this.nbrsync= this.nbrsync + 1;
+			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
+			this.syncdate = Date.now();
+			syncstamp = this.syncdate;
+		}
+		//*******************
 		var vera_url = './protect/syncvera.php';
 		var syncheader = "";
 		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
@@ -400,31 +464,59 @@ Ext.define('myvera.controller.contdevices', {
 							Ext.getCmp('panelinfo').tab.setBadgeText(count1 + '-' + count2);
 						}
 					}
+					//*******************Debug mode
+					this.synccount=0;
 					if(nonewsync!=true) {
-					//new sync
-					if (response.loadtime && response.dataversion) {
-						this.devicesync(response.loadtime,response.dataversion);
-					} else {
-						Ext.Msg.alert('Erreur', 'Synchronisation sans loadtime');
-						this.devicesync(0, 0, nonewsync);
-					}
+						//new sync
+						if (response.loadtime && response.dataversion) {
+							//this.devicesync(response.loadtime,response.dataversion);
+							this.newsync(response.loadtime,response.dataversion, syncstamp);
+						} else {
+							Ext.Msg.alert('Erreur', 'Synchronisation sans loadtime');
+							this.newsync(0, 0, syncstamp);
+							//this.devicesync(0, 0, nonewsync);
+						}
 					}
 				} else {
-					Ext.Msg.confirm('Erreur', 'Pas de réponse lors de la synchro. Essayer à nouveau?', function(confirmed) {
-					if (confirmed == 'yes') {
-						this.devicesync(0,0, nonewsync);
+					//*******************Debug mode
+					this.synccount=this.synccount+1;
+					if(this.autosync==true&&nonewsync==false&&syncstamp==this.syncdate) {
+						if(this.synccount<10) {
+							this.newsync(0, 0, syncstamp);
+						} else {
+							Ext.Msg.confirm('Erreur', 'Pas de réponse lors de la synchro. Essayer à nouveau?', function(confirmed) {
+								if (confirmed == 'yes') {
+									//this.devicesync(0,0, nonewsync);
+									//this.devicesync(0,0);
+									this.newsync(0, 0, syncstamp);
+								} else {
+									this.autosync=false;
+								}
+							}, this);
+						}
+					} else {
+						Ext.Msg.alert('Erreur', 'Pas de réponse lors de la synchro.');
 					}
-					}, this);
 				}
 			},
 			failure: function(response) {
 				console.log("Vera Sync : Error");
-				//Ext.Msg.alert('Erreur','Synchronisation avec la Vera impossible ou interrompue');
-				Ext.Msg.confirm('Erreur', 'Synchronisation avec la Vera impossible ou interrompue. Essayer à nouveau?', function(confirmed) {
-					if (confirmed == 'yes') {
-						this.devicesync(0,0, nonewsync);
+				this.synccount=this.synccount+1;
+				if(this.autosync==true&&nonewsync==false&&syncstamp==this.syncdate) {
+					if(this.synccount<10) {
+						this.newsync(0, 0, syncstamp);
+					} else {
+						//Ext.Msg.alert('Erreur','Synchronisation avec la Vera impossible ou interrompue');
+						Ext.Msg.confirm('Erreur', 'Synchronisation avec la Vera impossible ou interrompue. Essayer à nouveau?', function(confirmed) {
+							if (confirmed == 'yes') {
+								//this.devicesync(0,0, nonewsync);
+								this.newsync(0, 0, syncstamp);
+							}
+						}, this);
 					}
-				}, this);
+				} else {
+					Ext.Msg.alert('Erreur', 'Synchronisation avec la Vera impossible ou interrompue.');
+				}
 				
 				//setTimeout(this.devicesync(0,0),2000);
 			}//,
@@ -437,6 +529,20 @@ Ext.define('myvera.controller.contdevices', {
 	//    console.log('Main container is active');
 	//   },
 
+	//*******************Debug mode	
+	newsync: function(loadtime, dataversion, timestamp) {
+		newsynctask = Ext.create('Ext.util.DelayedTask', function() {
+				//var date = new Date();
+				//console.log("New Sync Timer" + Ext.Date.format(date, 'h:i:s'));
+				if(timestamp==this.syncdate) {
+					//console.log(loadtime + "/" + dataversion);
+					this.devicesync(loadtime, dataversion);
+				}
+		}, this);
+		newsynctask.delay(100);
+	},
+	
+	
 	onDeviceTap: function(view, index, target, record, event) {
 		//abort if in datalist it's not the image
 		//if(view.id=="datalist"&&Ext.get(event.target).hasCls('deviceImage')==false) return;
@@ -928,6 +1034,27 @@ Ext.define('myvera.controller.contdevices', {
 				this.profilchoice=this.getViewprofil().getValue();
 				
 				console.log('logUserIn: ', username);
+				
+				//Sauvegarde de la dernière adresse IP de la Vera
+				var url = './protect/saveconfig.php';
+				syncheader={'Authorization': 'Basic ' + this.loggedUserId};
+				var ipvera = this.ipvera;
+				Ext.Ajax.request({
+					url: url,
+					headers: syncheader,
+					params: {
+						ipvera: ipvera
+					},
+					method: 'GET',
+					timeout: 10000,
+					scope: this,
+					success: function(response) {
+					},
+					failure: function(response) {
+						Ext.Msg.alert('Erreur',"Erreur lors de la sauvegarde de l'adresse IP");
+					}
+				});
+				
 				//this.startstore();
 				this.LogIn();
 

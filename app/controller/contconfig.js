@@ -2,7 +2,7 @@ Ext.define('myvera.controller.contconfig', {
 	extend : 'Ext.app.Controller',
 	config: {
 		//stores: ['ConfigDevicesStore', 'devicesStore'],
-		views: ['PanelConfigNavigation', 'PanelConfigItemsMenu', 'PanelConfigItems', 'PanelConfigItem', 'PanelConfigScenes', , 'PanelConfigScene', 'PanelImage', 'carouselitemmove', 'datamove', 'PanelConfigFloorsNavigation', 'PanelConfigFloors', 'PanelConfigFloor'],
+		views: ['PanelConfigNavigation', 'PanelConfigItemsMenu', 'PanelConfigItems', 'PanelConfigItem', 'PanelConfigScenes', , 'PanelConfigScene', 'PanelImage', 'carouselitemmove', 'datamove', 'PanelConfigFloorsNavigation', 'PanelConfigFloors', 'PanelConfigFloor', 'PanelConfigMove'],
 		refs: {
 			configDevices: 'PanelConfigNavigation',
 			panelConfigItemsOpen: 'PanelConfigItemsMenu [name=openPanelConfigItems]',
@@ -53,6 +53,9 @@ Ext.define('myvera.controller.contconfig', {
 			},
 			'PanelConfigScenes': {
 				disclose: 'showDetailScene'
+			},
+			'PanelConfigMove': {
+				disclose: 'showDataMove'
 			},
 			
 			roomsSave: {
@@ -262,39 +265,11 @@ Ext.define('myvera.controller.contconfig', {
 		
        },
        
-       	onPanelItemsMoveOpen: function() {
-		var FloorsStore = Ext.getStore('FloorsStore');
-		if(FloorsStore.getCount()>1) {
-			var items = [];
-			FloorsStore.each(function(floor) {
-				if(floor.get('id')!=-1) {
-					items.push({
-						xtype: 'datamove',
-						idfloor: floor.data.id,
-						style: 'background:url(./resources/config/img/'+floor.get('path')+') no-repeat left top;',
-						itemTpl: '<tpl if="etage=='+floor.data.id+'||etage1=='+floor.data.id+'||etage2=='+floor.data.id+'">'+
-								'<div style="top:<tpl if="etage=='+floor.data.id+'">{top}px; left:{left}px;'+
-								'<tpl elseif="etage1=='+floor.data.id+'">{top1}px; left:{left1}px;'+
-								'<tpl elseif="etage2=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
-								myvera.util.Templates.getTplplan() + '</tpl>'
-					});
-				}
-			});
-			
-			Ext.getCmp('main').getTabBar().hide();
-			Ext.getCmp('PanelConfig').getTabBar().hide();
-			Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
-			this.getConfigDevices().push({
-				xtype: 'carouselitemmove',
-				title: 'Déplacer les icônes'
-			});
-			
-			Ext.getCmp('carouselitemmove').setItems(items);
-			Ext.getCmp('carouselitemmove').setActiveItem(0);
-			
-		} else {
-			Ext.Msg.alert('Il n\'y a pas de vue.');
-		}
+	onPanelItemsMoveOpen: function() {
+		this.getConfigDevices().push({
+			xtype: 'PanelConfigMove'//,
+			//title: 'Liste des scenes'
+		});
 	},
 	
 	onListItemsSave: function() {
@@ -398,6 +373,29 @@ Ext.define('myvera.controller.contconfig', {
 				title: 'Détail de la pièce',
 				data: record.getData()
 		});
+       },
+       
+       showDataMove: function(list, record) {
+	    if( record.get('id') != -1 ) {
+	       	Ext.getCmp('main').getTabBar().hide();
+		Ext.getCmp('PanelConfig').getTabBar().hide();
+		Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
+		floorid= record.get('id');
+		this.getConfigDevices().push({
+			 xtype: 'datamove',
+			 title: 'Déplacer les icônes',
+			 idfloor: floorid,
+			 style: 'background:url(./resources/config/img/'+record.get('path')+') no-repeat left top;',
+			 itemTpl: '<tpl if="etage=='+floorid+'||etage1=='+floorid+'||etage2=='+floorid+'">'+
+			 	'<div style="top:<tpl if="etage=='+floorid+'">{top}px; left:{left}px;'+
+				'<tpl elseif="etage1=='+floorid+'">{top1}px; left:{left1}px;'+
+				'<tpl elseif="etage2=='+floorid+'">{top2}px; left:{left2}px;</tpl>'+
+				myvera.util.Templates.getTplplan() + '</tpl>'
+		});
+	    } else {
+		Ext.Msg.alert('Message', "Ne peut-être éditée. (Vue non affichée)");
+	    }
+
        },
        
        onsavefloor: function() {

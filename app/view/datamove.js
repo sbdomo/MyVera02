@@ -10,7 +10,7 @@ Ext.define('myvera.view.datamove', {
 		listeners:{
 			itemtouchstart: function(me, index, target, record, e, eOpts) {
 				console.log('element tap!');
-				Ext.getCmp('carouselitemmove').toggleSwipe(false);
+				//Ext.getCmp('carouselitemmove').toggleSwipe(false);
 				var currentdrag = new Ext.util.Draggable({
 						element : target,
 						//direction: 'both',
@@ -40,7 +40,7 @@ Ext.define('myvera.view.datamove', {
 					return;
 				}
 				
-				Ext.getCmp('carouselitemmove').toggleSwipe(true);
+				//Ext.getCmp('carouselitemmove').toggleSwipe(true);
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
 				
 			}
