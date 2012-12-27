@@ -28,14 +28,14 @@ Ext.define("myvera.view.phone.Main", {
 			xtype: 'panelinfophone',
 			id:'panelinfo',
 			title: 'Allumés ?',
-			iconCls: 'info',
+			iconCls: 'info'//,
 			//hidden: true
 		},
 		{
 			xtype: 'listclockphone',
 			id:'listclock',
 			title: 'Réveils',
-			iconCls: 'time',
+			iconCls: 'time'//,
 			//hidden: true
 		},
 		{

@@ -14,7 +14,7 @@ $fields=array();
 $fields[]= array (
 	'id' => 0,
 	'name' => "Vues",
-	'cls' => "1"
+	'cls' => "2"
 	);
 $fieldsencode='{"tabs":'.json_encode($fields).'}';
 file_put_contents($fichierjson, $fieldsencode);

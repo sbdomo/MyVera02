@@ -8,7 +8,7 @@ Ext.define('myvera.view.PanelConfigTabs', {
 		itemId:"PanelConfigTabs",
 		itemTpl: ' {name}',
 		store: 'TabViewsStore',
-		onItemDisclosure: true,
+		onItemDisclosure: true//,
 		//listeners:{
 		//	push:function(e,d){
 		//		Ext.getCmp('addViewButton').hide();

@@ -21,14 +21,14 @@ Ext.define("myvera.view.tablet.Main", {
 			xtype: 'panelinfo',
 			id:'panelinfo',
 			title: 'Allumés ?',
-			iconCls: 'info',
+			iconCls: 'info'//,
 			//hidden: true
 		},
 		{
 			xtype: 'listclock',
 			id:'listclock',
 			title: 'Réveils',
-			iconCls: 'time',
+			iconCls: 'time'//,
 			//hidden: true
 		},
 		{
