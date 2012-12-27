@@ -3,11 +3,10 @@ Ext.define('myvera.profile.Phone', {
 
     config: {
         name: 'Phone',
-        //views: ['myvera.view.phone.Main', 'myvera.view.phone.HomePanelphone', 'myvera.view.phone.datalistphone', 'myvera.view.phone.listclockphone']
-        views: ['Main', 'HomePanelphone', 'datalistphone', 'listclockphone', 'panelinfophone', 'datalistonphone', 'datalistoffphone',
+        views: ['Main', 'datalistphone', 'listclockphone', 'panelinfophone', 'datalistonphone', 'datalistoffphone',
 		 'PanelConfigphone']
     },
-
+//'HomePanelphone', 
     isActive: function() {
 	if(Ext.os.is.Phone || (Ext.Viewport.getWindowWidth()<481)) {
 	//if(Ext.os.is.Phone) {

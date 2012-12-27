@@ -29,12 +29,12 @@ if ($json = @file_get_contents('php://input'))
 	    $json = json_decode($json, true);
 	    $floors= $json['floors'];
 	    if($new==false) {
-		  $floorkey="";
+		  $floorkey="-1";
 		  //print_r($floors);
 		  foreach( $floors as $key => $floorvalue ) {
 			  if($floorvalue['id']==$id) $floorkey=$key;
 		  }
-		  if($floorkey!="") {
+		  if($floorkey!="-1") {
 			  
 			  if($floor['linkimage']!='') {
 				$floorpathold=$floors[$floorkey]['path'];
@@ -43,6 +43,7 @@ if ($json = @file_get_contents('php://input'))
 			  }
 			  
 			  $floors[$floorkey]['name']=$floor['name'];
+			  $floors[$floorkey]['tab']=$floor['tab'];
 			  $floorsencode='{"floors":'.json_encode($floors).'}';
 			  file_put_contents($fichierjson, $floorsencode);
 			  $success="true";
@@ -64,7 +65,8 @@ if ($json = @file_get_contents('php://input'))
 		  $floors[]= array (
 			  'id' => $newid,
 			  'name' => $floor['name'],
-			  'path' => $floor['path']
+			  'path' => $floor['path'],
+			  'tab' => $floor['tab']
 			  );
 		  $floorsencode='{"floors":'.json_encode($floors).'}';
 		  file_put_contents($fichierjson, $floorsencode);

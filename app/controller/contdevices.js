@@ -2,7 +2,7 @@ Ext.define('myvera.controller.contdevices', {
 	extend: 'Ext.app.Controller',
 	
 	config: {
-		stores: ['devicesStore', 'storeRooms'],
+		stores: ['devicesStore', 'storeRooms', 'TabViewsStore'],
 		views: ['dataplan'],
 		//views: ['dataplan', 'listclock', 'PanelConfigGenerale'],
 		//'datalist',
@@ -94,7 +94,7 @@ Ext.define('myvera.controller.contdevices', {
                     docked: 'right',
                     html: this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce
                 };
-		Ext.getCmp('main').getTabBar().add(tabbarlabel);
+//*******************		Ext.getCmp('main').getTabBar().add(tabbarlabel);
 		//*******************
 		
 		//Utilisé pour charger devicesStore après FloorsStore s'il n'est pas encore chargé.
@@ -121,7 +121,7 @@ Ext.define('myvera.controller.contdevices', {
 				
 				console.info('Auto-Login succeeded.');
 				
-				if(this.getIsReveil().getValue()) Ext.getCmp('main').getTabBar().items.items[2].show();
+//*******				if(this.getIsReveil().getValue()) Ext.getCmp('main').getTabBar().items.items[2].show();
 				
 				var application = this.getApplication().getController('Application');
 				var orientation= application.getOrientationFix();
@@ -129,19 +129,19 @@ Ext.define('myvera.controller.contdevices', {
 				var typevue = this.getIsVueL().getValue();
 				application.setPanel3dL(typevue);
 				if(typevue==true&&orientation=='landscape') {
-					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
+//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 					//Ext.getCmp('carouselplan').hide();
 				}
 				
 				var typevue = this.getIsVueP().getValue();
 				application.setPanel3dP(typevue);
 				if(typevue==true&&orientation=='portrait') {
-					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
+//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 					//Ext.getCmp('carouselplan').hide();
 				}
 				
-				Ext.getCmp('main').getTabBar().items.items[1].show();
-				Ext.getCmp('main').getTabBar().items.items[0].show();
+//*******				Ext.getCmp('main').getTabBar().items.items[1].show();
+//*******				Ext.getCmp('main').getTabBar().items.items[0].show();
 				this.LogIn();
 				//this.startstore();
 			},
@@ -185,17 +185,40 @@ Ext.define('myvera.controller.contdevices', {
 	},
 	
 	startstore: function() {
-		var storeRooms = Ext.getStore('Rooms');
-		
+		var TabViewsStore = Ext.getStore('TabViewsStore');
 		var syncheader = "";
 		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
-		storeRooms.getProxy().setHeaders(syncheader);
+		TabViewsStore.getProxy().setHeaders(syncheader);
 		
-		storeRooms.on({
-			load: 'onStoreRoomsLoad',
-			scope: this
+		if(this.profilchoice>0) {
+			var jsonfile=this.jsonpath+"tabs" + this.profilchoice +".json";
+			TabViewsStore.getProxy().setUrl(jsonfile);
+		}
+		
+		//Pour ne pas perdre "this"
+		var contdevices=this;
+		//console.log(contdevices.storeloaded);
+		TabViewsStore.load(function(tabs) {
+			console.log("loading tabs");
+			//Vérifie qu'il y a au moins un onglet (en principe 0)
+			//Initialise tabs.json sinon.
+			if(TabViewsStore.getCount()>0) {
+				//contdevices.onTabViewsLoad();
+				var storeRooms = Ext.getStore('Rooms');
+				
+				//var syncheader = "";
+				//syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
+				storeRooms.getProxy().setHeaders(syncheader);
+				
+				storeRooms.on({
+						load: 'onStoreRoomsLoad',
+						scope: contdevices
+				});
+				storeRooms.load();
+			} else {
+				contdevices.initTabsViews();
+			}
 		});
-		storeRooms.load();
 	},
 	
 	onStoreRoomsLoad: function() {
@@ -221,7 +244,8 @@ Ext.define('myvera.controller.contdevices', {
 			
 			//Bug avec Sencha Touch 2.1, load après le load de FloorsStore dans pushplans
 			//DevicesStore.load();
-			this.pushplans();
+			this.inserttabs();
+			
 			var listroom = Ext.getCmp('datalist').down('#list');
 			if(listroom.getStore().getAt(0).get('id')!=0||storeRooms.getCount()==1) {
 				listroom.select(0);
@@ -293,7 +317,7 @@ Ext.define('myvera.controller.contdevices', {
 				this.nbrforce = this.nbrforce + 1;
 				//this.devicesync(0, 0);
 			}
-			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
+//***********			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
 			this.verifsync();
 		}, this);
 		taskverifsync.delay(timer);
@@ -306,7 +330,7 @@ Ext.define('myvera.controller.contdevices', {
 		//*******************Debug mode
 		if(nonewsync==false) {
 			this.nbrsync= this.nbrsync + 1;
-			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
+//***********			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
 			this.syncdate = Date.now();
 			syncstamp = this.syncdate;
 		}
@@ -1058,26 +1082,26 @@ Ext.define('myvera.controller.contdevices', {
 				//this.startstore();
 				this.LogIn();
 
-				if(this.getIsReveil().getValue()) Ext.getCmp('main').getTabBar().items.items[2].show();
+//*******				if(this.getIsReveil().getValue()) Ext.getCmp('main').getTabBar().items.items[2].show();
 				
 				var application = this.getApplication().getController('Application');
 				var orientation= application.getOrientationFix();
 				
 				application.setPanel3dL(isVueL);
 				if(isVueL==true&&orientation=='landscape') {
-					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
+//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 					//Ext.getCmp('carouselplan').hide();
 				}
 				
 				application.setPanel3dP(isVueP);
 				if(isVueP==true&&orientation=='portrait') {
-					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
+//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 					//Ext.getCmp('carouselplan').hide();
 				}
 				
-				Ext.getCmp('main').getTabBar().items.items[1].show();
-				Ext.getCmp('main').getTabBar().items.items[0].show();
-				Ext.getCmp('main').setActiveItem(Ext.getCmp('homepanel'));
+//*******				Ext.getCmp('main').getTabBar().items.items[1].show();
+//*******				Ext.getCmp('main').getTabBar().items.items[0].show();
+//*******				Ext.getCmp('main').setActiveItem(Ext.getCmp('homepanel'));
 			} else Ext.Msg.alert('Erreur','vous devez indiquer un login, un mot de passe et l\'IP de la Vera.');
 		} else {
 			Ext.ModelMgr.getModel('myvera.model.CurrentUser').load(1, {
@@ -1145,11 +1169,11 @@ Ext.define('myvera.controller.contdevices', {
 		if (isvue) {
 			//Ext.getCmp('carouselplan').show();
 			if(orientation==orient) {
-				Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
+//*******				Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 			}
 		} else {
 			if(orientation==orient) {
-				Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('datalist'));
+//*******				Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('datalist'));
 				//Ext.getCmp('carouselplan').hide();
 			}
 		}
@@ -1163,9 +1187,9 @@ Ext.define('myvera.controller.contdevices', {
 				user.set("isReveil", isreveil);
 				user.save();
 				if(isreveil) {
-					Ext.getCmp('main').getTabBar().items.items[2].show();
+//*******					Ext.getCmp('main').getTabBar().items.items[2].show();
 				} else {
-					Ext.getCmp('main').getTabBar().items.items[2].hide();
+//*******					Ext.getCmp('main').getTabBar().items.items[2].hide();
 				}
 			},
 			failure: function() {
@@ -1284,7 +1308,37 @@ Ext.define('myvera.controller.contdevices', {
 		}
 	},
 	
-	pushplans: function() {
+	inserttabs: function() {
+		var TabViewsStore = Ext.getStore('TabViewsStore');
+		var tabs = Ext.getCmp('main');
+		var count= 0;
+		
+		//Ext.getCmp('main').insert(0, {title: 'test', xtype: 'panel', html: 'new item'});
+		
+		TabViewsStore.data.each(function(tabview) {
+				//if(tabview.get('id')==10) {
+			tabs.insert(count, {
+				xtype: 'carouselplan',
+				id: ('tabvue' +tabview.get('id')),
+				title: tabview.get('name'),
+				iconCls: ('tab' +tabview.get('cls'))
+			});
+			//tabs.setActiveItem(0);
+				//}
+			count = count + 1;
+			//var id=testroom.get('id');
+			//if(!Ext.Array.contains(listId, id)) {
+				//alert(testroom.get('name'));
+			//	RoomsStore.remove(testroom);
+			//}
+		});
+		//Ext.getCmp('main').doLayout();
+		//Ext.getCmp('main').refresh();
+		this.pushviews();
+		//this.pushplans();
+	},
+	
+	pushviews: function() {
 		var FloorsStore = Ext.getStore('FloorsStore');
 		var syncheader = "";
 		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
@@ -1296,17 +1350,23 @@ Ext.define('myvera.controller.contdevices', {
 		}
 		
 		//Pour ne pas perdre "this"
-		var contdevives=this;
-		//console.log(contdevives.storeloaded);
+		var contdevices=this;
+		//console.log(contdevices.storeloaded);
 		FloorsStore.load(function(floors) {
 			console.log("loading floors");
-			//Vérifie qu'il y a au moins une vue (en principe -1 - Aucun étage)
+			//Vérifie qu'il y a au moins une vue (en principe -1 - Aucune vue)
 			//Initialise floors.json sinon.
 			if(FloorsStore.getCount()>0) {
+				var TabViewsStore = Ext.getStore('TabViewsStore');
 				var items = [];
+				TabViewsStore.data.each(function(tabview) {
+					items[tabview.get('id')] = [];
+				});
+				
 				Ext.each(floors, function(floor) {
 					if(floor.data.id!=-1) {
-						items.push({
+						//Pas de push si l'onglet n'existe pas (s'il a été supprimé par exemple
+						if(items[floor.data.tab]) items[floor.data.tab].push({
 							xtype: 'dataplan',
 							style: 'background:url(./resources/config/img/'+floor.data.path+') no-repeat left top;',
 							itemTpl: '<tpl if="etage=='+floor.data.id+'||etage1=='+floor.data.id+'||etage2=='+floor.data.id+'">'+
@@ -1317,27 +1377,34 @@ Ext.define('myvera.controller.contdevices', {
 						});
 					}
 				});
-				var carouselplan=Ext.getCmp('carouselplan');
-				//Désactive l'effet carousel s'il n'y a qu'une vue
-				//A faire avant d'ajouter des vues sinon "indicator" n'apparait pas
-				if(FloorsStore.getCount()<3) {
-					carouselplan.toggleSwipe(false);
-					carouselplan.setIndicator(false);
-				} else {
-					carouselplan.toggleSwipe(true);
-					carouselplan.setIndicator(true);
-				}
-				carouselplan.setItems(items);
-				carouselplan.setActiveItem(0);
+				
+				TabViewsStore.data.each(function(tabview) {
+					//Désactive l'effet carousel s'il n'y a qu'une vue
+					//A faire avant d'ajouter des vues sinon "indicator" n'apparait pas
+					if(items[tabview.get('id')].length<2) {
+						Ext.getCmp('tabvue' +tabview.get('id')).toggleSwipe(false);
+						Ext.getCmp('tabvue' +tabview.get('id')).setIndicator(false);
+					} else {
+						Ext.getCmp('tabvue' +tabview.get('id')).toggleSwipe(true);
+						Ext.getCmp('tabvue' +tabview.get('id')).setIndicator(true);
+					}
+					Ext.getCmp('tabvue' +tabview.get('id')).setItems(items[tabview.get('id')]);
+					Ext.getCmp('tabvue' +tabview.get('id')).setActiveItem(0);
+				});
+				Ext.getCmp('main').setActiveItem(0);
+				
+				//carouselplan.setItems(items);
+				//carouselplan.setActiveItem(0);
+				
 				//Charge devicesStore seulement la première fois.
-				if(contdevives.storeloaded==false) {
+				if(contdevices.storeloaded==false) {
 					var DevicesStore = Ext.getStore('devicesStore');
 					DevicesStore.load();
-					contdevives.storeloaded=true;
+					contdevices.storeloaded=true;
 				}
-				//console.log(contdevives.storeloaded);
+				//console.log(contdevices.storeloaded);
 			} else {
-				contdevives.initfloors();
+				contdevices.initfloors();
 			}
 		});
 	},
@@ -1367,7 +1434,8 @@ Ext.define('myvera.controller.contdevices', {
 							success: function(result) {
 								Ext.Viewport.setMasked(false);
 								if (result.responseText=="OK") {
-									this.pushplans();
+									this.pushviews();
+									//this.pushplans();
 								} else {
 									Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des vues.');
 								}
@@ -1375,6 +1443,46 @@ Ext.define('myvera.controller.contdevices', {
 							failure: function(response) {
 								Ext.Viewport.setMasked(false);
 								Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des vues.');
+							}
+					});
+				}
+			}, this);
+	},
+	
+		
+	initTabsViews: function() {
+		Ext.Msg.confirm('Erreur', 'Liste des onglets vide. La créer?', function(confirmed) {
+				if (confirmed == 'yes') {
+					Ext.Viewport.setMasked({
+						xtype: 'loadmask',
+						message: 'Initialisation de la liste...'
+					});
+
+					console.log("Create Tabs");
+					var url = './protect/inittabs.php';
+					var syncheader = "";
+					syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
+					Ext.Ajax.request({
+							url: url,
+							headers: syncheader,
+							method: 'GET',
+							timeout: 35000,
+							scope: this,
+							params: {
+								timeout: '30',
+								profil: this.profilchoice
+							},
+							success: function(result) {
+								Ext.Viewport.setMasked(false);
+								if (result.responseText=="OK") {
+									this.startstore();
+								} else {
+									Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des onglets.');
+								}
+							},
+							failure: function(response) {
+								Ext.Viewport.setMasked(false);
+								Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des onglets.');
 							}
 					});
 				}

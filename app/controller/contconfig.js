@@ -2,10 +2,12 @@ Ext.define('myvera.controller.contconfig', {
 	extend : 'Ext.app.Controller',
 	config: {
 		//stores: ['ConfigDevicesStore', 'devicesStore'],
-		views: ['PanelConfigNavigation', 'PanelConfigItemsMenu', 'PanelConfigItems', 'PanelConfigItem', 'PanelConfigScenes', , 'PanelConfigScene', 'PanelImage', 'carouselitemmove', 'datamove', 'PanelConfigFloorsNavigation', 'PanelConfigFloors', 'PanelConfigFloor', 'PanelConfigMove'],
+		views: ['PanelConfigNavigation', 'PanelConfigItemsMenu', 'PanelConfigItems', 'PanelConfigItem', 'PanelConfigScenes', , 'PanelConfigScene', 'PanelImage', 'datamove', 'PanelConfigFloorsNavigation', 'PanelConfigFloors', 'PanelConfigFloor', 'PanelConfigMove', 'PanelConfigTabs', 'PanelConfigTab'],
 		refs: {
 			configDevices: 'PanelConfigNavigation',
 			panelConfigItemsOpen: 'PanelConfigItemsMenu [name=openPanelConfigItems]',
+			panelConfigViewsOpen: 'PanelConfigViewsMenu [name=openPanelConfigViews]',
+			panelConfigRTabsOpen: 'PanelConfigViewsMenu [name=openPanelConfigTabs]',
 			panelConfigScenesOpen: 'PanelConfigItemsMenu [name=openPanelConfigScenes]',
 			panelItemsMoveOpen: 'PanelConfigItemsMenu [name=openPanelMove]',
 			listItemsSave: 'PanelConfigItemsMenu [name=sauver]',
@@ -13,8 +15,11 @@ Ext.define('myvera.controller.contconfig', {
 			configRooms: 'PanelConfigRoomsNavigation',
 			roomsSave: 'PanelConfigRoomsNavigation [itemId=sauver]',
 			panelConfigFloor: 'PanelConfigFloor',
+			panelConfigTab: 'PanelConfigTab',
 			savefloor: 'PanelConfigFloor [name=savefloor]',
-			deletefloor: 'PanelConfigFloor [name=deletefloor]'
+			deletefloor: 'PanelConfigFloor [name=deletefloor]',
+			savetab: 'PanelConfigTab [name=savetab]',
+			deletetab: 'PanelConfigTab [name=deletetab]'
 		},
 		//0 si rien à sauver et qu'il n'y a pas eu de message d'alerte, 1 si plus rien à sauver mais qu'il y a eu le message d'alerte, 2 s'il faut sauver
 		//pour la sauvegarde de devicesStore
@@ -24,6 +29,13 @@ Ext.define('myvera.controller.contconfig', {
 		control: {
 			configDevices: {
 				activate: 'onActivatePanelItems'
+			},
+			
+			panelConfigViewsOpen: {
+				tap: 'onPanelConfigViewsOpen'
+			},
+			panelConfigRTabsOpen: {
+				tap: 'onPanelConfigTabsOpen'
 			},
 			
 			panelConfigItemsOpen: {
@@ -48,6 +60,9 @@ Ext.define('myvera.controller.contconfig', {
 			'PanelConfigFloors': {
 				disclose: 'showDetailFloor'
 			},
+			'PanelConfigTabs': {
+				disclose: 'showDetailTab'
+			},
 			'PanelConfigRooms': {
 				disclose: 'showDetailRoom'
 			},
@@ -69,6 +84,15 @@ Ext.define('myvera.controller.contconfig', {
 			deletefloor: {
 				tap: 'ondeletefloor'
 			},
+			
+			savetab: {
+				tap: 'onsavetab'
+			},
+			
+			deletetab: {
+				tap: 'ondeletetab'
+			},
+			
 			
 			'#RefreshRoomsButton': {
 				tap: 'onRefreshRooms'
@@ -164,11 +188,29 @@ Ext.define('myvera.controller.contconfig', {
 	onPanelConfigItemsOpen: function() {
 		this.getConfigDevices().push({
 				xtype: 'PanelConfigItems',
-				title: 'Liste des modules'
+				title: 'Modules'
 		});
        },
-	
-	onPanelConfigScenesOpen: function() {
+       
+       onPanelConfigViewsOpen: function() {
+		this.getConfigFloors().push({
+				xtype: 'PanelConfigFloors',
+				itemId:'PanelConfigFloors',
+				title: 'Vues'
+		});
+		//Ext.getCmp('addViewButton').show();
+       },
+       
+       onPanelConfigTabsOpen: function() {
+		this.getConfigFloors().push({
+				xtype: 'PanelConfigTabs',
+				itemId:'PanelConfigTabs',
+				title: 'Onglets'
+		});
+		//Ext.getCmp('addViewButton').show();
+       },
+       
+       onPanelConfigScenesOpen: function() {
 		var ConfigScenesStore = Ext.getStore('ConfigScenesStore');
 		var contdevices = this.getApplication().getController('contdevices');
 		
@@ -187,7 +229,7 @@ Ext.define('myvera.controller.contconfig', {
 		} else {
 			this.getConfigDevices().push({
 				xtype: 'PanelConfigScenes',
-				title: 'Liste des scenes'
+				title: 'Scènes'
 			});
 		}
        },
@@ -256,7 +298,7 @@ Ext.define('myvera.controller.contconfig', {
 			
 			this.getConfigDevices().push({
 				xtype: 'PanelConfigScenes',
-				title: 'Liste des scenes'
+				title: 'Scènes'
 			});
 		
 		} else {
@@ -357,6 +399,16 @@ Ext.define('myvera.controller.contconfig', {
 		}
 	},
 	
+	showDetailTab: function(list, record) {
+		console.info('Record ' + record.get('name'));
+		this.getConfigFloors().push({
+			xtype: 'PanelConfigTab',
+			title: 'Edition',
+			layout: 'vbox',
+			data: record.getData()
+		});
+	},
+	
 	showDetailScene: function(list, record) {
 		console.info('Record ' + record.get('name'));
 		this.getConfigDevices().push({
@@ -412,7 +464,7 @@ Ext.define('myvera.controller.contconfig', {
 		if(form.config.data){
 			idfloor = form.config.data.id;
 		}
-		var floor= {id: idfloor, name: formdata.name, path: formdata.path, linkimage: formdata.linkimage };
+		var floor= {id: idfloor, name: formdata.name, path: formdata.path, linkimage: formdata.linkimage, tab: formdata.tab };
 		Ext.Ajax.request({
 			url: './protect/savefloors.php',
 			headers: syncheader,
@@ -428,9 +480,10 @@ Ext.define('myvera.controller.contconfig', {
 				if (response) {
 					Ext.Viewport.setMasked(false);
 					if (response.success=="true") {
-						contdevices.pushplans();
+						//contdevices.pushplans();
+						contdevices.pushviews();
 						Ext.getCmp('PanelConfigFloorsNavigation').pop();
-						Ext.Msg.alert('Message', 'Etage ' + response.result + ' mis à jour');
+						Ext.Msg.alert('Message', 'Vue ' + response.result + ' mis à jour');
 					} else {
 						Ext.Msg.alert('Erreur lors de la mise à jour');
 					}
@@ -478,7 +531,7 @@ Ext.define('myvera.controller.contconfig', {
 						var devices = Ext.getStore('devicesStore');
 						if (devices.getCount()>0) {
 							devices.data.each(function(device) {
-								move1=false;
+								//move1=false;
 								if (device.get('etage') == idfloor) {
 									device.set('etage', '-1');
 									device.set('state', '-3');
@@ -503,19 +556,20 @@ Ext.define('myvera.controller.contconfig', {
 							});
 						}
 						
-						contdevices.pushplans();
+						//contdevices.pushplans();
+						contdevices.pushviews();
 						
 						Ext.Viewport.setMasked(false);
 						
 						Ext.getCmp('PanelConfigFloorsNavigation').pop();
 						if(movemodule==false) {
-							Ext.Msg.alert('Message', 'Etage ' + response.result + ' supprimé.');
+							Ext.Msg.alert('Message', 'Vue ' + response.result + ' supprimé.');
 						} else {
 							var contconfig = myvera.app.getController('myvera.controller.contconfig');
 							contconfig.dirtydevices = 2;
 							contconfig.getListItemsSave().setUi('decline');
 							contconfig.getListItemsSave().setDisabled(false);
-							Ext.Msg.alert('Message', 'Modules déplacés dans "Aucun étage". Sauvez la liste des modules !');
+							Ext.Msg.alert('Message', 'Modules déplacés dans "Aucune vue". Sauvez la liste des modules !');
 						}
 					} else {
 						Ext.Viewport.setMasked(false);
@@ -535,6 +589,151 @@ Ext.define('myvera.controller.contconfig', {
 			
 	  }
 	  }, this);
+	},
+	
+	onsavetab: function() {
+		Ext.Viewport.setMasked({
+                     xtype: 'loadmask',
+                     message: 'Sauvegarde....'
+		 });
+		var form = this.getPanelConfigTab();
+		var formdata = form.getValues();
+		var contdevices = this.getApplication().getController('contdevices');
+		var contconfig = this.getApplication().getController('contconfig');
+		var syncheader = "";
+		syncheader={'Authorization': 'Basic ' + contdevices.loggedUserId};
+		var idtab = "";
+		if(form.config.data){
+			idtab = form.config.data.id;
+		}
+		var tab= {id: idtab, name: formdata.name, cls: formdata.cls };
+		Ext.Ajax.request({
+			url: './protect/savetabs.php',
+			headers: syncheader,
+			method: 'POST',
+			params: {
+				profil: contdevices.profilchoice
+			},
+			jsonData: {
+				tab: tab
+			},
+			success: function(result){
+				var response = Ext.decode(result.responseText, true);
+				if (response) {
+					Ext.Viewport.setMasked(false);
+					if (response.success=="true") {
+						//contdevices.pushplans();
+						//contdevices.pushviews();
+						contconfig.resettabs();
+						
+						Ext.getCmp('PanelConfigFloorsNavigation').pop();
+						Ext.Msg.alert('Message', 'Onglet ' + response.result + ' mis à jour');
+					} else {
+						Ext.Msg.alert('Erreur lors de la mise à jour');
+					}
+				} else {
+					Ext.Msg.alert('Erreur lors de la mise à jour');
+				}
+			},
+			failure: function(response) {
+				Ext.Viewport.setMasked(false);
+				Ext.Msg.alert('Erreur lors de la mise à jour');
+			}
+		});
+	},
+	
+	ondeletetab: function() {
+	Ext.Msg.confirm('Supression', 'Voulez-vous supprimer cet onglet?', function(confirmed) {
+	  if (confirmed == 'yes') {
+		Ext.Viewport.setMasked({
+                     xtype: 'loadmask',
+                     message: 'Suppression....'
+		 })
+		
+		var form = this.getPanelConfigTab();
+		var formdata = form.getValues();
+		var contdevices = this.getApplication().getController('contdevices');
+		var contconfig = this.getApplication().getController('contconfig');
+		var syncheader = "";
+		syncheader={'Authorization': 'Basic ' + contdevices.loggedUserId};
+		var iditem = form.config.data.id;
+		
+		Ext.Ajax.request({
+			url: './protect/deletetab.php',
+			headers: syncheader,
+			method: 'GET',
+			params: {
+				id: iditem,
+				profil: contdevices.profilchoice
+			},
+			success: function(result){
+				var response = Ext.decode(result.responseText, true);
+				if (response) {
+					if (response.success=="true") {
+						// réallocation des vue de l'onglet
+						var moveview=false;
+						var views = Ext.getStore('FloorsStore');
+						if (views.getCount()>0) {
+							views.data.each(function(view) {
+								if (view.get('tab') == iditem) {
+									console.log(view.get('name'));
+									//view.set('tab', 0);
+									moveview=true;
+								}
+							});
+						}
+						
+						contconfig.resettabs();
+						
+						Ext.Viewport.setMasked(false);
+						
+						Ext.getCmp('PanelConfigFloorsNavigation').pop();
+						if(moveview==false) {
+							Ext.Msg.alert('Message', 'Onglet ' + response.result + ' supprimé.');
+						} else {
+							Ext.Msg.alert('Message', 'Une ou plusieurs vues étaient dans cet onglet. Il faut les mettre dans un autre onglet !');
+						}
+					} else {
+						Ext.Viewport.setMasked(false);
+						Ext.Msg.alert('Erreur lors de la supression de l\'onglet');
+					}
+				} else {
+					Ext.Viewport.setMasked(false);
+					Ext.Msg.alert('Erreur lors de la supression de l\'onglet');
+				}
+			},
+			failure: function(result) {
+				Ext.Viewport.setMasked(false);
+				Ext.Msg.alert('Erreur lors de la supression de l\'onglet');
+			}
+		});
+	  }
+	  }, this);
+	},
+	
+	resettabs: function() {
+		var contdevices = this.getApplication().getController('contdevices');
+		var TabViewsStore = Ext.getStore('TabViewsStore');
+		//syncheader pas nécessaire car déjà initialisé, idem pour le fichier json.
+		//var syncheader = "";
+		//syncheader = {'Authorization': 'Basic ' + contdevices.loggedUserId};
+		//TabViewsStore.getProxy().setHeaders(syncheader);
+		
+		//Supprime les onglets des vues pour les remettre ensuite.
+		var tabs = Ext.getCmp('main');
+		var count= 0;
+		TabViewsStore.data.each(function(tabview) {
+			tabs.removeAt(0);
+			count = count + 1;
+		});
+		
+		TabViewsStore.load(function(tabs) {
+				console.log("reset tabs");
+				if(TabViewsStore.getCount()>0) {
+					contdevices.inserttabs();
+					//contdevices.pushviews();
+				}
+		});
 	},
 	
 	onRefreshRooms: function() {

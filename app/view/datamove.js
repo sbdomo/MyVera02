@@ -36,7 +36,7 @@ Ext.define('myvera.view.datamove', {
 					record.set('left2', record.get('left2')+target.getX());
 					record.set('top2', record.get('top2')+target.getY());
 				} else {
-					alert("Pas d'étage trouvé !");
+					alert("Pas de vue trouvée !");
 					return;
 				}
 				

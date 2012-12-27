@@ -1,5 +1,18 @@
 <?php
-$listefichier = array('createrooms.php', 'deletefloor.php', 'initfloors.php', 'readrooms.php', 'savedevices.php', 'savefloors.php', 'saverooms.php', 'syncvera.php',  'saveconfig.php');
+$listefichier = array(
+	'createrooms.php',
+	'deletefloor.php',
+	'deletetab.php',
+	'initfloors.php',
+	'inittabs.php',
+	'readrooms.php',
+	'saveconfig.php',
+	'savedevices.php',
+	'savefloors.php',
+	'saverooms.php',
+	'savetabs.php',
+	'syncvera.php'
+	);
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

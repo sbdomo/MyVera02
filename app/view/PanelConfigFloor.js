@@ -8,6 +8,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 	config: {
 		tpl: [ '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/{path}"></div>' ],
 		name:'PanelConfigFloor',
+		itemId:"PanelConfigFloor",
 		//styleHtmlContent: true,
 		scrollable: 'vertical',
 		defaults: {
@@ -24,6 +25,15 @@ Ext.define('myvera.view.PanelConfigFloor', {
 			//id: 'name',
 			itemId: 'name',
 			name: 'name'
+		},
+		{
+			xtype: 'selectfield',
+			label: 'Onglet',
+			name: 'tab',
+			itemId: 'tab',
+			store: 'TabViewsStore',
+   			displayField:'name',
+   			valueField: 'id'
 		},
 		{
 			xtype: 'textfield',
@@ -72,6 +82,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 				//Ext.getCmp('path').setValue(d.path);
 				e.down('#name').setValue(d.name);
 				e.down('#path').setValue(d.path);
+				e.down('#tab').setValue(d.tab);
 			}
 		}
 		

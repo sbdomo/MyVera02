@@ -7,6 +7,7 @@ devices*.json
 rooms.json
 floors*.json
 conf.json
+tabs.json
 resources/config/img/*.jpg
 protect/.htaccess
 resources/sass/.sass-cache

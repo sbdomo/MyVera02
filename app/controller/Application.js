@@ -5,7 +5,7 @@ Ext.define('myvera.controller.Application', {
 	config: {
 		views: ['carouselplan', 'PanelConfigGenerale', 'PanelConfigFloorsNavigation', 'PanelConfigNavigation', 'PanelConfigRoomsNavigation','paneloverlay'],
 		stores: ['ConfigDevicesStore', 'devicesStore', 'FloorsStore', 'ConfigScenesStore'],
-		models: ['Veradevices', 'Configdevices', 'modelRooms','CurrentUser', 'Floors', 'Configscenes'],
+		models: ['Veradevices', 'Configdevices', 'modelRooms','CurrentUser', 'Floors', 'Configscenes', 'TabViews'],
 		//'Main','datalist','HomePanel','listclock', 'panelinfo','dataliston','datalistoff', 'PanelConfig',
 		panel3dL: false,
 		panel3dP: false,
@@ -25,7 +25,7 @@ Ext.define('myvera.controller.Application', {
 	},
 	initViewport: function() {
 		//Ext.Viewport.add(Ext.create('myvera.view.Main'));
-		Ext.getCmp('homepanel').getTabBar().hide();		
+//*******		Ext.getCmp('homepanel').getTabBar().hide();		
 		
 //		if (Ext.os.is.Android) {
 //			        var height = Ext.Viewport.getWindowHeight();
@@ -41,7 +41,7 @@ Ext.define('myvera.controller.Application', {
 //		if(orientation=="landscape") {
 //			Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 //		} else {
-		Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('datalist'));
+//*******		Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('datalist'));
 //		}
 		Ext.Viewport.add(Ext.create('myvera.view.paneloverlay'));
 		//Ext.getCmp('paneloverlay').hide();
@@ -64,28 +64,28 @@ Ext.define('myvera.controller.Application', {
 			vue=this.getApplication().getController('Application').getPanel3dP()
 		}
 		
-		var homepanel = Ext.getCmp('homepanel');
-		console.log('orientationchange : ' + homepanel.id);
-		if(vue) {
-			if(homepanel.getActiveItem().id=='datalist') homepanel.setActiveItem(Ext.getCmp('carouselplan'));
-		} else {
-			if(homepanel.getActiveItem().id=='carouselplan') homepanel.setActiveItem(Ext.getCmp('datalist'));
-		}
+//*******		var homepanel = Ext.getCmp('homepanel');
+//*******		console.log('orientationchange : ' + homepanel.id);
+//*******		if(vue) {
+//*******			if(homepanel.getActiveItem().id=='datalist') homepanel.setActiveItem(Ext.getCmp('carouselplan'));
+//*******		} else {
+//*******			if(homepanel.getActiveItem().id=='carouselplan') homepanel.setActiveItem(Ext.getCmp('datalist'));
+//*******		}
 	},
 	
 	getOrientationFix: function() {
-		var orientation='';
-		if (Ext.os.is.Android) {
-			var height = Ext.Viewport.getWindowHeight();
-			var width = Ext.Viewport.getWindowWidth();
-			if(width > height){
-				orientation = 'landscape';
-			} else {
-				orientation = 'portrait';
-			}
-		} else {
-			orientation = Ext.Viewport.getOrientation();
-		}
-		return orientation;
+//		var orientation='';
+//		if (Ext.os.is.Android) {
+//			var height = Ext.Viewport.getWindowHeight();
+//			var width = Ext.Viewport.getWindowWidth();
+//			if(width > height){
+//				orientation = 'landscape';
+//			} else {
+//				orientation = 'portrait';
+//			}
+//		} else {
+//			orientation = Ext.Viewport.getOrientation();
+//		}
+//		return orientation;
 	}
 });

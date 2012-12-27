@@ -1,13 +1,13 @@
-Ext.define('myvera.view.PanelConfigFloors', {
+Ext.define('myvera.view.PanelConfigTabs', {
 	extend: 'Ext.List',
-	xtype: 'PanelConfigFloors',
-	id:'PanelConfigFloors',
-	requires: ['myvera.store.FloorsStore'],
+	xtype: 'PanelConfigTabs',
+	id:'PanelConfigTabs',
+	requires: ['myvera.store.TabViewsStore'],
 	config: {
-		title: 'Vues',
-		itemId:"PanelConfigFloors",
+		title: 'Onglets',
+		itemId:"PanelConfigTabs",
 		itemTpl: ' {name}',
-		store: 'FloorsStore',
+		store: 'TabViewsStore',
 		onItemDisclosure: true,
 		//listeners:{
 		//	push:function(e,d){

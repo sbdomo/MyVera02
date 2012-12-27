@@ -1,4 +1,4 @@
-Ext.define('myvera.model.Floors', {
+Ext.define('myvera.model.TabViews', {
     extend: 'Ext.data.Model',
 
     config: {
@@ -6,8 +6,7 @@ Ext.define('myvera.model.Floors', {
             fields: [
 	            {name: 'id',  type: 'auto'},
 		    {name: 'name',  type: 'string'},
-		    {name: 'path',  type: 'string'},
-		    {name: 'tab', type: 'int', defaultValue: 0},
+		    {name: 'cls',  type: 'integer', defaultValue: 2}
 		    ],
 	    idProperty: 'id'
     }

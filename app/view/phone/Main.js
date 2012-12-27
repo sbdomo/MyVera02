@@ -10,25 +10,33 @@ Ext.define("myvera.view.phone.Main", {
 		tabBarPosition: 'bottom',
 		items: [
 		{
-			xtype: 'homepanelphone',
-			id: 'homepanel',
+			title: 'liste',
+			id:'datalist',
 			title: ' Tableau de bord ',
-			iconCls: 'home',
-			hidden: true
+			iconCls: 'tab1',
+			xtype: 'datalistphone'
+
 		},
+		//{
+		//	xtype: 'homepanelphone',
+		//	id: 'homepanel',
+		//	title: ' Tableau de bord ',
+		//	iconCls: 'home',
+		//	hidden: true
+		//},
 		{
 			xtype: 'panelinfophone',
 			id:'panelinfo',
 			title: 'Allumés ?',
 			iconCls: 'info',
-			hidden: true
+			//hidden: true
 		},
 		{
 			xtype: 'listclockphone',
 			id:'listclock',
 			title: 'Réveils',
 			iconCls: 'time',
-			hidden: true
+			//hidden: true
 		},
 		{
 			xtype: 'PanelConfigphone',
