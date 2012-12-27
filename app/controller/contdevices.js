@@ -121,7 +121,7 @@ Ext.define('myvera.controller.contdevices', {
 				
 				console.info('Auto-Login succeeded.');
 				
-//*******				if(this.getIsReveil().getValue()) Ext.getCmp('main').getTabBar().items.items[2].show();
+				if(this.getIsReveil().getValue()==0) Ext.getCmp('listclock').tab.hide();
 				
 				var application = this.getApplication().getController('Application');
 				var orientation= application.getOrientationFix();
@@ -140,8 +140,6 @@ Ext.define('myvera.controller.contdevices', {
 					//Ext.getCmp('carouselplan').hide();
 				}
 				
-//*******				Ext.getCmp('main').getTabBar().items.items[1].show();
-//*******				Ext.getCmp('main').getTabBar().items.items[0].show();
 				this.LogIn();
 				//this.startstore();
 			},
@@ -168,6 +166,10 @@ Ext.define('myvera.controller.contdevices', {
 				});
 				
 				Ext.getCmp('main').setActiveItem(Ext.getCmp('PanelConfig'));
+				Ext.getCmp('datalist').tab.hide();
+				Ext.getCmp('panelinfo').tab.hide();
+				Ext.getCmp('listclock').tab.hide();
+				
 				Ext.Msg.alert('Erreur','Vous devez vous identifier !');
 			}
 		});
@@ -788,7 +790,7 @@ Ext.define('myvera.controller.contdevices', {
 				dtargetvalue = 'newTargetValue';
 			}
 			
-			//Pilote Wire Controlle
+			//Pilote Wire Controller
 			if(record.get('category') == 104&&record.get('sceneon') == null) {
 				var html0 = '<img class="i0" src="./resources/images/plugin/pw0_';
 				if(record.get('status')==0) {
@@ -1059,6 +1061,11 @@ Ext.define('myvera.controller.contdevices', {
 				
 				console.log('logUserIn: ', username);
 				
+				//Affichage des onglets
+				Ext.getCmp('datalist').tab.show();
+				Ext.getCmp('panelinfo').tab.show();
+				if(this.getIsReveil().getValue()) Ext.getCmp('listclock').tab.show();
+				
 				//Sauvegarde de la dernière adresse IP de la Vera
 				var url = './protect/saveconfig.php';
 				syncheader={'Authorization': 'Basic ' + this.loggedUserId};
@@ -1081,8 +1088,6 @@ Ext.define('myvera.controller.contdevices', {
 				
 				//this.startstore();
 				this.LogIn();
-
-//*******				if(this.getIsReveil().getValue()) Ext.getCmp('main').getTabBar().items.items[2].show();
 				
 				var application = this.getApplication().getController('Application');
 				var orientation= application.getOrientationFix();
@@ -1099,8 +1104,6 @@ Ext.define('myvera.controller.contdevices', {
 					//Ext.getCmp('carouselplan').hide();
 				}
 				
-//*******				Ext.getCmp('main').getTabBar().items.items[1].show();
-//*******				Ext.getCmp('main').getTabBar().items.items[0].show();
 //*******				Ext.getCmp('main').setActiveItem(Ext.getCmp('homepanel'));
 			} else Ext.Msg.alert('Erreur','vous devez indiquer un login, un mot de passe et l\'IP de la Vera.');
 		} else {
@@ -1187,9 +1190,9 @@ Ext.define('myvera.controller.contdevices', {
 				user.set("isReveil", isreveil);
 				user.save();
 				if(isreveil) {
-//*******					Ext.getCmp('main').getTabBar().items.items[2].show();
+					Ext.getCmp('listclock').tab.show();
 				} else {
-//*******					Ext.getCmp('main').getTabBar().items.items[2].hide();
+					Ext.getCmp('listclock').tab.hide();
 				}
 			},
 			failure: function() {
