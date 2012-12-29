@@ -83,18 +83,18 @@ Ext.define('myvera.controller.contdevices', {
 
 	launch: function() {
 		//*******************Debug mode
-		this.nbrsync = 0;
-		this.nbrtimer=0;
-		this.nbrforce = 0;
-		this.syncdate = 0;
+		//this.nbrsync = 0;
+		//this.nbrtimer=0;
+		//this.nbrforce = 0;
+		//this.syncdate = 0;
 		this.synccount=0;
 		this.autosync = true;
-		var tabbarlabel = {
-		    id: 'tabbarlabel',
-                    docked: 'right',
-                    html: this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce
-                };
-//*******************		Ext.getCmp('main').getTabBar().add(tabbarlabel);
+		//var tabbarlabel = {
+		//    id: 'tabbarlabel',
+                //    docked: 'right',
+                //    html: this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce
+                //};
+		//Ext.getCmp('main').getTabBar().add(tabbarlabel);
 		//*******************
 		
 		//Utilisé pour charger devicesStore après FloorsStore s'il n'est pas encore chargé.
@@ -122,23 +122,6 @@ Ext.define('myvera.controller.contdevices', {
 				console.info('Auto-Login succeeded.');
 				
 				if(this.getIsReveil().getValue()==0) Ext.getCmp('listclock').tab.hide();
-				
-				var application = this.getApplication().getController('Application');
-				var orientation= application.getOrientationFix();
-				
-				var typevue = this.getIsVueL().getValue();
-				application.setPanel3dL(typevue);
-				if(typevue==true&&orientation=='landscape') {
-//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
-					//Ext.getCmp('carouselplan').hide();
-				}
-				
-				var typevue = this.getIsVueP().getValue();
-				application.setPanel3dP(typevue);
-				if(typevue==true&&orientation=='portrait') {
-//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
-					//Ext.getCmp('carouselplan').hide();
-				}
 				
 				this.LogIn();
 				//this.startstore();
@@ -248,11 +231,14 @@ Ext.define('myvera.controller.contdevices', {
 			//DevicesStore.load();
 			this.inserttabs();
 			
+			//Pas pour le profil iphone
+			if(this.getApplication().getCurrentProfile().getName()!="Phone") {
 			var listroom = Ext.getCmp('datalist').down('#list');
 			if(listroom.getStore().getAt(0).get('id')!=0||storeRooms.getCount()==1) {
 				listroom.select(0);
 			} else {
 				listroom.select(1);
+			}
 			}
 			
 		} else {
@@ -310,32 +296,32 @@ Ext.define('myvera.controller.contdevices', {
 	},
 	
 	//*******************Debug mode
-	verifsync: function(timer) {
-		if(timer!=0) timer=15000;
-		taskverifsync = Ext.create('Ext.util.DelayedTask', function() {
+//	verifsync: function(timer) {
+//		if(timer!=0) timer=15000;
+//		taskverifsync = Ext.create('Ext.util.DelayedTask', function() {
 			//console.log("New Timer");
-			this.nbrtimer = this.nbrtimer +1;
-			if((Date.now()-this.syncdate>90000) && this.autosync==true) {
-				this.nbrforce = this.nbrforce + 1;
+//			this.nbrtimer = this.nbrtimer +1;
+//			if((Date.now()-this.syncdate>90000) && this.autosync==true) {
+//				this.nbrforce = this.nbrforce + 1;
 				//this.devicesync(0, 0);
-			}
-//***********			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
-			this.verifsync();
-		}, this);
-		taskverifsync.delay(timer);
-	},
+//			}
+			//Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
+//			this.verifsync();
+//		}, this);
+//		taskverifsync.delay(timer);
+//	},
 	//*******************
 	
 	devicesync: function(newloadtime, newdataversion, nonewsync) {
 		console.log("New Vera Sync");
 		if (nonewsync != true) nonewsync=false;
 		//*******************Debug mode
-		if(nonewsync==false) {
-			this.nbrsync= this.nbrsync + 1;
+//		if(nonewsync==false) {
+//			this.nbrsync= this.nbrsync + 1;
 //***********			Ext.getCmp('tabbarlabel').setHtml(this.nbrsync + "/" + this.nbrtimer + "/" + this.nbrforce);
-			this.syncdate = Date.now();
-			syncstamp = this.syncdate;
-		}
+//			this.syncdate = Date.now();
+//			syncstamp = this.syncdate;
+//		}
 		//*******************
 		var vera_url = './protect/syncvera.php';
 		var syncheader = "";
@@ -491,30 +477,31 @@ Ext.define('myvera.controller.contdevices', {
 						}
 					}
 					//*******************Debug mode
+					//Sert à compter le nombre d'essai quand la synchro ne se fait pas. Un message apparait au bout de 10 essais
 					this.synccount=0;
 					if(nonewsync!=true) {
 						//new sync
 						if (response.loadtime && response.dataversion) {
 							//this.devicesync(response.loadtime,response.dataversion);
-							this.newsync(response.loadtime,response.dataversion, syncstamp);
+							this.newsync(response.loadtime,response.dataversion);//, syncstamp
 						} else {
 							Ext.Msg.alert('Erreur', 'Synchronisation sans loadtime');
-							this.newsync(0, 0, syncstamp);
+							this.newsync(0, 0);//, syncstamp
 							//this.devicesync(0, 0, nonewsync);
 						}
 					}
 				} else {
 					//*******************Debug mode
 					this.synccount=this.synccount+1;
-					if(this.autosync==true&&nonewsync==false&&syncstamp==this.syncdate) {
+					if(this.autosync==true&&nonewsync==false) {//&&syncstamp==this.syncdate
 						if(this.synccount<10) {
-							this.newsync(0, 0, syncstamp);
+							this.newsync(0, 0);//, syncstamp
 						} else {
 							Ext.Msg.confirm('Erreur', 'Pas de réponse lors de la synchro. Essayer à nouveau?', function(confirmed) {
 								if (confirmed == 'yes') {
 									//this.devicesync(0,0, nonewsync);
 									//this.devicesync(0,0);
-									this.newsync(0, 0, syncstamp);
+									this.newsync(0, 0);//, syncstamp
 								} else {
 									this.autosync=false;
 								}
@@ -528,15 +515,15 @@ Ext.define('myvera.controller.contdevices', {
 			failure: function(response) {
 				console.log("Vera Sync : Error");
 				this.synccount=this.synccount+1;
-				if(this.autosync==true&&nonewsync==false&&syncstamp==this.syncdate) {
+				if(this.autosync==true&&nonewsync==false) {//&&syncstamp==this.syncdate
 					if(this.synccount<10) {
-						this.newsync(0, 0, syncstamp);
+						this.newsync(0, 0);//, syncstamp
 					} else {
 						//Ext.Msg.alert('Erreur','Synchronisation avec la Vera impossible ou interrompue');
 						Ext.Msg.confirm('Erreur', 'Synchronisation avec la Vera impossible ou interrompue. Essayer à nouveau?', function(confirmed) {
 							if (confirmed == 'yes') {
 								//this.devicesync(0,0, nonewsync);
-								this.newsync(0, 0, syncstamp);
+								this.newsync(0, 0);//, syncstamp
 							}
 						}, this);
 					}
@@ -555,15 +542,15 @@ Ext.define('myvera.controller.contdevices', {
 	//    console.log('Main container is active');
 	//   },
 
-	//*******************Debug mode	
-	newsync: function(loadtime, dataversion, timestamp) {
+	//Sert à mettre un timer sur la synchro pour qu'elle s'arrête pendant la veille et reprenne ensuite
+	newsync: function(loadtime, dataversion) {//, timestamp
 		newsynctask = Ext.create('Ext.util.DelayedTask', function() {
 				//var date = new Date();
 				//console.log("New Sync Timer" + Ext.Date.format(date, 'h:i:s'));
-				if(timestamp==this.syncdate) {
+				//if(timestamp==this.syncdate) {
 					//console.log(loadtime + "/" + dataversion);
 					this.devicesync(loadtime, dataversion);
-				}
+				//}
 		}, this);
 		newsynctask.delay(100);
 	},
@@ -711,7 +698,7 @@ Ext.define('myvera.controller.contdevices', {
 			
 			//Humidity, Temperature sensor ou Power Meter
 			if(Ext.Array.contains([16, 17, 21], cat)&&record.get('sceneon') == null) {
-				if(record.get('graphlink')!=null){
+				if(record.get('graphlink')!=null && record.get('graphlink')!=""){
 					var vheight = Ext.Viewport.getWindowHeight();
 					var vwidth = Ext.Viewport.getWindowWidth();
 					var defwidth = 640;
@@ -1089,20 +1076,20 @@ Ext.define('myvera.controller.contdevices', {
 				//this.startstore();
 				this.LogIn();
 				
-				var application = this.getApplication().getController('Application');
-				var orientation= application.getOrientationFix();
+//*******				var application = this.getApplication().getController('Application');
+//*******				var orientation= application.getOrientationFix();
 				
-				application.setPanel3dL(isVueL);
-				if(isVueL==true&&orientation=='landscape') {
+//*******				application.setPanel3dL(isVueL);
+//*******				if(isVueL==true&&orientation=='landscape') {
 //*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 					//Ext.getCmp('carouselplan').hide();
-				}
+//*******				}
 				
-				application.setPanel3dP(isVueP);
-				if(isVueP==true&&orientation=='portrait') {
+//*******				application.setPanel3dP(isVueP);
+//*******				if(isVueP==true&&orientation=='portrait') {
 //*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
 					//Ext.getCmp('carouselplan').hide();
-				}
+//*******				}
 				
 //*******				Ext.getCmp('main').setActiveItem(Ext.getCmp('homepanel'));
 			} else Ext.Msg.alert('Erreur','vous devez indiquer un login, un mot de passe et l\'IP de la Vera.');
@@ -1130,7 +1117,7 @@ Ext.define('myvera.controller.contdevices', {
 				var isvue = this.getIsVueL().getValue();
 				user.set("isVueL", isvue);
 				user.save();
-				this.ChangeVue("landscape", isvue);
+//*******				this.ChangeVue("landscape", isvue);
 				
 			},
 			failure: function() {
@@ -1148,7 +1135,7 @@ Ext.define('myvera.controller.contdevices', {
 				var isvue = this.getIsVueP().getValue();
 				user.set("isVueP", isvue);
 				user.save();
-				this.ChangeVue("portrait", isvue);
+//*******				this.ChangeVue("portrait", isvue);
 				
 			},
 			failure: function() {
@@ -1159,6 +1146,7 @@ Ext.define('myvera.controller.contdevices', {
 		}
 	},
 	
+//******* Pas utilisée	
 	ChangeVue: function(orient, isvue) {
 		var application = this.getApplication().getController('Application');
 		if(orient=="landscape") {
@@ -1394,7 +1382,10 @@ Ext.define('myvera.controller.contdevices', {
 					Ext.getCmp('tabvue' +tabview.get('id')).setItems(items[tabview.get('id')]);
 					Ext.getCmp('tabvue' +tabview.get('id')).setActiveItem(0);
 				});
-				Ext.getCmp('main').setActiveItem(0);
+				
+				//Affiche l'onglet vue ou list
+				contdevices.switchvuelist();
+				//Ext.getCmp('main').setActiveItem(0);
 				
 				//carouselplan.setItems(items);
 				//carouselplan.setActiveItem(0);
@@ -1452,7 +1443,7 @@ Ext.define('myvera.controller.contdevices', {
 			}, this);
 	},
 	
-		
+	//Lancé quand la liste des onglets n'existe pas pour la créer
 	initTabsViews: function() {
 		Ext.Msg.confirm('Erreur', 'Liste des onglets vide. La créer?', function(confirmed) {
 				if (confirmed == 'yes') {
@@ -1490,6 +1481,27 @@ Ext.define('myvera.controller.contdevices', {
 					});
 				}
 			}, this);
+	},
+	
+	switchvuelist: function() {
+		var application = this.getApplication().getController('Application');
+		var orientation= application.getOrientationFix();
+				
+		var typevue = this.getIsVueL().getValue();
+//*******		application.setPanel3dL(typevue);
+		if(typevue==true&&orientation=='landscape') {
+			Ext.getCmp('main').setActiveItem(0);
+//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
+					//Ext.getCmp('carouselplan').hide();
+		}
+		
+		var typevue = this.getIsVueP().getValue();
+//*******		application.setPanel3dP(typevue);
+		if(typevue==true&&orientation=='portrait') {
+			Ext.getCmp('main').setActiveItem(0);
+//*******					Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
+					//Ext.getCmp('carouselplan').hide();
+		}
 	},
 	
 	base64_encode: function(data) {

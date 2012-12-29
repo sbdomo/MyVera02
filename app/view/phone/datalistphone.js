@@ -3,7 +3,7 @@ Ext.define('myvera.view.phone.datalistphone', {
     xtype: 'datalistphone',
     config: {
 	   layout:'card',
-	   activeItem: 1,
+	   activeItem: 0,
 	   //tpl: myvera.util.Templates.getTpllist(),
 	   tabBar: {hidden: true},
            items: [

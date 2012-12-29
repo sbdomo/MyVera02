@@ -13,10 +13,10 @@ Ext.define('myvera.controller.Application', {
 		refs: {
 		},
 		control: {
-			'viewport': {
+//*******			'viewport': {
 				//capture the orientation change event
-				orientationchange: 'onOrientationchange'
-			}
+//*******				orientationchange: 'onOrientationchange'
+//*******			}
 		}
 	},
 	// called when the Application is launched, remove if not needed
@@ -25,27 +25,11 @@ Ext.define('myvera.controller.Application', {
 	},
 	initViewport: function() {
 		//Ext.Viewport.add(Ext.create('myvera.view.Main'));
-//*******		Ext.getCmp('homepanel').getTabBar().hide();		
-		
-//		if (Ext.os.is.Android) {
-//			        var height = Ext.Viewport.getWindowHeight();
-//				var width = Ext.Viewport.getWindowWidth();
-//				if(width > height){
-//					var orientation = 'landscape';
-//				} else {
-//					var orientation = 'portrait';
-//				}
-//		} else {
-//			var orientation = Ext.Viewport.getOrientation();
-//		}
-//		if(orientation=="landscape") {
-//			Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('carouselplan'));
-//		} else {
 //*******		Ext.getCmp('homepanel').setActiveItem(Ext.getCmp('datalist'));
-//		}
 		Ext.Viewport.add(Ext.create('myvera.view.paneloverlay'));
-		//Ext.getCmp('paneloverlay').hide();
 	},
+	
+//******* Plus utilisée
 	onOrientationchange: function(viewport, orientation, width, height) {
 		
 		//comment mettre this.panel3d plutôt que this.getApplication().getController('Application').getPanel3d() ?
@@ -74,7 +58,7 @@ Ext.define('myvera.controller.Application', {
 	},
 	
 	getOrientationFix: function() {
-//		var orientation='';
+		var orientation='';
 //		if (Ext.os.is.Android) {
 //			var height = Ext.Viewport.getWindowHeight();
 //			var width = Ext.Viewport.getWindowWidth();
@@ -84,8 +68,8 @@ Ext.define('myvera.controller.Application', {
 //				orientation = 'portrait';
 //			}
 //		} else {
-//			orientation = Ext.Viewport.getOrientation();
+			orientation = Ext.Viewport.getOrientation();
 //		}
-//		return orientation;
+		return orientation;
 	}
 });
