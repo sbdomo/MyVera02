@@ -29,8 +29,8 @@ if ($json = @file_get_contents('php://input'))
 	    $json = json_decode($json, true);
 	    $floors= $json['floors'];
 	    if($new==false) {
+		  //cherche la vue dans la liste $floorkey
 		  $floorkey="-1";
-		  //print_r($floors);
 		  foreach( $floors as $key => $floorvalue ) {
 			  if($floorvalue['id']==$id) $floorkey=$key;
 		  }
@@ -40,10 +40,14 @@ if ($json = @file_get_contents('php://input'))
 				$floorpathold=$floors[$floorkey]['path'];
 				$floor['path']='vue'.$profil.$id.time().'.jpg';
 				$floors[$floorkey]['path']=$floor['path'];
+			  } elseif($floors[$floorkey]['path']!=$floor['path']) {
+				$floorpathold=$floors[$floorkey]['path'];
+				$floors[$floorkey]['path'] = $floor['path'];
 			  }
 			  
 			  $floors[$floorkey]['name']=$floor['name'];
 			  $floors[$floorkey]['tab']=$floor['tab'];
+			  $floors[$floorkey]['ind']=$floor['ind'];
 			  $floorsencode='{"floors":'.json_encode($floors).'}';
 			  file_put_contents($fichierjson, $floorsencode);
 			  $success="true";
@@ -66,7 +70,8 @@ if ($json = @file_get_contents('php://input'))
 			  'id' => $newid,
 			  'name' => $floor['name'],
 			  'path' => $floor['path'],
-			  'tab' => $floor['tab']
+			  'tab' => $floor['tab'],
+			  'ind' => $floor['ind']
 			  );
 		  $floorsencode='{"floors":'.json_encode($floors).'}';
 		  file_put_contents($fichierjson, $floorsencode);
@@ -75,11 +80,17 @@ if ($json = @file_get_contents('php://input'))
 		  $success="true";
 	    }
 	    
-	    
-	    if($floor['linkimage']!=''&&$floor['path']!='') {
-			if($floorpathold!="") {
-				unlink($cheminImg.$floorpathold);
+	    //suppression de l'image
+	    if($floorpathold!="") {
+			//ne supprime l'image que si elle n'est pas utilisée ailleurs
+			$deleteimg=true;
+			foreach( $floors as $key => $floorvalue ) {
+			  if($floorvalue['path']==$floorpathold) $deleteimg=false;
 			}
+			if($deleteimg==true) unlink($cheminImg.$floorpathold);
+	    }
+	    // vérifie success avant ajout de l'image
+	    if($floor['linkimage']!=''&&$floor['path']!=""&&$success=="true") {
 			$contents = file_get_contents($floor['linkimage']);
 			$name = $cheminImg.$floor['path'];
 			$fp = fopen($name, 'w');

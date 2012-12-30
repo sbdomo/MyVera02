@@ -6,7 +6,8 @@ Ext.define('myvera.model.TabViews', {
             fields: [
 	            {name: 'id',  type: 'auto'},
 		    {name: 'name',  type: 'string'},
-		    {name: 'cls',  type: 'integer', defaultValue: 2}
+		    {name: 'cls',  type: 'integer', defaultValue: 2},
+		    {name: 'ind', type: 'int', defaultValue: 90}
 		    ],
 	    idProperty: 'id'
     }

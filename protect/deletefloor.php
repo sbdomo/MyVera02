@@ -24,10 +24,19 @@ if($id!="" && $json = @file_get_contents($fichierjson)) {
 		    $newfloors[] = $floorvalue;
 	    } else {
 		    $floorpath=$floorvalue['path'];
-		    if($floorpath!="") unlink($cheminImg.$floorpath);
 		    $result=$floorvalue['name'];
 	    }
     }
+	//suppression de l'image
+	if($floorpath!="") {
+			//ne supprime l'image que si elle n'est pas utilisée ailleurs
+			$deleteimg=true;
+			foreach( $newfloors as $key => $floorvalue ) {
+			  if($floorvalue['path']==$floorpath) $deleteimg=false;
+			}
+			if($deleteimg==true) unlink($cheminImg.$floorpath);
+	}
+    
     $floorsencode='{"floors":'.json_encode($newfloors).'}';
     file_put_contents($fichierjson, $floorsencode);
     $success="true";

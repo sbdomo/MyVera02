@@ -464,7 +464,7 @@ Ext.define('myvera.controller.contconfig', {
 		if(form.config.data){
 			idfloor = form.config.data.id;
 		}
-		var floor= {id: idfloor, name: formdata.name, path: formdata.path, linkimage: formdata.linkimage, tab: formdata.tab };
+		var floor= {id: idfloor, name: formdata.name, path: formdata.path, linkimage: formdata.linkimage, tab: formdata.tab, ind: formdata.ind };
 		Ext.Ajax.request({
 			url: './protect/savefloors.php',
 			headers: syncheader,
@@ -606,7 +606,7 @@ Ext.define('myvera.controller.contconfig', {
 		if(form.config.data){
 			idtab = form.config.data.id;
 		}
-		var tab= {id: idtab, name: formdata.name, cls: formdata.cls };
+		var tab= {id: idtab, name: formdata.name, cls: formdata.cls, ind: formdata.ind };
 		Ext.Ajax.request({
 			url: './protect/savetabs.php',
 			headers: syncheader,

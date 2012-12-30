@@ -14,27 +14,27 @@ Ext.define('myvera.store.devicesStore', {
 //				property : 'etage',
 //				direction: 'ASC'
 //			},
-			{
-				property : 'room',
-				direction: 'ASC'
-			},
+//			{
+//				property : 'room',
+//				direction: 'ASC'
+//			},
 			{
 				property : 'name',
 				direction: 'ASC'
 			}
 		],
-		grouper: {
-			groupFn: function(record) {
-				var roomname = record.get('room');
-				var roomsection = "0";
-				if (Ext.getStore('Rooms').getById(record.get('room'))) {
-					roomname = Ext.getStore('Rooms').getById(record.get('room')).get('name');
-					roomsection = Ext.getStore('Rooms').getById(record.get('room')).get('section');
-				}
-				return '<div class="head' + roomsection + '">' + roomname + '</div>';
+//		grouper: {
+//			groupFn: function(record) {
+//				var roomname = record.get('room');
+//				var roomsection = "0";
+//				if (Ext.getStore('Rooms').getById(record.get('room'))) {
+//					roomname = Ext.getStore('Rooms').getById(record.get('room')).get('name');
+//					roomsection = Ext.getStore('Rooms').getById(record.get('room')).get('section');
+//				}
+//				return '<div class="head' + roomsection + '">' + roomname + '</div>';
 				//return '<div class="head'+ record.get('etage') + '">' + roomname + '</div>';
-			}
-		},
+//			}
+//		},
 		//setup the proxy for the store to use an ajax proxy and give it a url to load
 		//the local contacts.json file
 		proxy: {

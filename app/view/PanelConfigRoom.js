@@ -23,6 +23,12 @@ Ext.define('myvera.view.PanelConfigRoom', {
 			itemId: 'icon'
 		},
 		{
+			xtype: 'textfield',
+			label: 'Index',
+			name: 'ind',
+			itemId: 'ind'
+		},
+		{
 			xtype: 'togglefield',
 			name: 'hidden',
 			itemId: 'hidden',
@@ -46,6 +52,7 @@ Ext.define('myvera.view.PanelConfigRoom', {
 				room = rooms.getById(data.id);
 				room.set("icon", formdata.icon);
 				room.set("hidden", formdata.hidden);
+				room.set("ind", formdata.ind);
 				
 				Ext.getCmp('PanelConfigRoomsNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtyrooms();
@@ -61,6 +68,7 @@ Ext.define('myvera.view.PanelConfigRoom', {
 				label.setHtml(html);
 				e.down('#icon').setValue(d.icon);
 				e.down('#hidden').setValue(d.hidden);
+				e.down('#ind').setValue(d.ind);
 				
 				
 				//Pour changer l'icone du titre quand icon est modifié

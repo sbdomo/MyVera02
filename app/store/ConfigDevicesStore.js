@@ -5,10 +5,10 @@ Ext.define('myvera.store.ConfigDevicesStore', {
 		storeId: 'ConfigDevicesStore',
 		model: 'myvera.model.Configdevices',
 		sorters: [
-			{
-				property : 'room',
-				direction: 'ASC'
-			},
+//			{
+//				property : 'room',
+//				direction: 'ASC'
+//			},
 			{
 				property : 'name',
 				direction: 'ASC'
@@ -17,12 +17,13 @@ Ext.define('myvera.store.ConfigDevicesStore', {
 		grouper: {
 			groupFn: function(record) {
 				var roomname = record.get('room');
-				var roomsection = "0";
+				//var roomsection = "0";
 				if (Ext.getStore('Rooms').getById(record.get('room'))) {
 					roomname = Ext.getStore('Rooms').getById(record.get('room')).get('name');
-					roomsection = Ext.getStore('Rooms').getById(record.get('room')).get('section');
+					//roomsection = Ext.getStore('Rooms').getById(record.get('room')).get('section');
 				}
-				return '<div class="head' + roomsection + '">' + roomname + '</div>';
+				return '<div class="head0">' + roomname + '</div>';
+				//return '<div class="head' + roomsection + '">' + roomname + '</div>';
 				//return '<div class="head'+ record.get('etage') + '">' + roomname + '</div>';
 			}
 		},

@@ -15,7 +15,8 @@ $rooms= $json['rooms'];
 $rooms[]= array (
 	'name' => "Aucune pièce",
 	'id' => "0",
-	'section' => 1
+	'section' => 1,
+	'ind' => 99
 	);
 $rooms='{"rooms":'.json_encode($rooms).'}';
 file_put_contents($fichierjson, $rooms);

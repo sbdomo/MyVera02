@@ -4,10 +4,11 @@ Ext.define('myvera.model.Floors', {
     config: {
             //give the store some fields
             fields: [
-	            {name: 'id',  type: 'auto'},
-		    {name: 'name',  type: 'string'},
-		    {name: 'path',  type: 'string'},
-		    {name: 'tab', type: 'int', defaultValue: 0}
+	        {name: 'id',  type: 'auto'},
+		{name: 'name',  type: 'string'},
+		{name: 'path',  type: 'string'},
+		{name: 'tab', type: 'int', defaultValue: 0},
+		{name: 'ind', type: 'int', defaultValue: 90}
 		    ],
 	    idProperty: 'id'
     }

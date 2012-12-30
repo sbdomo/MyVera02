@@ -1354,16 +1354,18 @@ Ext.define('myvera.controller.contdevices', {
 					items[tabview.get('id')] = [];
 				});
 				
-				Ext.each(floors, function(floor) {
-					if(floor.data.id!=-1) {
+				//Utilisation de FloorsStore.data.each, les vues ne sont pas triées sinon.
+				//Ext.each(floors, function(floor) {
+				FloorsStore.data.each(function(floor) {
+					if(floor.get('id')!=-1) {
 						//Pas de push si l'onglet n'existe pas (s'il a été supprimé par exemple
-						if(items[floor.data.tab]) items[floor.data.tab].push({
+						if(items[floor.get('tab')]) items[floor.get('tab')].push({
 							xtype: 'dataplan',
-							style: 'background:url(./resources/config/img/'+floor.data.path+') no-repeat left top;',
-							itemTpl: '<tpl if="etage=='+floor.data.id+'||etage1=='+floor.data.id+'||etage2=='+floor.data.id+'">'+
-							'<div style="top:<tpl if="etage=='+floor.data.id+'">{top}px; left:{left}px;'+
-							'<tpl elseif="etage1=='+floor.data.id+'">{top1}px; left:{left1}px;'+
-							'<tpl elseif="etage2=='+floor.data.id+'">{top2}px; left:{left2}px;</tpl>'+
+							style: 'background:url(./resources/config/img/'+floor.get('path')+') no-repeat left top;',
+							itemTpl: '<tpl if="etage=='+floor.get('id')+'||etage1=='+floor.get('id')+'||etage2=='+floor.get('id')+'">'+
+							'<div style="top:<tpl if="etage=='+floor.get('id')+'">{top}px; left:{left}px;'+
+							'<tpl elseif="etage1=='+floor.get('id')+'">{top1}px; left:{left1}px;'+
+							'<tpl elseif="etage2=='+floor.get('id')+'">{top2}px; left:{left2}px;</tpl>'+
 							myvera.util.Templates.getTplplan() + '</tpl>'
 						});
 					}

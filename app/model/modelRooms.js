@@ -3,11 +3,12 @@ Ext.define('myvera.model.modelRooms', {
     config: {
         //give the store some fields
         fields: [
-	            {name: 'id',  type: 'int'},
-		    {name: 'name',   type: 'string'},
-		    {name: 'icon', type: 'string'},
-		    {name: 'hidden', type: 'boolean'},
-		    {name: 'section',   type: 'string'}
+			{name: 'id', type: 'int'},
+			{name: 'name', type: 'string'},
+			{name: 'icon', type: 'string'},
+			{name: 'hidden', type: 'boolean'},
+			{name: 'section', type: 'string'},
+			{name: 'ind', type: 'int', defaultValue: 90}
 		    ],
 	    idProperty: 'id'
     }

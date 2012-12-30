@@ -22,7 +22,7 @@ Ext.define('myvera.view.tablet.datalist', {
 		
 		docked: 'left',
 		width: 235,
-		hidden: true,
+		//hidden: true,
 		items: [
 		{
 			xtype: 'toolbar',

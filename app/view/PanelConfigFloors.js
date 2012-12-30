@@ -6,7 +6,7 @@ Ext.define('myvera.view.PanelConfigFloors', {
 	config: {
 		title: 'Vues',
 		itemId:"PanelConfigFloors",
-		itemTpl: ' {name}',
+		itemTpl: '{ind} - {name}',
 		store: 'FloorsStore',
 		onItemDisclosure: true
 		//listeners:{

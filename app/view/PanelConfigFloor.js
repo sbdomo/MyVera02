@@ -37,6 +37,13 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'textfield',
+			label: 'Index',
+			name: 'ind',
+			itemId: 'ind',
+			value: 90
+		},
+		{
+			xtype: 'textfield',
 			label: 'Url de l\'image',
 			//id: 'linkimage',
 			itemId: 'linkimage',
@@ -48,6 +55,63 @@ Ext.define('myvera.view.PanelConfigFloor', {
 			itemId: 'path',
 			disabled: true,
 			name: 'path'
+		},
+		{
+			xtype: 'button',
+			text: 'Image d\'une autre vue',
+			//ui: 'confirm',
+			//iconCls: 'refresh',
+			//iconMask: true,
+			margin: 5,
+			name: 'imglink',
+			itemId: 'imglink',
+			handler: function(){
+				var me = this.getParent();
+				var popup=new Ext.Panel({
+					modal:true,
+					id: 'popup_imgview',
+					hideOnMaskTap: true,
+					width: '400px',
+					height: '120px',
+					padding: 10,
+					maxWidth: '95%',
+					maxHeight: '95%',
+					centered: true,
+					items:[
+						{
+							xtype: 'selectfield',
+							label: 'Vue',
+							name: 'view',
+							itemId: 'view'
+						},
+						{
+							xtype: 'button',
+							name: 'adddimg',
+							ui: 'confirm',
+							text: 'Choisir cette image',
+							handler: function(){
+								me.down('#path').setValue(this.getParent().down('#view').getValue());
+								this.getParent().hide();
+							}
+						}
+					],
+					listeners: {
+						hide: function(panel) {
+							this.destroy();
+						}
+					}
+				});
+				var FloorsStore = Ext.getStore('FloorsStore');
+				var options = [];
+				FloorsStore.data.each(function(floor) {
+						if(floor.get('id')!=-1&&floor.get('id')!=me.config.data.id) {
+							options.push({ text: floor.get('name'), value: floor.get('path') });
+						}
+				});
+				popup.down('#view').setOptions(options);
+				Ext.Viewport.add(popup);
+				popup.show();
+			}
 		},
 		{
 			xtype: 'button',
@@ -83,6 +147,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 				e.down('#name').setValue(d.name);
 				e.down('#path').setValue(d.path);
 				e.down('#tab').setValue(d.tab);
+				e.down('#ind').setValue(d.ind);
 			}
 		}
 		

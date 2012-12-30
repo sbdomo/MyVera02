@@ -6,7 +6,7 @@ Ext.define('myvera.view.PanelConfigTabs', {
 	config: {
 		title: 'Onglets',
 		itemId:"PanelConfigTabs",
-		itemTpl: ' {name}',
+		itemTpl: '{ind} - {name}',
 		store: 'TabViewsStore',
 		onItemDisclosure: true//,
 		//listeners:{

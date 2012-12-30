@@ -38,6 +38,13 @@ Ext.define('myvera.view.PanelConfigTab', {
 			]
 		},
 		{
+			xtype: 'textfield',
+			label: 'Index',
+			name: 'ind',
+			itemId: 'ind',
+			value: 90
+		},
+		{
 			xtype: 'button',
 			text: 'Ajouter et sauver',
 			ui: 'confirm',
@@ -66,6 +73,7 @@ Ext.define('myvera.view.PanelConfigTab', {
 
 				e.down('#name').setValue(d.name);
 				e.down('#cls').setValue(d.cls);
+				e.down('#ind').setValue(d.ind);
 			}
 		}
 		

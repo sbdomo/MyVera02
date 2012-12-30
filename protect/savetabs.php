@@ -33,6 +33,7 @@ if ($json = @file_get_contents('php://input'))
 		  if($tabkey!="-1") {
 			  $tabs[$tabkey]['name']=$tab['name'];
 			  $tabs[$tabkey]['cls']=$tab['cls'];
+			  $tabs[$tabkey]['ind']=$tab['ind'];
 			  $tabsencode='{"tabs":'.json_encode($tabs).'}';
 			  file_put_contents($fichierjson, $tabsencode);
 			  $success="true";
@@ -50,7 +51,8 @@ if ($json = @file_get_contents('php://input'))
 		  $tabs[]= array (
 			  'id' => $newid,
 			  'name' => $tab['name'],
-			  'cls' => $tab['cls']
+			  'cls' => $tab['cls'],
+			  'ind' => $tab['ind']
 			  );
 		  $tabsencode='{"tabs":'.json_encode($tabs).'}';
 		  file_put_contents($fichierjson, $tabsencode);

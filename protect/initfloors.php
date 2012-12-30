@@ -14,7 +14,8 @@ $floors=array();
 $floors[]= array (
 	'id' => -1,
 	'name' => "Aucune vue",
-	'path' => ""
+	'path' => "",
+	'ind' => 99
 	);
 $floorsencode='{"floors":'.json_encode($floors).'}';
 file_put_contents($fichierjson, $floorsencode);

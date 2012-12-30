@@ -16,7 +16,8 @@ if ($json = @file_get_contents('php://input'))
 			'name' => $room['name'],
 			'icon' => $room['icon'],
 			'hidden' => $room['hidden'],
-			'section' => $room['section']
+			'section' => $room['section'],
+			'ind' => $room['ind']
 			);
 	}
 	$result_json='{"rooms":'.json_encode($Rooms).'}';
