@@ -201,6 +201,13 @@ Ext.define('myvera.view.PanelConfigItem', {
 		},
 		{
 			xtype: 'textfield',
+			label: 'Index',
+			name: 'ind',
+			itemId: 'ind',
+			value: 90
+		},
+		{
+			xtype: 'textfield',
 			label: 'Num. scène on',
 			name: 'sceneon'
 		},
@@ -364,6 +371,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device.set("campassword", formdata.campassword);
 					device.set("graphlink", formdata.graphlink);
 					device.set("state", "-3");
+					device.set("ind", formdata.ind);
 				} else {
 					devices.add({
 					id: data.id,
@@ -391,16 +399,18 @@ Ext.define('myvera.view.PanelConfigItem', {
 					sceneoff: formdata.sceneoff,
 					camuser: formdata.camuser,
 					campassword: formdata.campassword,
-					graphlink: formdata.graphlink
+					graphlink: formdata.graphlink,
+					ind: formdata.ind
 					});
 					device = devices.getById(data.id);
 					device.setDirty();
 					listdevice.set("state", "-4");
 				}
-				//Paramètres utilsés dans l'affichage de la liste de ConfigDevices, il faut donc les mettre à jour.
+				//Paramètres utilisés dans l'affichage de la liste de ConfigDevices, il faut donc les mettre à jour.
 				listdevice.set("category", formdata.category);
 				listdevice.set("subcategory", formdata.subcategory);
 				listdevice.set("icon", formdata.icon);
+				listdevice.set("ind", formdata.ind);
 				
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
@@ -447,6 +457,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 				listdevice.set("campassword", formdata.campassword);
 				listdevice.set("graphlink", formdata.graphlink);
 				listdevice.set("state", "0");
+				listdevice.set("ind", formdata.ind);
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
 			}

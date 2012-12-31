@@ -26,7 +26,8 @@ Ext.define('myvera.model.Configdevices', {
 			{name: 'sceneoff', type: 'int'},
 			{name: 'camuser', type: 'string'},
 			{name: 'campassword', type: 'string'},
-			{name: 'graphlink', type: 'string'}
+			{name: 'graphlink', type: 'string'},
+			{name: 'ind', type: 'int'}
 		],
 		idProperty: 'id'
 	}

@@ -5,10 +5,14 @@ Ext.define('myvera.store.ConfigDevicesStore', {
 		storeId: 'ConfigDevicesStore',
 		model: 'myvera.model.Configdevices',
 		sorters: [
-//			{
-//				property : 'room',
-//				direction: 'ASC'
-//			},
+			{
+				property: 'ind',
+				direction: 'ASC'
+			},
+			{
+				property : 'cat',
+				direction: 'ASC'
+			},
 			{
 				property : 'name',
 				direction: 'ASC'

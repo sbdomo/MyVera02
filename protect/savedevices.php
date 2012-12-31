@@ -47,7 +47,8 @@ foreach ($array_json['devices'] as $device) {
 		'sceneoff' => $device['sceneoff'],
 		'camuser' => $device['camuser'],
 		'campassword' => $device['campassword'],
-		'graphlink' => $device['graphlink']
+		'graphlink' => $device['graphlink'],
+		'ind' => $device['ind']
 		);
 }
 $result_json='{"devices":'.json_encode($data).'}';

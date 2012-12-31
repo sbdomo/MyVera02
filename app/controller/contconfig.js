@@ -143,6 +143,8 @@ Ext.define('myvera.controller.contconfig', {
 							configdevice.set('icon', icon_num);
 						}
 						
+						configdevice.set('ind', device.get('ind'));
+						
 						var name = configdevice.get('name');
 						if (device.get('name') != name) {
 							device.set('name', name);

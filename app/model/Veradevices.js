@@ -39,7 +39,8 @@ Ext.define('myvera.model.Veradevices', {
 			{name: 'var3', type: 'string'},
 			{name: 'var4', type: 'string'},
 			{name: 'var5', type: 'string'},
-			{name: 'var6', type: 'string'}
+			{name: 'var6', type: 'string'},
+			{name: 'ind', type: 'int'}
 		],
 		idProperty: 'id'
 	}

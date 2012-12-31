@@ -10,16 +10,20 @@ Ext.define('myvera.store.devicesStore', {
 	 
 		storeId: 'devicesStore',
 		sorters: [
-//			{
-//				property : 'etage',
-//				direction: 'ASC'
-//			},
+			{
+				property: 'ind',
+				direction: 'ASC'
+			},
 //			{
 //				property : 'room',
 //				direction: 'ASC'
 //			},
 			{
-				property : 'name',
+				property: 'cat',
+				direction: 'ASC'
+			},
+			{
+				property: 'name',
 				direction: 'ASC'
 			}
 		],
