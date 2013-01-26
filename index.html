@@ -74,6 +74,7 @@
 img.deviceImage {
 	width:50px;
 	height: 50px;
+	background-size: 50px 50px;
 }
 div.contenu {
 	margin-left:55px;
@@ -83,7 +84,7 @@ div.contenu {
 }
 div.devicelevel1 {
 	float:left;
-	/*background-color:red;*/
+	/*background-color:red;*/̀
 	width: 46px;
 	height:51px;
 }
@@ -140,6 +141,18 @@ img.d100 {
 
 div.var {
 	text-align:left;
+	overflow: hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	font-size:10px;
+	padding-left:5px;
+	padding-top: 5px;
+
+}
+
+div.varcenter {
+	text-align:left;
+	text-align:center;
 	overflow: hidden;
 	white-space : nowrap;
 	text-overflow: ellipsis;
@@ -239,6 +252,7 @@ div.listconfigimg {
 	margin-bottom: -5px;
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
+	background-size: 40px 40px;
 }
 
 div.listconfig {
@@ -279,12 +293,18 @@ span.listconfig {
 	background: #ffffff;
 }
 
+.listwebview {
+	height:45px;
+	border-bottom: 1px solid #ccc;
+	background: #ffffff;
+}
 .listroom {
     height:45px;
     font-size:14px;
     font-weight:bold;
     border-bottom: 1px solid #ccc;
 }
+
 div.listroomimg {
 	margin-top:2px;
 	float:left;
@@ -371,6 +391,7 @@ div.listdevicename {
 	padding-left: 1px;
 	padding-top: 2px;
 	width: 51px;
+	height: 50px;
 	/*background-color:#FF3366;*/
 }
 
@@ -505,6 +526,11 @@ div.listdevicename {
 	/*background-color:red !important;*/
 }
 
+.segmentedpressed{
+color: #4c7709 !important;
+background:#c9f486 !important; 
+}
+
 img.i0 {
 	width:28px;
 }
@@ -521,7 +547,15 @@ img.i3 {
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	height: 18px;
 }
+.indic2 {
+	position: relative;
+	top: -55px;
+	left: 0px;
+	height: 18px;
+}
+
 .tab1 {
 	-webkit-mask-image: url('./resources/images/picto/tab1.png');
 }
@@ -546,7 +580,51 @@ img.i3 {
 .tab8 {
 	-webkit-mask-image: url('./resources/images/picto/tab8.png');
 }
-    </style>
+
+/*slider Field Extend */
+/*.x-slider-field-extended .x-component-outer {
+  padding: 0.5em;
+}
+*/
+.x-slider-field-extended .x-slider-helper {
+  width: 25%;
+}
+
+.x-slider-field-extended .x-slider-helper .x-slider-helper-input {
+  width: 100%;
+  margin: 0;
+  padding: 0.1em 0.3em;
+  height: 2.2em;
+  border: 1px solid #CCC;
+}
+
+.x-slider-field-extended .x-slider {
+    width: 75% !important;
+}
+
+/*
+.x-slider-field-extended .x-component-outer {
+  padding: 0.5em;
+  width: 200px;
+}
+
+
+
+.x-slider-field-extended .x-slider-helper {
+  width: 50px;
+  margin-right:-50px;
+}
+
+.x-slider-field-extended .x-slider-helper .x-slider-helper-input {
+  width: 100%;
+  margin: 0;
+  padding: 0.1em 0.3em;
+  height: 2.2em;
+  border: 1px solid #CCC;
+}
+*/
+
+</style>
     <!-- The line below must be kept intact for Sencha Command to build your application -->
     <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
 </head>

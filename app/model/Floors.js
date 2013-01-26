@@ -7,6 +7,8 @@ Ext.define('myvera.model.Floors', {
 	        {name: 'id',  type: 'auto'},
 		{name: 'name',  type: 'string'},
 		{name: 'path',  type: 'string'},
+		{name: 'pathretina',  type: 'string', defaultValue: ""},
+		{name: 'widthretina', type: 'int', defaultValue: 0},
 		{name: 'tab', type: 'int', defaultValue: 0},
 		{name: 'ind', type: 'int', defaultValue: 90}
 		    ],

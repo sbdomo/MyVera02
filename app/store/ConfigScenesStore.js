@@ -6,7 +6,7 @@ Ext.define('myvera.store.ConfigScenesStore', {
 		model: 'myvera.model.Configscenes',
 		sorters: [
 			{
-				property : 'room',
+				property: 'ind',
 				direction: 'ASC'
 			},
 			{

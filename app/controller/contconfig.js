@@ -2,13 +2,14 @@ Ext.define('myvera.controller.contconfig', {
 	extend : 'Ext.app.Controller',
 	config: {
 		//stores: ['ConfigDevicesStore', 'devicesStore'],
-		views: ['PanelConfigNavigation', 'PanelConfigItemsMenu', 'PanelConfigItems', 'PanelConfigItem', 'PanelConfigScenes', , 'PanelConfigScene', 'PanelImage', 'datamove', 'PanelConfigFloorsNavigation', 'PanelConfigFloors', 'PanelConfigFloor', 'PanelConfigMove', 'PanelConfigTabs', 'PanelConfigTab'],
+		views: ['PanelConfigNavigation', 'PanelConfigItemsMenu', 'PanelConfigItems', 'PanelConfigItem', 'PanelConfigScenes', , 'PanelConfigScene', 'PanelConfigWebviews', 'PanelConfigWebview', 'PanelImage', 'datamove', 'PanelConfigFloorsNavigation', 'PanelConfigFloors', 'PanelConfigFloor', 'PanelConfigMove', 'PanelConfigTabs', 'PanelConfigTab'],
 		refs: {
 			configDevices: 'PanelConfigNavigation',
 			panelConfigItemsOpen: 'PanelConfigItemsMenu [name=openPanelConfigItems]',
 			panelConfigViewsOpen: 'PanelConfigViewsMenu [name=openPanelConfigViews]',
 			panelConfigRTabsOpen: 'PanelConfigViewsMenu [name=openPanelConfigTabs]',
 			panelConfigScenesOpen: 'PanelConfigItemsMenu [name=openPanelConfigScenes]',
+			panelConfigWebViewsOpen: 'PanelConfigItemsMenu [name=openPanelConfigWebViews]',
 			panelItemsMoveOpen: 'PanelConfigItemsMenu [name=openPanelMove]',
 			listItemsSave: 'PanelConfigItemsMenu [name=sauver]',
 			configFloors: 'PanelConfigFloorsNavigation',
@@ -44,6 +45,10 @@ Ext.define('myvera.controller.contconfig', {
 			
 			panelConfigScenesOpen: {
 				tap: 'onPanelConfigScenesOpen'
+			},
+			
+			panelConfigWebViewsOpen: {
+				tap: 'onPanelConfigWebViewsOpen'
 			},
 			
 			panelItemsMoveOpen: {
@@ -130,8 +135,8 @@ Ext.define('myvera.controller.contconfig', {
 				var letexte = "";
 				devices.data.each(function(device) {
 					var cat = device.get('category');
-					//si la catégorie est 1000, c'est une scène, ne pas prendre en compte, il serait possible également de vérifier que l'ID ne commence pas par s
-					if(cat!=1000) {
+					//si la catégorie est 1000, c'est une scène, 1001 c'est une webview : ne pas prendre en compte, il serait possible également de vérifier que l'ID ne commence pas par s ou w
+					if(cat!=1000&&cat!=1001) {
 					var id = device.get('id');
 					configdevice = ConfigDevicesStore.getById(id);
 					if (configdevice) {
@@ -236,6 +241,13 @@ Ext.define('myvera.controller.contconfig', {
 		}
        },
        
+       onPanelConfigWebViewsOpen: function() {
+	       	this.getConfigDevices().push({
+				xtype: 'PanelConfigWebviews',
+				title: 'Widgets'
+		});
+       },
+       
        onLoadConfigScenesStore: function() {
 	       var ConfigScenesStore = Ext.getStore('ConfigScenesStore');
 		console.log('Scenes Store:' + ConfigScenesStore.getCount());
@@ -246,7 +258,7 @@ Ext.define('myvera.controller.contconfig', {
 				var letexte = "";
 				devices.data.each(function(device) {
 					var cat = device.get('category');
-					//si la catégorie est 1000, c'est une scène, ne pas prendre en compte, il serait possible également de vérifier que l'ID ne commence pas par s
+					//si la catégorie est 1000, c'est une scène, il serait possible également de vérifier que l'ID ne commence pas par s
 					if(cat==1000) {
 					var id = device.get('id').substring(1);
 					configscene = ConfigScenesStore.getById(id);
@@ -258,6 +270,8 @@ Ext.define('myvera.controller.contconfig', {
 						if (icon_num != null) {
 							configscene.set('icon', icon_num);
 						}
+						
+						configscene.set('ind', device.get('ind'));
 						
 						var name = configscene.get('name');
 						if (device.get('name') != name) {
@@ -357,7 +371,7 @@ Ext.define('myvera.controller.contconfig', {
 					//(le state n'est pas utilisé pour les scènes car il semble ne pas toujours être remonté).
 					var devices = Ext.getStore('devicesStore');
 					devices.data.each(function(device) {
-								if ( device.get('category') == '1000') {
+								if ( device.get('category') == '1000'||device.get('category') == '1001') {
 									device.set('state', '0');
 								}
 					});					
@@ -390,10 +404,13 @@ Ext.define('myvera.controller.contconfig', {
 	showDetailFloor: function(list, record) {
 		console.info('Record ' + record.get('name'));
 		if( record.get('id') != -1 ) {
+			var pathview= "{path}";
+			if(myvera.app.isretina=="@2x"&&record.get('pathretina')!="") pathview="{pathretina}";
 			this.getConfigFloors().push({
 					xtype: 'PanelConfigFloor',
 					title: 'Edition',
 					layout: 'vbox',
+					tpl: '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/' + pathview + '"></div>',
 					data: record.getData()
 			});
 		} else {
@@ -435,16 +452,22 @@ Ext.define('myvera.controller.contconfig', {
 		Ext.getCmp('PanelConfig').getTabBar().hide();
 		Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
 		floorid= record.get('id');
+		var background="";
+		if(myvera.app.isretina=="@2x"&&record.get('pathretina')!="") {
+			background='background-size: '+record.get('widthretina')+'px; background-image: url(./resources/config/img/'+record.get('pathretina')+'); background-repeat: no-repeat; background-position: 0px 0px;';
+		} else {
+			background='background:url(./resources/config/img/'+record.get('path')+') no-repeat left top;';
+		}
 		this.getConfigDevices().push({
 			 xtype: 'datamove',
 			 title: 'Déplacer les icônes',
 			 idfloor: floorid,
-			 style: 'background:url(./resources/config/img/'+record.get('path')+') no-repeat left top;',
+			 style: background,
 			 itemTpl: '<tpl if="etage=='+floorid+'||etage1=='+floorid+'||etage2=='+floorid+'">'+
 			 	'<div style="top:<tpl if="etage=='+floorid+'">{top}px; left:{left}px;'+
 				'<tpl elseif="etage1=='+floorid+'">{top1}px; left:{left1}px;'+
 				'<tpl elseif="etage2=='+floorid+'">{top2}px; left:{left2}px;</tpl>'+
-				myvera.util.Templates.getTplplan() + '</tpl>'
+				myvera.util.Templates.getTplplan() + myvera.util.Templates.getTplpanwebviewmove() + myvera.util.Templates.getTplpanfin() + '</tpl>'
 		});
 	    } else {
 		Ext.Msg.alert('Message', "Ne peut-être éditée. (Vue non affichée)");
@@ -466,7 +489,8 @@ Ext.define('myvera.controller.contconfig', {
 		if(form.config.data){
 			idfloor = form.config.data.id;
 		}
-		var floor= {id: idfloor, name: formdata.name, path: formdata.path, linkimage: formdata.linkimage, tab: formdata.tab, ind: formdata.ind };
+		var floor= {id: idfloor, name: formdata.name, path: formdata.path, linkimage: formdata.linkimage, pathretina: formdata.pathretina,
+			linkimage2: formdata.linkimage2, widthretina: formdata.widthretina, tab: formdata.tab, ind: formdata.ind };
 		Ext.Ajax.request({
 			url: './protect/savefloors.php',
 			headers: syncheader,
@@ -484,10 +508,12 @@ Ext.define('myvera.controller.contconfig', {
 					if (response.success=="true") {
 						//contdevices.pushplans();
 						contdevices.pushviews();
-						Ext.getCmp('PanelConfigFloorsNavigation').pop();
-						Ext.Msg.alert('Message', 'Vue ' + response.result + ' mis à jour');
+						//if(response.result=="OK") {
+							Ext.getCmp('PanelConfigFloorsNavigation').pop();
+							Ext.Msg.alert('Message', 'Vue mise à jour');
+						//} else Ext.Msg.alert('Message', 'Erreur : ' + response.result);
 					} else {
-						Ext.Msg.alert('Erreur lors de la mise à jour');
+						Ext.Msg.alert('Erreur:' + response.result);
 					}
 				} else {
 					Ext.Msg.alert('Erreur lors de la mise à jour');

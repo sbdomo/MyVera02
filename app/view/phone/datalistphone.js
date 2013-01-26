@@ -15,7 +15,7 @@ Ext.define('myvera.view.phone.datalistphone', {
 		selectedCls: 'listroomselect',
 		//baseCls: 'listroom',
 		itemTpl: '<tpl if="hidden!=true"><div class="listroom"><tpl if="icon!=null&&icon!=\'\'">'+ 
-			'<div class="listroomimg"><img  style="height:40px;" src="resources/images/rooms/{icon}.png" /></div>' +
+			'<div class="listroomimg"><img  style="height:40px;" src="resources/images/rooms/{icon}{retina}.png" /></div>' +
 			'<div class="listroomtext"><span class="listroomtext">{name}</span></div>'+
 			'<tpl else><div class="listroomnoicon"><span class="listroomtext2">{name}</span>'+
 			'</div></tpl></div></tpl>',
@@ -103,8 +103,8 @@ Ext.define('myvera.view.phone.datalistphone', {
             //console.log('You selected ' + record.get('name'));
 	    var listInRoom = this.down('#listInRoom');
 	    listInRoom.down('#toolbar').setTitle(record.get('name'));
-	    //var tpl ='<tpl if="room==' + record.get('id') + '">' + this.config.tpl +'</tpl>';
-	    var tpl = '<tpl if="room==' + record.get('id') + '">' + myvera.util.Templates.getTplphone() +'</tpl>';
+	    //var tpl = '<tpl if="room==' + record.get('id') + '">' + myvera.util.Templates.getTplphone() +'</tpl>';
+	    var tpl= '<tpl if="category!=1001"><div <tpl if="room==' + record.get('id') + '"> class="listdevice"<tpl else> style="display:none;"</tpl> >' + myvera.util.Templates.getTplphonefull()+ '</div></tpl>';
 	    
 	    listInRoom.setItemTpl(tpl);
 	    listInRoom.refresh();

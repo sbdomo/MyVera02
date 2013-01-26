@@ -27,7 +27,9 @@ Ext.define('myvera.model.Configdevices', {
 			{name: 'camuser', type: 'string'},
 			{name: 'campassword', type: 'string'},
 			{name: 'graphlink', type: 'string'},
-			{name: 'ind', type: 'int'}
+			{name: 'width', type: 'int', defaultValue:50},
+			{name: 'ind', type: 'int'},
+			{name:'retina', type: 'string', convert: function(value, record) { return myvera.app.isretina; } }
 		],
 		idProperty: 'id'
 	}

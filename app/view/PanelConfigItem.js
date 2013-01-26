@@ -20,7 +20,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			tpl: [ '<img style="float: left;" height="40px" src="resources/images/l<tpl if="icon!=null">{icon}'+
 			'<tpl elseif="category==4&&subcategory==4">44'+
 			'<tpl elseif="category==120&&subcategory==1">121<tpl elseif="category==120&&subcategory==2">122'+
-			'<tpl else>{category}</tpl>_0.png" /><p style="line-height: 30px">&nbsp;&nbsp;{name} - ID:{id}</p><p>&nbsp;</p>' ]
+			'<tpl else>{category}</tpl>_0{retina}.png" /><p style="line-height: 30px">&nbsp;&nbsp;{name} - ID:{id}</p><p>&nbsp;</p>' ]
 		},
 		{
 			xtype: 'selectfield',
@@ -33,6 +33,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			{text: 'Google Calendar Switch (plugin)',  value: '103'},
 			{text: 'Virtual Clock',  value: '120'},
 			{text: 'Pilot wire controller',  value: '104'},
+			{text: 'Smart Virtual Thermostat',  value: '105'},
 			{text: 'Interface',  value: '1'},
 			{text: 'Dimmable light',  value: '2'},
 			{text: 'Switch',  value: '3'},
@@ -201,6 +202,12 @@ Ext.define('myvera.view.PanelConfigItem', {
 		},
 		{
 			xtype: 'textfield',
+			label: 'Largeur icône',
+			name: 'width',
+			itemId: 'width'
+		},
+		{
+			xtype: 'textfield',
 			label: 'Index',
 			name: 'ind',
 			itemId: 'ind',
@@ -347,7 +354,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 				
 				var listdevices = Ext.getStore('ConfigDevicesStore');
 				var listdevice = listdevices.getById(data.id);
-				
+				//Le module est déjà dans la liste
 				if (form.config.data.state=="-4") {
 					device = devices.getById(data.id);
 					device.set("category", formdata.category);
@@ -364,6 +371,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device.set("color", formdata.color);
 					device.set("fontsize", formdata.fontsize);
 					device.set("icon", formdata.icon);
+					device.set("width", formdata.width);
 					device.set("verif", formdata.verif);
 					device.set("sceneon", formdata.sceneon);
 					device.set("sceneoff", formdata.sceneoff);
@@ -373,6 +381,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device.set("state", "-3");
 					device.set("ind", formdata.ind);
 				} else {
+					//Il faut ajouter le module
 					devices.add({
 					id: data.id,
 					name: data.name,
@@ -394,6 +403,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					color: formdata.color,
 					fontsize: formdata.fontsize,
 					icon: formdata.icon,
+					width: formdata.width,
 					verif: formdata.verif,
 					sceneon: formdata.sceneon,
 					sceneoff: formdata.sceneoff,
@@ -430,6 +440,8 @@ Ext.define('myvera.view.PanelConfigItem', {
 				var form = this.getParent();
 				var devices = Ext.getStore('devicesStore');
 				device = devices.getById(form.config.data.id);
+				//var width =device.get('width');
+				//var height =device.get('height');
 				devices.remove(device);
 				
 				var listdevices = Ext.getStore('ConfigDevicesStore');
@@ -441,12 +453,12 @@ Ext.define('myvera.view.PanelConfigItem', {
 				listdevice.set("etage", formdata.etage);
 				listdevice.set("left", formdata.left);
 				listdevice.set("top", formdata.top);
-				listdevice.set("etage1", formdata.etage);
-				listdevice.set("left1", formdata.left);
-				listdevice.set("top1", formdata.top);
-				listdevice.set("etage2", formdata.etage);
-				listdevice.set("left2", formdata.left);
-				listdevice.set("top2", formdata.top);
+				listdevice.set("etage1", formdata.etage1);
+				listdevice.set("left1", formdata.left1);
+				listdevice.set("top1", formdata.top1);
+				listdevice.set("etage2", formdata.etage2);
+				listdevice.set("left2", formdata.left2);
+				listdevice.set("top2", formdata.top2);
 				listdevice.set("color", formdata.color);
 				listdevice.set("fontsize", formdata.fontsize);
 				listdevice.set("icon", formdata.icon);
@@ -458,6 +470,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 				listdevice.set("graphlink", formdata.graphlink);
 				listdevice.set("state", "0");
 				listdevice.set("ind", formdata.ind);
+				listdevice.set("width", formdata.width);
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
 			}

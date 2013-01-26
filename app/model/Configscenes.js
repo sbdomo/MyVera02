@@ -9,12 +9,21 @@ Ext.define('myvera.model.Configscenes', {
 			{name: 'state', type: 'int'},
 			{name: 'room', type: 'int'},
 			{name: 'category', type: 'int'},
-			{name: 'subcategory', type: 'int'},
+			{name: 'subcategory', type: 'int', defaultValue:0},
+			{name: 'etage', type: 'int', defaultValue: -1},
 			{name: 'left', type: 'int'},
 			{name: 'top', type: 'int'},
-			{name: 'etage', type: 'int'},
-			{name:'color', type: 'string'},
-			{name: 'icon', type: 'int'}
+			{name: 'etage1', type: 'int', defaultValue: -1},
+			{name: 'left1', type: 'int'},
+			{name: 'top1', type: 'int'},
+			{name: 'etage2', type: 'int', defaultValue: -1},
+			{name: 'left2', type: 'int'},
+			{name: 'top2', type: 'int'},
+			{name:'color', type: 'string', defaultValue:'000000'},
+			{name: 'icon', type: 'int'},
+			{name: 'width', type: 'int', defaultValue:50},
+			{name: 'ind', type: 'int'},
+			{name:'retina', type: 'string', convert: function(value, record) { return myvera.app.isretina; } }
 		],
 		idProperty: 'id'
 	}

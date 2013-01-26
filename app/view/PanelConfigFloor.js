@@ -6,7 +6,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
     ],
     
 	config: {
-		tpl: [ '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/{path}"></div>' ],
+		//tpl: [ '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/{path}"></div>' ],
 		name:'PanelConfigFloor',
 		itemId:"PanelConfigFloor",
 		//styleHtmlContent: true,
@@ -48,7 +48,8 @@ Ext.define('myvera.view.PanelConfigFloor', {
 			//id: 'linkimage',
 			itemId: 'linkimage',
 			name: 'linkimage'
-		},{
+		},
+		{
 			xtype: 'textfield',
 			label: 'Image',
 			//id: 'path',
@@ -114,6 +115,90 @@ Ext.define('myvera.view.PanelConfigFloor', {
 			}
 		},
 		{
+			xtype: 'textfield',
+			label: 'Url Retina',
+			//id: 'linkimage',
+			itemId: 'linkimage2',
+			name: 'linkimage2'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Image Retina',
+			//id: 'path',
+			itemId: 'pathretina',
+			disabled: true,
+			name: 'pathretina'
+		},
+		{
+			xtype: 'hiddenfield',
+			itemId: 'widthretina',
+			name: 'widthretina'
+		},
+		{
+			xtype: 'button',
+			text: 'Image d\'une autre vue',
+			//ui: 'confirm',
+			//iconCls: 'refresh',
+			//iconMask: true,
+			margin: 5,
+			name: 'imglink2',
+			itemId: 'imglink2',
+			handler: function(){
+				var me = this.getParent();
+				var popup=new Ext.Panel({
+					modal:true,
+					id: 'popup_imgview',
+					hideOnMaskTap: true,
+					width: '400px',
+					height: '120px',
+					padding: 10,
+					maxWidth: '95%',
+					maxHeight: '95%',
+					centered: true,
+					items:[
+						{
+							xtype: 'selectfield',
+							label: 'Vue',
+							name: 'view',
+							itemId: 'view'
+						},
+						{
+							xtype: 'hiddenfield',
+							itemId: 'widthretina',
+							name: 'widthretina'
+						},
+						{
+							xtype: 'button',
+							name: 'adddimg',
+							ui: 'confirm',
+							text: 'Choisir cette image',
+							handler: function(){
+								var Floor = Ext.getStore('FloorsStore').getById(this.getParent().down('#view').getValue());
+								me.down('#pathretina').setValue(Floor.get('pathretina'));
+								me.down('#widthretina').setValue(Floor.get('widthretina'));
+								this.getParent().hide();
+							}
+						}
+					],
+					listeners: {
+						hide: function(panel) {
+							this.destroy();
+						}
+					}
+				});
+				var FloorsStore = Ext.getStore('FloorsStore');
+				var options = [];
+				FloorsStore.data.each(function(floor) {
+						if(floor.get('id')!=-1&&floor.get('id')!=me.config.data.id) {
+							options.push({ text: floor.get('name'), value: floor.get('id') });
+						}
+				});
+				popup.down('#view').setOptions(options);
+				Ext.Viewport.add(popup);
+				popup.show();
+			}
+		},
+		{
 			xtype: 'button',
 			text: 'Ajouter et sauver',
 			ui: 'confirm',
@@ -146,6 +231,8 @@ Ext.define('myvera.view.PanelConfigFloor', {
 				//Ext.getCmp('path').setValue(d.path);
 				e.down('#name').setValue(d.name);
 				e.down('#path').setValue(d.path);
+				e.down('#pathretina').setValue(d.pathretina);
+				e.down('#widthretina').setValue(d.widthretina);
 				e.down('#tab').setValue(d.tab);
 				e.down('#ind').setValue(d.ind);
 			}

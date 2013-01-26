@@ -8,7 +8,8 @@ Ext.define('myvera.model.modelRooms', {
 			{name: 'icon', type: 'string'},
 			{name: 'hidden', type: 'boolean'},
 			{name: 'section', type: 'string'},
-			{name: 'ind', type: 'int', defaultValue: 90}
+			{name: 'ind', type: 'int', defaultValue: 90},
+			{name:'retina', type: 'string', convert: function(value, record) { return myvera.app.isretina; } }
 		    ],
 	    idProperty: 'id'
     }

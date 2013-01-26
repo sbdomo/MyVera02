@@ -9,7 +9,8 @@ Ext.define('myvera.view.dataplan', {
 		scrollable: false,
 		listeners:{
 			itemtaphold: function(view, index, target, record, event){
-			   if(record.data.category==2){
+				//2: Dimmable light, 8: Window Covering
+			   if (Ext.Array.contains([2, 8], record.data.category)) {
 				myvera.view.dataplan.lastTapHold = new Date();
 				myvera.app.getController('myvera.controller.contdevices').onDeviceHoldTap(view, index, target, record, event);
 			   }

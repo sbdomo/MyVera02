@@ -13,7 +13,7 @@ Ext.define('myvera.view.PanelConfigRoom', {
 		{
 			html:"",
 			itemId: 'titlePanelConfigRoom',
-			tpl: [ '<tpl if="icon!=null&&icon!=\'\'"><img style="float: left;" height="40px" src="resources/images/rooms/{icon}.png" /></tpl>' +
+			tpl: [ '<tpl if="icon!=null&&icon!=\'\'"><img style="float: left;" height="40px" src="resources/images/rooms/{icon}{retina}.png" /></tpl>' +
 			'<p style="line-height: 40px">&nbsp;&nbsp;{name} - ID: {id}</p><p>&nbsp;</p>' ]
 		},
 		{

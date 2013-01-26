@@ -4,8 +4,11 @@ Ext.define('myvera.controller.Application', {
 
 	config: {
 		views: ['carouselplan', 'PanelConfigGenerale', 'PanelConfigFloorsNavigation', 'PanelConfigNavigation', 'PanelConfigRoomsNavigation','paneloverlay'],
-		stores: ['ConfigDevicesStore', 'devicesStore', 'FloorsStore', 'ConfigScenesStore'],
+		stores: ['devicesStore', 'ConfigDevicesStore', 'FloorsStore', 'ConfigScenesStore'],
+		//'devicesStore',
 		models: ['Veradevices', 'Configdevices', 'modelRooms','CurrentUser', 'Floors', 'Configscenes', 'TabViews'],
+		//'Veradevices',
+		
 		//'Main','datalist','HomePanel','listclock', 'panelinfo','dataliston','datalistoff', 'PanelConfig',
 		panel3dL: false,
 		panel3dP: false,
@@ -21,7 +24,7 @@ Ext.define('myvera.controller.Application', {
 	},
 	// called when the Application is launched, remove if not needed
 	launch: function(app) {
-				this.initViewport();
+			this.initViewport();
 	},
 	initViewport: function() {
 		//Ext.Viewport.add(Ext.create('myvera.view.Main'));

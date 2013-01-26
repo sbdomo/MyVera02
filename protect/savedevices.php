@@ -18,10 +18,11 @@ if ($json = @file_get_contents('php://input'))
 {
 $array_json = json_decode($json, true);
 $data=array();
+$temparray="";
 foreach ($array_json['devices'] as $device) {
 	$state=-3;
-	if($device['category']=="1000") $state=0;
-	$data[]=array (
+	if($device['category']=="1000"||$device['category']=="1001") $state=0;
+	$temparray=array (
 		'id' => $device["id"],
 		'name' => $device["name"],
 		'status' => '0',
@@ -50,6 +51,10 @@ foreach ($array_json['devices'] as $device) {
 		'graphlink' => $device['graphlink'],
 		'ind' => $device['ind']
 		);
+	if($device['width']!="50") $temparray['width']=$device['width'];
+	if($device['category']=="1001") $temparray['height']=$device['height'];
+	
+	$data[]=$temparray;
 }
 $result_json='{"devices":'.json_encode($data).'}';
 

@@ -14,6 +14,7 @@ if($profil!=""&&$profil!="0") {
 
 $cheminImg="../resources/config/img/";
 $floorpath="";
+$floorpathretina="";
 if($id!="" && $json = @file_get_contents($fichierjson)) {
     $json = json_decode($json, true);
     $floors= $json['floors'];
@@ -24,6 +25,7 @@ if($id!="" && $json = @file_get_contents($fichierjson)) {
 		    $newfloors[] = $floorvalue;
 	    } else {
 		    $floorpath=$floorvalue['path'];
+		    $floorpathretina=$floorvalue['pathretina'];
 		    $result=$floorvalue['name'];
 	    }
     }
@@ -35,6 +37,15 @@ if($id!="" && $json = @file_get_contents($fichierjson)) {
 			  if($floorvalue['path']==$floorpath) $deleteimg=false;
 			}
 			if($deleteimg==true) unlink($cheminImg.$floorpath);
+	}
+	//suppression de l'imagertina
+	if($floorpathretina!="") {
+			//ne supprime l'image que si elle n'est pas utilisée ailleurs
+			$deleteimg=true;
+			foreach( $newfloors as $key => $floorvalue ) {
+			  if($floorvalue['pathretina']==$floorpathretina) $deleteimg=false;
+			}
+			if($deleteimg==true) unlink($cheminImg.$floorpathretina);
 	}
     
     $floorsencode='{"floors":'.json_encode($newfloors).'}';

@@ -15,6 +15,7 @@ if($profil!=""&&$profil!="0") {
 
 $cheminImg="../resources/config/img/";
 $floorpathold="";
+$floorpathold2="";
 if ($json = @file_get_contents('php://input'))
 {
     $json = json_decode($json, true);
@@ -24,86 +25,175 @@ if ($json = @file_get_contents('php://input'))
 	    $new=true;
 	    if("new".$id!="new") $new=false;
 	    
-	    
-	    $json = file_get_contents($fichierjson);
-	    $json = json_decode($json, true);
-	    $floors= $json['floors'];
-	    if($new==false) {
-		  //cherche la vue dans la liste $floorkey
-		  $floorkey="-1";
-		  foreach( $floors as $key => $floorvalue ) {
-			  if($floorvalue['id']==$id) $floorkey=$key;
-		  }
-		  if($floorkey!="-1") {
-			  
-			  if($floor['linkimage']!='') {
-				$floorpathold=$floors[$floorkey]['path'];
-				$floor['path']='vue'.$profil.$id.time().'.jpg';
-				$floors[$floorkey]['path']=$floor['path'];
-			  } elseif($floors[$floorkey]['path']!=$floor['path']) {
-				$floorpathold=$floors[$floorkey]['path'];
-				$floors[$floorkey]['path'] = $floor['path'];
-			  }
-			  
-			  $floors[$floorkey]['name']=$floor['name'];
-			  $floors[$floorkey]['tab']=$floor['tab'];
-			  $floors[$floorkey]['ind']=$floor['ind'];
-			  $floorsencode='{"floors":'.json_encode($floors).'}';
-			  file_put_contents($fichierjson, $floorsencode);
-			  $success="true";
-			  $result=$floors[$floorkey]['name'];
-		  }
-	    } else {
-		  //cherche nouvelle id
-		  $newid=0;
-		  $fid="";
-		  foreach( $floors as $floorvalue ) {
-			  $fid=intval($floorvalue['id']);
-			  if($newid<=$fid) $newid=$fid + 1;
-		  }
-		  if($floor['linkimage']!='') {
-			  $floor['path']='vue'.$profil.$newid.time().'.jpg';
-		  }
-		  
-		  
-		  $floors[]= array (
-			  'id' => $newid,
-			  'name' => $floor['name'],
-			  'path' => $floor['path'],
-			  'tab' => $floor['tab'],
-			  'ind' => $floor['ind']
-			  );
-		  $floorsencode='{"floors":'.json_encode($floors).'}';
-		  file_put_contents($fichierjson, $floorsencode);
-		  //$result=$newid;
-		  $result=$floor['name'];
-		  $success="true";
+	    $success="true";
+	    //Taille image retina
+	    $widthretina="";
+	    if($floor['linkimage2']!='') {
+		    if ($dataimage = @getimagesize($floor['linkimage2'])) {
+			   //Format jpg = type 2
+			   if ($dataimage[2] == 2) {
+				   $widthretina=(int)($dataimage[0]/2);
+				   //$success="true";
+			   } else {
+				   $success="false";
+				   $result="Erreur format image 2";
+			   }
+		    } else {
+			   $success="false";
+			   $result="Erreur url 2";
+		    }
 	    }
 	    
-	    //suppression de l'image
-	    if($floorpathold!="") {
-			//ne supprime l'image que si elle n'est pas utilisée ailleurs
-			$deleteimg=true;
-			foreach( $floors as $key => $floorvalue ) {
-			  if($floorvalue['path']==$floorpathold) $deleteimg=false;
-			}
-			if($deleteimg==true) unlink($cheminImg.$floorpathold);
+	    //Vérifie linkimage
+	    if($floor['linkimage']!=''&&$success=="true") {
+		    if ($dataimage = @getimagesize($floor['linkimage'])) {
+			   //Format jpg = type 2
+			   if ($dataimage[2] == 2) {
+				   //$widthretina=(int)($dataimage[0]/2);
+				   //$success="true";
+			   } else {
+				   $success="false";
+				   $result="Erreur format image 1";
+			   }
+		    } else {
+			   $success="false";
+			   $result="Erreur url 1";
+		    }
 	    }
-	    // vérifie success avant ajout de l'image
-	    if($floor['linkimage']!=''&&$floor['path']!=""&&$success=="true") {
-			$contents = file_get_contents($floor['linkimage']);
-			$name = $cheminImg.$floor['path'];
-			$fp = fopen($name, 'w');
-			if(fwrite($fp, $contents)) {
-				//$success="true";
-			
-			} else {
+	    $result=$success;
+	    //Arrête s'il y a un problème avec l'URL
+	    if($success=="true") {
+		    $success="false";
+		    $json = file_get_contents($fichierjson);
+		    $json = json_decode($json, true);
+		    $floors= $json['floors'];
+		    if($new==false) {
+			    //cherche la vue dans la liste $floorkey
+			    $floorkey="-1";
+			    foreach( $floors as $key => $floorvalue ) {
+				    if($floorvalue['id']==$id) $floorkey=$key;
+			    }
+			    if($floorkey!="-1") {
+				    
+				    if($floor['linkimage']!='') {
+					    $floorpathold=$floors[$floorkey]['path'];
+					    $floor['path']='vue'.$profil.$id.time().'.jpg';
+					    $floors[$floorkey]['path']=$floor['path'];
+				    } elseif($floors[$floorkey]['path']!=$floor['path']) {
+					    $floorpathold=$floors[$floorkey]['path'];
+					    $floors[$floorkey]['path'] = $floor['path'];
+				    }
+				    
+				    if($floor['linkimage2']!='') {
+					    $floorpathold2=$floors[$floorkey]['pathretina'];
+					    $floor['pathretina']='vue'.$profil.$id.time().'2x.jpg';
+					    $floors[$floorkey]['pathretina']=$floor['pathretina'];
+					    $floors[$floorkey]['widthretina']=$widthretina;
+				    } elseif($floors[$floorkey]['pathretina']!=$floor['pathretina']) {
+					    $floorpathold=$floors[$floorkey]['pathretina'];
+					    $floors[$floorkey]['pathretina'] = $floor['pathretina'];
+					    $floors[$floorkey]['widthretina'] = $floor['widthretina'];
+				    }
+				    
+				    $floors[$floorkey]['name']=$floor['name'];
+				    $floors[$floorkey]['tab']=$floor['tab'];
+				    $floors[$floorkey]['ind']=$floor['ind'];
+				    $floorsencode='{"floors":'.json_encode($floors).'}';
+				    //file_put_contents($fichierjson, $floorsencode);
+				    $success="true";
+				    $result=$floors[$floorkey]['name'];
+				    //$result="OK";
+			    }
+		    } else {
+			    //cherche nouvelle id
+			    $newid=0;
+			    $fid="";
+			    foreach( $floors as $floorvalue ) {
+				    $fid=intval($floorvalue['id']);
+				    if($newid<=$fid) $newid=$fid + 1;
+			    }
+			    if($floor['linkimage']!='') {
+				    $floor['path']='vue'.$profil.$newid.time().'.jpg';
+			    }
+			    
+			    if($floor['linkimage2']!='') {
+				    $floor['pathretina']='vue'.$profil.$newid.time().'2x.jpg';
+				    $floor['widthretina']=$widthretina;
+			    }
+			    
+			    $floors[]= array (
+				    'id' => $newid,
+				    'name' => $floor['name'],
+				    'path' => $floor['path'],
+				    'pathretina' => $floor['pathretina'],
+				    'widthretina' => $floor['widthretina'],
+				    'tab' => $floor['tab'],
+				    'ind' => $floor['ind']
+				    );
+			    $floorsencode='{"floors":'.json_encode($floors).'}';
+			    //file_put_contents($fichierjson, $floorsencode);
+			    //$result=$newid;
+			    $result=$floor['name'];
+			    //$result="OK";
+			    $success="true";
+		    }
+		    
+		    //suppression de l'image
+		    if($floorpathold!=""&&$success=="true") {
+			    //ne supprime l'image que si elle n'est pas utilisée ailleurs
+			    $deleteimg=true;
+			    foreach( $floors as $key => $floorvalue ) {
+				    if($floorvalue['path']==$floorpathold) $deleteimg=false;
+			    }
+			    if($deleteimg==true) unlink($cheminImg.$floorpathold);
+		    }
+		    
+		    //suppression de l'image retina
+		    if($floorpathold2!=""&&$success=="true") {
+			    //ne supprime l'image que si elle n'est pas utilisée ailleurs
+			    $deleteimg=true;
+			    foreach( $floors as $key => $floorvalue ) {
+				    if($floorvalue['pathretina']==$floorpathold2) $deleteimg=false;
+			    }
+			    if($deleteimg==true) unlink($cheminImg.$floorpathold2);
+		    }
+		    
+		    
+		    
+		    // vérifie success avant ajout de l'image
+		    if($floor['linkimage']!=''&&$floor['path']!=""&&$success=="true") {
+			    $contents = file_get_contents($floor['linkimage']);
+			    $name = $cheminImg.$floor['path'];
+			    $fp = fopen($name, 'w');
+			    if(fwrite($fp, $contents)) {
+				    //$success="true";
+				    
+			    } else {
 				$success="false";
 				$result="Erreur image";
-			}
-			fclose($fp);
+			    }
+			    fclose($fp);
+		    }
+		    
+		    // vérifie success avant ajout de l'image retina
+		    if($floor['linkimage2']!=''&&$floor['pathretina']!=""&&$success=="true") {
+			    $contents = file_get_contents($floor['linkimage2']);
+			    $name = $cheminImg.$floor['pathretina'];
+			    $fp = fopen($name, 'w');
+			    if(fwrite($fp, $contents)) {
+				//$success="true";
+				
+			    } else {
+				$success="false";
+				$result="Erreur image retina";
+			    }
+			    fclose($fp);
+		    }
+		    
+		    if($success=="true") {
+			    file_put_contents($fichierjson, $floorsencode);
+		    }
 	    }
-	    
     } else {
 	    $result="Pas de vue ?";
     }

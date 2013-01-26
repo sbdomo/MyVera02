@@ -18,7 +18,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 			itemId: 'titlePanelConfigScene',
 			tpl: [ '<img style="float: left;" height="40px" src="resources/images/l<tpl if="icon!=null">{icon}'+
 			'<tpl else>1000'+
-			'</tpl>_0.png" /><p style="line-height: 30px">&nbsp;&nbsp;{name} - ID:{id}</p><p>&nbsp;</p>' ]
+			'</tpl>_0{retina}.png" /><p style="line-height: 30px">&nbsp;&nbsp;{name} - ID:{id}</p><p>&nbsp;</p>' ]
 		},
 		{
 			xtype: 'selectfield',
@@ -107,6 +107,19 @@ Ext.define('myvera.view.PanelConfigScene', {
 			label: 'Num. icône',
 			name: 'icon',
 			itemId: 'icon'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Largeur icône',
+			name: 'width',
+			itemId: 'width'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Index',
+			name: 'ind',
+			itemId: 'ind',
+			value: 90
 		},
 		{
 			xtype: 'selectfield',
@@ -222,6 +235,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 				if (form.config.data.state=="-4") {
 					device = devices.getById("s" + data.id);
 					//device.set("category", formdata.category);
+					device.set("subcategory", formdata.subcategory);
 					device.set("etage", formdata.etage);
 					device.set("left", formdata.left);
 					device.set("top", formdata.top);
@@ -230,10 +244,12 @@ Ext.define('myvera.view.PanelConfigScene', {
 					device.set("top1", formdata.top1);
 					device.set("etage2", formdata.etage2);
 					device.set("left2", formdata.left2);
-					device.set("subcategory", formdata.subcategory);
+					device.set("top2", formdata.top2);
 					device.set("color", formdata.color);
 					device.set("icon", formdata.icon);
+					device.set("width", formdata.width);
 					device.set("state", "-3");
+					device.set("ind", formdata.ind);
 				} else {
 					devices.add({
 					id: "s" + data.id,
@@ -252,7 +268,9 @@ Ext.define('myvera.view.PanelConfigScene', {
 					left2: formdata.left2,
 					top2: formdata.top2,
 					color: formdata.color,
-					icon: formdata.icon
+					icon: formdata.icon,
+					width: formdata.width,
+					ind: formdata.ind
 					});
 					device = devices.getById("s" + data.id);
 					device.setDirty();
@@ -261,6 +279,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 				//Paramètres utilsés dans l'affichage de la liste de ConfigDevices, il faut donc les mettre à jour.
 				//listdevice.set("category", formdata.category);
 				listdevice.set("icon", formdata.icon);
+				listdevice.set("ind", formdata.ind);
 				
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
@@ -280,25 +299,29 @@ Ext.define('myvera.view.PanelConfigScene', {
 				var form = this.getParent();
 				var devices = Ext.getStore('devicesStore');
 				device = devices.getById("s" + form.config.data.id);
+				//var width =device.get('width');
+				//var height =device.get('height');
 				devices.remove(device);
 				
 				var listdevices = Ext.getStore('ConfigScenesStore');
 				var listdevice = listdevices.getById(form.config.data.id);
 				//Paramètres du modules transférés à configDevices pour pouvoir le réaffecter sans devoir tout paramétrer à nouveau
 				var formdata = form.getValues();
+				listdevice.set("subcategory", formdata.subcategory);
 				listdevice.set("etage", formdata.etage);
 				listdevice.set("left", formdata.left);
 				listdevice.set("top", formdata.top);
-				listdevice.set("etage1", formdata.etage);
-				listdevice.set("left1", formdata.left);
-				listdevice.set("top1", formdata.top);
-				listdevice.set("etage2", formdata.etage);
-				listdevice.set("left2", formdata.left);
-				listdevice.set("top2", formdata.top);
-				listdevice.set("subcategory", formdata.subcategory);
+				listdevice.set("etage1", formdata.etage1);
+				listdevice.set("left1", formdata.left1);
+				listdevice.set("top1", formdata.top1);
+				listdevice.set("etage2", formdata.etage2);
+				listdevice.set("left2", formdata.left2);
+				listdevice.set("top2", formdata.top2);
 				listdevice.set("color", formdata.color);
 				listdevice.set("icon", formdata.icon);
 				listdevice.set("state", "0");
+				listdevice.set("ind", formdata.ind);
+				listdevice.set("width", formdata.width);
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
 			}
@@ -349,15 +372,15 @@ Ext.define('myvera.view.PanelConfigScene', {
 				    //affecte l'ID sans le s
 				    e.setValues({id: id});
 				    
-				    if(device.get('color')==null) e.setValues({color:'FFFFFF'});
+				    //if(device.get('color')==null) e.setValues({color:'FFFFFF'});
 				     
 				    //Problème dans le selectfield : si etage est un entier et pas un string ??
 				    //Ce serait un bug (fix dans V. 2.02)
 				    //e.setValues({etage: "" + device.get("etage")});
 				    
-				    if(device.get('subcategory')==null) {
-				    	e.setValues({subcategory:'0'});
-				    }
+				    //if(device.get('subcategory')==null) {
+				    //	e.setValues({subcategory:'0'});
+				    //}
 				    //else {
 				    //	e.setValues({subcategory: "" + device.get("subcategory")});
 				    //}

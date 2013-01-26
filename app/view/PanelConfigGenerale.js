@@ -87,6 +87,20 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 				value: 1,
 				label: 'Réveils'//,
 				//labelWidth: '40%'
+			},
+			{
+				xtype: 'togglefield',
+				name: 'isRetina',
+				value: 0,
+				label: 'Retina'//,
+				//labelWidth: '40%'
+			},
+			{
+				xtype: 'button',
+				text: 'Retina',
+				hidden: true,
+				name: 'retinabutton'
+				//ui: 'confirm'
 			}
 			]
 		}
