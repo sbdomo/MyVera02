@@ -352,6 +352,9 @@ Ext.define('myvera.view.PanelConfigItem', {
 				var data = form.config.data;
 				var devices = Ext.getStore('devicesStore');
 				
+				var fontsize=formdata.fontsize;
+				if(fontsize=="") fontsize="10px";
+				
 				var listdevices = Ext.getStore('ConfigDevicesStore');
 				var listdevice = listdevices.getById(data.id);
 				//Le module est déjà dans la liste
@@ -369,7 +372,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device.set("left2", formdata.left2);
 					device.set("top2", formdata.top2);
 					device.set("color", formdata.color);
-					device.set("fontsize", formdata.fontsize);
+					device.set("fontsize", fontsize);
 					device.set("icon", formdata.icon);
 					device.set("width", formdata.width);
 					device.set("verif", formdata.verif);
@@ -401,7 +404,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					left2: formdata.left2,
 					top2: formdata.top2,
 					color: formdata.color,
-					fontsize: formdata.fontsize,
+					fontsize: fontsize,
 					icon: formdata.icon,
 					width: formdata.width,
 					verif: formdata.verif,

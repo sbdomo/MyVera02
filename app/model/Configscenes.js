@@ -19,11 +19,14 @@ Ext.define('myvera.model.Configscenes', {
 			{name: 'etage2', type: 'int', defaultValue: -1},
 			{name: 'left2', type: 'int'},
 			{name: 'top2', type: 'int'},
-			{name:'color', type: 'string', defaultValue:'000000'},
+			{name:'color', type: 'string', defaultValue:'FFFFFF'},
 			{name: 'icon', type: 'int'},
 			{name: 'width', type: 'int', defaultValue:50},
 			{name: 'ind', type: 'int'},
-			{name:'retina', type: 'string', convert: function(value, record) { return myvera.app.isretina; } }
+			{name:'retina', type: 'string', convert: function(value, record) {
+			var result="";
+			if(myvera.app.isretina=="@2x") result= "@2x"
+			return result; } }
 		],
 		idProperty: 'id'
 	}

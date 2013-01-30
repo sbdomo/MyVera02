@@ -43,7 +43,10 @@ Ext.define('myvera.model.Veradevices', {
 			{name: 'ind', type: 'int'},
 			{name: 'width', type: 'int', defaultValue:50},
 			{name: 'height', type: 'int', defaultValue:50},
-			{name:'retina', type: 'string', convert: function(value, record) { return myvera.app.isretina; } }
+			{name:'retina', type: 'string', convert: function(value, record) {
+			var result="";
+			if(myvera.app.isretina=="@2x") result= "@2x"
+			return result; } }
 		],
 		idProperty: 'id'
 	}

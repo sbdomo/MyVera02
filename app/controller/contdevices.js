@@ -123,8 +123,11 @@ Ext.define('myvera.controller.contdevices', {
 				this.getIsVueL().setValue(cachedLoggedInUser.get('isVueL'));
 				this.getIsVueP().setValue(cachedLoggedInUser.get('isVueP'));
 				this.getIsReveil().setValue(cachedLoggedInUser.get('isReveil'));
-				myvera.app.setIsretina(cachedLoggedInUser.get('isRetina'));
-				
+				if(cachedLoggedInUser.get('isRetina')=='@2x') {
+					myvera.app.setIsretina('@2x');
+				} else {
+					myvera.app.setIsretina("");
+				}
 				this.profilchoice=cachedLoggedInUser.get('profil');
 				if(this.profilchoice==null) this.profilchoice=0;
 				this.getViewprofil().setValue(this.profilchoice);
@@ -1670,7 +1673,7 @@ Ext.define('myvera.controller.contdevices', {
 			itemId:'fieldset1',
 			title:name,
 			defaults: {
-				labelWidth: '100px'
+				labelWidth: '165px'
 			},
 			items: [
 			{
@@ -1697,7 +1700,7 @@ Ext.define('myvera.controller.contdevices', {
 				name: 'automode',
 				itemId: 'automode',
 				value: automode,
-				label: 'Auto. Eco.'
+				label: 'Auto. Eco./Confort'
 			},
 			{
 				xtype: 'sliderfieldextended',
@@ -1782,7 +1785,7 @@ Ext.define('myvera.controller.contdevices', {
 						//result=result +" Nouveau mode :" + newvalue;
 					}
 					
-					this.getParent().hide();
+					this.getParent().getParent().hide();
 					//if(result!="") Ext.Msg.alert('Modif', result);
 					//else Ext.Msg.alert('Modif', "Pas de modif");
 				}

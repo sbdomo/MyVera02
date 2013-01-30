@@ -18,7 +18,7 @@ Ext.define('myvera.view.PanelConfigRoom', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. icône',
+			label: 'Nom icône',
 			name: 'icon',
 			itemId: 'icon'
 		},

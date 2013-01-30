@@ -10,7 +10,7 @@ Ext.define('myvera.model.CurrentUser', {
 			{name: 'isVueP', type: 'boolean', defaultValue: true},
 			{name: 'isReveil', type: 'boolean', defaultValue: true},
 			{name: 'profil', type: 'integer'},
-			{name: 'isRetina', type: 'string', defaultValue: false}
+			{name: 'isRetina', type: 'string', defaultValue: ""}
 		],
 
 		proxy: {

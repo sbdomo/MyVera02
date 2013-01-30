@@ -7,9 +7,11 @@ Ext.define('myvera.util.Templates', {
 tplplan: '<tpl if="category==1000&&subcategory!=1">'+
 		 '" class="scene">'+
 		 	'<div class="devicon">'+
-		 		'<img class="deviceImage" src="./resources/images/indic/'+
-					'<tpl if="state==-2">jaune<tpl elseif="state==-3">rouge<tpl else>vide</tpl>'+
-					'{retina}.png" style="background-image: url(./resources/images/d<tpl if="icon!=null">{icon}<tpl else>1000</tpl>_0{retina}.png)" />'+
+				'<img class="deviceImage" src="./resources/images/d'+
+					'<tpl if="icon!=null">{icon}<tpl else>1000</tpl>_0{retina}.png" />'+
+				'<img class="indic2" src="./resources/images/indic/'+
+					'<tpl if="state==-2">djaune<tpl elseif="state==-3">drouge<tpl else>vide</tpl>'+
+				'{retina}.png">'+
 			'</div><div class="txtscene">'+
 		 		'<span class="scenemiddle"<tpl if="color!=null> style="color:#{color};"</tpl> >{name}</span><div>'+
 		 '</div>',
@@ -54,8 +56,8 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    '<tpl elseif="category==104"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    		'<tpl if="status==0">OFF<tpl elseif="status==1">HG<tpl elseif="status==2">ECO<tpl elseif="status==3">CONF</tpl></div>'+
 	    '<tpl elseif="category==105"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
-	    	'<tpl if="status==0">OFF<br/>&nbsp;<tpl elseif="status==1">Inactif<br/>&nbsp;<tpl elseif="status==2">Forcé<br/>&nbsp;<tpl elseif="status==3">Auto. <tpl if="var4==\'Heating\'">Conf.<br/>{var2}<tpl else>Eco.<br/>{var3}</tpl>°C</tpl></div>'+
-		'<div style=\'font-weight:bold; text-shadow: 0 0 5px white; font-size:{fontsize}; position: absolute; color:#009ade; width:100%; text-align:center; top: 25%;"\' > {var1}°C </div>'+
+	    '<tpl if="status==0">OFF<br/>&nbsp;<tpl elseif="status==1">Inactif<br/>&nbsp;<tpl elseif="status==2">Forcé<br/>&nbsp;<tpl elseif="status==3">Auto. {var4} <tpl if="var4==\'Heating\'">Conf.<br/>{var2}<tpl else>Eco.<br/>{var3}</tpl>°C</tpl></div>'+
+		'<div style=\'font-weight:bold; text-shadow: 0 0 5px white; font-size:{fontsize}; position: absolute; color:#009ade; width:50px; text-align:center; top: 25%;"\' > {var1}°C </div>'+
 	    '</tpl>'+
 	'</div></tpl>',
 	

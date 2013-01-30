@@ -40,7 +40,6 @@ foreach ($array_json['devices'] as $device) {
 		'left2' => $device['left2'],
 		'top2' => $device['top2'],
 		'color' => $device['color'],
-		'fontsize' => $device['fontsize'],
 		'tripped' => '0',
 		'icon' => $device['icon'],
 		'verif' => $device['verif'],
@@ -53,6 +52,7 @@ foreach ($array_json['devices'] as $device) {
 		);
 	if($device['width']!="50") $temparray['width']=$device['width'];
 	if($device['category']=="1001") $temparray['height']=$device['height'];
+	if($device['fontsize']!="10px"&&$device['fontsize']!="") $temparray['fontsize']=$device['fontsize'];
 	
 	$data[]=$temparray;
 }
