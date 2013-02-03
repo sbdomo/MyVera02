@@ -440,7 +440,8 @@ Ext.define('myvera.controller.contdevices', {
 									device.set('var1', response.devices[idrecord].temperature);
 									device.set('var2', response.devices[idrecord].heatsp); //Temp. utilisée en mode Auto. confort
 									device.set('var3', response.devices[idrecord].coolsp); //Temp. utilisée en mode Auto. Eco
-									device.set('var4', response.devices[idrecord].hvacstate); //Heating pour le mode Confort et Idle pour Eco
+									device.set('var4', response.devices[idrecord].energymode); //Normal pour le mode Confort et EnergySavingsMode pour Eco
+									device.set('var5', response.devices[idrecord].hvacstate); //Heating quand le radiateur est en chauffe et Idle quand il est à l'arrêt
 									break;
 								case 120: //vclock
 									device.set('var1', response.devices[idrecord].alarmtime);
@@ -492,9 +493,11 @@ Ext.define('myvera.controller.contdevices', {
 									(
 										((category == 4 || category == 103 || category == 120) && isTripped)
 										||
-										(category !=4 && category !=104 && category !=105 && category !=7 && status == 1)
+										(category !=4 && category !=106 && category !=7 && status == 1)
 										||
 										(category ==7 && status == 0)
+										||
+										((category ==104||category ==105) && (status == 2 || status==3))
 									)
 							) {
 								count1++;
@@ -619,7 +622,7 @@ Ext.define('myvera.controller.contdevices', {
 		
 		var icontap = false;
 		var cat=record.get('category');
-		if (!Ext.Array.contains([2, 3, 4, 6, 7, 8, 16, 17, 21, 101, 102, 103, 104, 105, 120, 1000], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
+		if (!Ext.Array.contains([2, 3, 4, 6, 7, 8, 16, 17, 21, 101, 102, 103, 104, 105, 106, 120, 1000], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
 			return;
 		}
 		
@@ -964,7 +967,8 @@ Ext.define('myvera.controller.contdevices', {
 				} else {
 					newstatus = record.get('sceneoff');
 				}
-			} else if (Ext.Array.contains([4, 103, 120], record.get('category'))) {
+			//Pas d'action pour les modules qui ne lancent rien sauf sceneon et sceneoff
+			} else if (Ext.Array.contains([4, 103, 106, 120], record.get('category'))) {
 				return;
 			}
 			
@@ -1648,15 +1652,15 @@ Ext.define('myvera.controller.contdevices', {
 		return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
 	},
 	
-	vthermPopup: function(deviceid, name, status, hvacstate, heatsp, coolsp) {
+	vthermPopup: function(deviceid, name, status, energymode, heatsp, coolsp) {
 		//device.set('var2', response.devices[idrecord].heatsp);
 		//device.set('var3', response.devices[idrecord].coolsp);
 		//device.set('var4', response.devices[idrecord].hvacstate);
 		
 		me=this;
 		
-		var automode=1;
-		if(hvacstate=="Heating") automode=0;
+//		var automode=1;
+//		if(hvacstate=="Heating") automode=0;
 			
 		//Status 5 : non connu, 0 : mode off, 1 : mode CoolOn (Inactif), 2: Mode HeatOn (Forcé), 3: Auto
 		var popup=new Ext.Panel({
@@ -1664,6 +1668,8 @@ Ext.define('myvera.controller.contdevices', {
 		    id: 'popup_temp',
 		    hideOnMaskTap: true,
 		    padding: 4,
+		    //margin: '0,0,0,0',
+		    //border: 1,
 		    //width: '400px',
 		    centered: true,
 		    items:[
@@ -1671,9 +1677,9 @@ Ext.define('myvera.controller.contdevices', {
 			xtype: 'fieldset',
 			name:'fieldset1',
 			itemId:'fieldset1',
-			title:name,
+			//title:name,
 			defaults: {
-				labelWidth: '165px'
+				labelWidth: '140px'
 			},
 			items: [
 			{
@@ -1695,12 +1701,27 @@ Ext.define('myvera.controller.contdevices', {
 					value: 3
 				}]
 			},
+			//{
+			//	xtype: 'togglefield',
+			//	name: 'automode',
+			//	itemId: 'automode',
+			//	value: automode,
+			//	label: 'Auto. Eco./Confort'
+			//},
 			{
-				xtype: 'togglefield',
+				xtype: 'radiofield',
 				name: 'automode',
-				itemId: 'automode',
-				value: automode,
-				label: 'Auto. Eco./Confort'
+				itemId: 'automodeeco',
+				value: 'Normal',
+				label: 'Auto. Eco'//,
+				//checked: true
+			},
+			{
+				xtype: 'radiofield',
+				name: 'automode',
+				itemId: 'automodeconf',
+				value: 'EnergySavingsMode',
+				label: 'Auto. Confort'
 			},
 			{
 				xtype: 'sliderfieldextended',
@@ -1752,8 +1773,11 @@ Ext.define('myvera.controller.contdevices', {
 						//result=result +"Temp. Confort:" + newvalue;
 					}
 					
-					if(form.down('#automode').getValue() != automode) {
-						if(form.down('#automode').getValue()==1) newvalue="EnergySavingsMode";
+					if(form.down('#automodeconf').getGroupValues() != energymode) {
+						//alert(form.down('#automodeconf').getGroupValues());
+//					//if(form.down('#automode').getValue() != automode) {
+//						if(form.down('#automode').getValue()==1) newvalue="EnergySavingsMode";
+						if(form.down('#automodeconf').getGroupValues()=="Idle") newvalue="EnergySavingsMode";
 						else newvalue="Normal";
 						//data_request?id=lu_action&serviceId=urn:upnp-org:serviceId:HVAC_UserOperatingMode1&DeviceNum=86&action=SetEnergyModeTarget&NewEnergyModeTarget=EnergySavingsMode
 						me.ondeviceaction(deviceid, "urn:upnp-org:serviceId:HVAC_UserOperatingMode1", "SetEnergyModeTarget", "NewEnergyModeTarget", newvalue);
@@ -1802,7 +1826,13 @@ Ext.define('myvera.controller.contdevices', {
 		popup.down('#fieldset1').down('#status').setValue(status);
 		//popup.down('#heatsp').setValue(heatsp);
 		//popup.down('#coolsp').setValue(coolsp);
-		//if(hvacstate=="Heating") popup.down('#automode').setValue(0);
+		//popup.down('#automodeeco').setGroupValues(hvacstate);
+		if(energymode=="Normal") {
+			//popup.down('#automode').setValue(0);
+			popup.down('#automodeconf').check();
+		} else {
+			popup.down('#automodeeco').check();
+		}
 		
 		Ext.Viewport.add(popup);
 		popup.show();

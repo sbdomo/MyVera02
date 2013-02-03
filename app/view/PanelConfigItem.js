@@ -18,7 +18,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			html:"",
 			itemId: 'titlePanelConfigItem',
 			tpl: [ '<img style="float: left;" height="40px" src="resources/images/l<tpl if="icon!=null">{icon}'+
-			'<tpl elseif="category==4&&subcategory==4">44'+
+			'<tpl elseif="category==4&&(subcategory==4||subcategory==1)">4{subcategory}'+
 			'<tpl elseif="category==120&&subcategory==1">121<tpl elseif="category==120&&subcategory==2">122'+
 			'<tpl else>{category}</tpl>_0{retina}.png" /><p style="line-height: 30px">&nbsp;&nbsp;{name} - ID:{id}</p><p>&nbsp;</p>' ]
 		},
@@ -31,9 +31,10 @@ Ext.define('myvera.view.PanelConfigItem', {
 			{text: 'Virtual ON/OFF Switches (plugin)',  value: '101'},
 			{text: 'Variable Container (plugin)',  value: '102'},
 			{text: 'Google Calendar Switch (plugin)',  value: '103'},
-			{text: 'Virtual Clock',  value: '120'},
-			{text: 'Pilot wire controller',  value: '104'},
-			{text: 'Smart Virtual Thermostat',  value: '105'},
+			{text: 'Virtual Clock (plugin)',  value: '120'},
+			{text: 'Pilot wire controller (plugin)',  value: '104'},
+			{text: 'Smart Virtual Thermostat (plugin)',  value: '105'},
+			{text: 'Day Or Night (plugin)',  value: '106'},
 			{text: 'Interface',  value: '1'},
 			{text: 'Dimmable light',  value: '2'},
 			{text: 'Switch',  value: '3'},
@@ -67,6 +68,15 @@ Ext.define('myvera.view.PanelConfigItem', {
 						{text: 'Alarm Clock',  value: '0'},
 						{text: 'Electrical timer',  value: '1'},
 						{text: 'Timer',  value: '2'}
+						];
+						subcat.setOptions(options);
+						subcat.show();
+					} else if(value=="4"){
+						var options = [
+						{text: 'Door Sensor',  value: '1'},
+						{text: 'Leak Sensor',  value: '2'},
+						{text: 'Motion Sensor',  value: '3'},
+						{text: 'Smoke Sensor',  value: '4'}
 						];
 						subcat.setOptions(options);
 						subcat.show();

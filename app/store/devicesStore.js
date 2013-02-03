@@ -19,7 +19,7 @@ Ext.define('myvera.store.devicesStore', {
 //				direction: 'ASC'
 //			},
 			{
-				property: 'cat',
+				property: 'category',
 				direction: 'ASC'
 			},
 			{
