@@ -1777,7 +1777,7 @@ Ext.define('myvera.controller.contdevices', {
 						//alert(form.down('#automodeconf').getGroupValues());
 //					//if(form.down('#automode').getValue() != automode) {
 //						if(form.down('#automode').getValue()==1) newvalue="EnergySavingsMode";
-						if(form.down('#automodeconf').getGroupValues()=="Idle") newvalue="EnergySavingsMode";
+						if(form.down('#automodeconf').getGroupValues()=="EnergySavingsMode") newvalue="EnergySavingsMode";
 						else newvalue="Normal";
 						//data_request?id=lu_action&serviceId=urn:upnp-org:serviceId:HVAC_UserOperatingMode1&DeviceNum=86&action=SetEnergyModeTarget&NewEnergyModeTarget=EnergySavingsMode
 						me.ondeviceaction(deviceid, "urn:upnp-org:serviceId:HVAC_UserOperatingMode1", "SetEnergyModeTarget", "NewEnergyModeTarget", newvalue);
