@@ -18,7 +18,7 @@ Ext.define('myvera.view.PanelConfigNavigation', {
 					Ext.getCmp('PanelConfigNavigation').push({
 							xtype: 'PanelConfigWebview',
 							title: 'Nouveau widget',
-							data: { id:"", etage:"-1", etage1:"-1", etage2:"-1"}
+							data: { id:"", subcategory:'0', status:'-1', room:'0', icon:null, etage:"-1", etage1:"-1", etage2:"-1", width:"50", retina:myvera.app.isretina}
 					});
 				}
 			}

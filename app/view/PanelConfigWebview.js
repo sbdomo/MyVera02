@@ -15,7 +15,11 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		items: [
 		{
 			html:"",
-			itemId: 'titlePanelConfigWebview'
+			itemId: 'titlePanelConfigWebview',
+			tpl: [ '<img style="float: left;" height="40px" src="resources/images/l<tpl if="icon!=null">{icon}'+
+			'<tpl else>1001{subcategory}'+
+			'</tpl>_0{retina}.png" /><p style="line-height: 30px">&nbsp;&nbsp;{name} - ID:{id}</p><p>&nbsp;</p>' ]
+
 		},
 		{
 			xtype: 'textfield',
@@ -23,6 +27,113 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			name: 'name',
 			itemId: 'name',
 			placeHolder: 'facultatif'
+		},
+		{
+			xtype: 'selectfield',
+			label: 'Type',
+			name: 'subcategory',
+			itemId: 'subcategory',
+			options: [
+			{text: 'widget', value:0},
+			{text: 'widget avec icône',  value: 1},
+			{text: 'command html',  value: 2},
+			{text: 'bouton de navigation',  value: 3},
+			{text: 'bouton cacher onglets',  value: 4}
+			],
+			listeners: 
+			{
+				change:function(selectbox,value,oldvalue){
+					switch (value) {
+					case 0:
+						this.getParent().down('#room').hide();
+						this.getParent().down('#status').hide();
+						this.getParent().down('#icon').hide();
+						this.getParent().down('#width').hide();
+						this.getParent().down('#graphlink').show();
+						this.getParent().down('#wwidth').show();
+						this.getParent().down('#height').show();
+						break;
+					case 1:
+						this.getParent().down('#room').show();
+						this.getParent().down('#status').hide();
+						this.getParent().down('#icon').show();
+						this.getParent().down('#width').show();
+						this.getParent().down('#graphlink').show();
+						this.getParent().down('#wwidth').show();
+						this.getParent().down('#height').show();
+						break;
+					case 2:
+						this.getParent().down('#room').show();
+						this.getParent().down('#status').hide();
+						this.getParent().down('#icon').show();
+						this.getParent().down('#width').show();
+						this.getParent().down('#graphlink').show();
+						this.getParent().down('#wwidth').hide();
+						this.getParent().down('#height').hide();
+						break;
+					case 3:
+						this.getParent().down('#room').hide();
+						this.getParent().down('#status').show();
+						this.getParent().down('#icon').show();
+						this.getParent().down('#width').show();
+						this.getParent().down('#graphlink').hide();
+						this.getParent().down('#wwidth').hide();
+						this.getParent().down('#height').hide();
+						break;
+					case 4:
+						this.getParent().down('#room').hide();
+						this.getParent().down('#status').hide();
+						this.getParent().down('#icon').show();
+						this.getParent().down('#width').show();
+						this.getParent().down('#graphlink').hide();
+						this.getParent().down('#wwidth').hide();
+						this.getParent().down('#height').hide();
+						break;
+					default:
+						
+						break;
+					}
+					
+					this.getParent().config.data.subcategory = value;
+					var label = this.getParent().down('#titlePanelConfigWebview');
+					var html = label.getTpl().apply(this.getParent().config.data);
+					label.setHtml(html);
+				}
+			}
+		},
+		{
+			xtype: 'selectfield',
+			label: 'Pièces',
+			name: 'room',
+			itemId: 'room',
+			store: 'Rooms',
+			displayField:'name',
+			hidden: true,
+			valueField: 'id'
+		},
+		{
+			xtype: 'selectfield',
+			label: 'Aller vers',
+			name: 'status',
+			itemId: 'status',
+			hidden: true,
+			store: 'FloorsStore',
+			displayField:'name',
+			valueField: 'id'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Num. icône',
+			name: 'icon',
+			hidden: true,
+			itemId: 'icon'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Largeur icône',
+			name: 'width',
+			hidden: true,
+			itemId: 'width'
 		},
 		{
 			xtype: 'textfield',
@@ -33,8 +144,8 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		{
 			xtype: 'textfield',
 			label: 'Largeur',
-			name: 'width',
-			itemId: 'width'
+			name: 'wwidth',
+			itemId: 'wwidth'
 		},
 		{
 			xtype: 'textfield',
@@ -204,7 +315,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			margin: 5,
 			itemId: 'SaveItem',
 			ui: 'confirm',
-			text: 'Ajouter le widget',
+			text: 'Ajouter',
 			iconCls: 'add',
 			iconMask: true,
 			handler: function(){
@@ -236,6 +347,11 @@ Ext.define('myvera.view.PanelConfigWebview', {
 					device.set("graphlink", formdata.graphlink);
 					device.set("state", "-3");
 					device.set("ind", formdata.ind);
+					device.set("subcategory", formdata.subcategory);
+					device.set("status", formdata.status);
+					device.set("icon", formdata.icon);
+					device.set("room", formdata.room);
+					device.set("wwidth", formdata.wwidth);
 				} else {
 					//Recherche une nouvelle id
 					var newid="w";
@@ -250,8 +366,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 					id: newid,
 					name: formdata.name,
 					state: "-3",
-					room: 0,
-					room: data.room,
+					room: formdata.room,
 					category: "1001",
 					etage: formdata.etage,
 					left: formdata.left,
@@ -265,17 +380,16 @@ Ext.define('myvera.view.PanelConfigWebview', {
 					width: formdata.width,
 					height: formdata.height,
 					graphlink: formdata.graphlink,
-					ind: formdata.ind
+					ind: formdata.ind,
+					subcategory: data.subcategory,
+					icon: formdata.icon,
+					status: formdata.status,
+					wwidth: formdata.wwidth
 					});
 					device = devices.getById(newid);
 					device.setDirty();
 					//listdevice.set("state", "-4");
 				}
-				//Paramètres utilisés dans l'affichage de la liste de ConfigDevices, il faut donc les mettre à jour.
-				//listdevice.set("category", formdata.category);
-				//listdevice.set("subcategory", formdata.subcategory);
-				//listdevice.set("icon", formdata.icon);
-				//listdevice.set("ind", formdata.ind);
 				
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
@@ -289,7 +403,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			iconMask: true,
 			ui: 'decline',
 			hidden: true,
-			text: 'Supprimer le widget',
+			text: 'Supprimer',
 			
 			handler: function(){
 				var form = this.getParent();
@@ -306,17 +420,20 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		],
 		listeners:{
 		    updatedata:function(e,d){
+			    
 			    //var id = d.id.substring(1);
 			    var id =d.id;
 			    var label = this.down('#titlePanelConfigWebview');
 			    var html ="";
 			    if (id!="") {
-			    e.down('#DeleteItem').show();
-			    e.down('#SaveItem').setIconCls('refresh');
-			    e.down('#SaveItem').setText('Mettre à jour');
-			    html = d.name + ' - ID: ' + id;
-			    } else html = "Nouveau widget";
+				    e.down('#DeleteItem').show();
+				    e.down('#SaveItem').setIconCls('refresh');
+				    e.down('#SaveItem').setText('Mettre à jour');
 			    
+			    
+			    //html = d.name + ' - ID: ' + id;
+			    }// else html = "Nouveau widget";
+			    html = label.getTpl().apply(e.config.data);
 			    label.setHtml(html);
 			    e.setValues(e.config.data);
 			    
@@ -335,7 +452,6 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			    //e.down('#LeftItem2').setValue(d.left2);
 			    //e.down('#TopItem2').setValue(d.top2);
 			    
-				    
 			    if(d.etage!="-1") {
 				    this.down('#PlaceItem').show();
 				    this.down('#LeftItem').show();
@@ -351,6 +467,17 @@ Ext.define('myvera.view.PanelConfigWebview', {
 				    this.down('#LeftItem2').show();
 				    this.down('#TopItem2').show();
 			    }
+		    
+			    //Pour changer l'icone du titre quand icon est modifié
+			    this.down('#icon').addListener('change', function(me,newvalue,oldvalue, opt){
+					if(newvalue!="") this.getParent().config.data.icon = newvalue;
+					else this.getParent().config.data.icon = null;
+					var label = this.getParent().down('#titlePanelConfigWebview');
+					var html = label.getTpl().apply(this.getParent().config.data);
+					label.setHtml(html);
+			    });
+		    
+		    
 		    }
 	}
 	},

@@ -34,6 +34,7 @@ Ext.define('myvera.controller.contdevices', {
 			isVueP: 'PanelConfigGenerale [name=isVueP]',
 			isReveil: 'PanelConfigGenerale [name=isReveil]',
 			isRetina: 'PanelConfigGenerale [name=isRetina]',
+			isTab: 'PanelConfigGenerale [name=isTab]',
 			viewprofil: 'PanelConfigGenerale [name=viewprofil]',
 			loginBt: 'PanelConfigGenerale [name=loginbutton]',
 			retinaBt: 'PanelConfigGenerale [name=retinabutton]',
@@ -72,6 +73,10 @@ Ext.define('myvera.controller.contdevices', {
 			
 			isReveil: {
 				change: 'onIsReveilChange'
+			},
+			
+			isTab: {
+				change: 'onIsTabChange'
 			},
 			
 			loginBt: {
@@ -123,6 +128,8 @@ Ext.define('myvera.controller.contdevices', {
 				this.getIsVueL().setValue(cachedLoggedInUser.get('isVueL'));
 				this.getIsVueP().setValue(cachedLoggedInUser.get('isVueP'));
 				this.getIsReveil().setValue(cachedLoggedInUser.get('isReveil'));
+				this.getIsTab().setValue(cachedLoggedInUser.get('isTab'));
+				
 				if(cachedLoggedInUser.get('isRetina')=='@2x') {
 					myvera.app.setIsretina('@2x');
 				} else {
@@ -442,6 +449,13 @@ Ext.define('myvera.controller.contdevices', {
 									device.set('var3', response.devices[idrecord].coolsp); //Temp. utilisée en mode Auto. Eco
 									device.set('var4', response.devices[idrecord].energymode); //Normal pour le mode Confort et EnergySavingsMode pour Eco
 									device.set('var5', response.devices[idrecord].hvacstate); //Heating quand le radiateur est en chauffe et Idle quand il est à l'arrêt
+//********Debug
+console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('status') + ", energymode " + device.get('var4') + ", hvacstate "  + device.get('var5'));
+									break;
+								case 107: //colored vcontainer
+									if(!isNaN(parseInt(response.devices[idrecord].variable1))) device.set('status', parseInt(response.devices[idrecord].variable1));
+										else device.set('status', "");
+									device.set('var1', response.devices[idrecord].variable2);
 									break;
 								case 120: //vclock
 									device.set('var1', response.devices[idrecord].alarmtime);
@@ -493,7 +507,7 @@ Ext.define('myvera.controller.contdevices', {
 									(
 										((category == 4 || category == 103 || category == 120) && isTripped)
 										||
-										(category !=4 && category !=106 && category !=7 && status == 1)
+										(category !=4 && category !=106 && category !=7 && category !=1001 && status == 1)
 										||
 										(category ==7 && status == 0)
 										||
@@ -509,7 +523,7 @@ Ext.define('myvera.controller.contdevices', {
 										(
 											((category == 4 || category == 103 || category == 120) && !isTripped)
 											||
-											(category !=4 && category != 103 && category != 120 && category != 7 && status == 0)
+											(category !=4 && category != 103 && category != 120 && category != 7 && category != 1001 && status == 0)
 											||
 											(category == 7 && status == 1)
 										)
@@ -622,9 +636,12 @@ Ext.define('myvera.controller.contdevices', {
 		
 		var icontap = false;
 		var cat=record.get('category');
-		if (!Ext.Array.contains([2, 3, 4, 6, 7, 8, 16, 17, 21, 101, 102, 103, 104, 105, 106, 120, 1000], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
+		if (!Ext.Array.contains([2, 3, 4, 6, 7, 8, 16, 17, 21, 101, 102, 103, 104, 105, 106, 107, 120, 1000, 1001], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
 			return;
 		}
+		
+		//Si c'est une webview, sort de la commande
+		if(cat==1001&&record.get('subcategory')==0) return;
 		
 		if (Ext.Array.contains(["listInRoom", "dataliston", "datalistoff", "listclock"], view.id)) {
 			var tap = Ext.get(event.target);
@@ -684,7 +701,7 @@ Ext.define('myvera.controller.contdevices', {
 			
 			//Cas général
 			//newstatus=0 par défaut. Affecte la valeur 1 de tripped ou de status
-			if (record.get('category') == 4) {
+			if (cat == 4) {
 				if (record.get('tripped') == 0) {
 					newstatus = "1";
 				}
@@ -815,7 +832,7 @@ Ext.define('myvera.controller.contdevices', {
 			}
 			
 			//Vclock
-			if (record.get('category') == 120&&record.get('sceneon') == null) {
+			if (cat == 120&&record.get('sceneon') == null) {
 				this.getClockfieldsetCt().setTitle(record.get('name'));
 				this.getClockdeiveidCt().setValue(record.get('id'));
 				dateheure=new Date("February 5, 2001 "+record.get('var1'));
@@ -834,14 +851,14 @@ Ext.define('myvera.controller.contdevices', {
 			}
 			
 			//VSwitch
-			if (record.get('category') == 101) {
+			if (cat == 101) {
 				dservice = "urn:upnp-org:serviceId:VSwitch1";
 				//daction = 'SetTarget';
 				//dtargetvalue = 'newTargetValue';
 			}
 			
 			//Pilote Wire Controller
-			if(record.get('category') == 104&&record.get('sceneon') == null) {
+			if(cat == 104&&record.get('sceneon') == null) {
 				var retina= myvera.app.isretina;
 				var html0 = '<img class="i0" src="./resources/images/plugin/pw0_';
 				if(record.get('status')==0) {
@@ -946,16 +963,45 @@ Ext.define('myvera.controller.contdevices', {
 			}
 			
 			//Smart Virtual Thermostat
-			if(record.get('category') == 105&&record.get('sceneon') == null) {
+			if(cat == 105&&record.get('sceneon') == null) {
 				this.vthermPopup(record.get('id'), record.get('name'), record.get('status'), record.get('var4'), record.get('var2'), record.get('var3'));
 				return;
 			}
 			
 			//Scene
-			if (record.get('category') == 1000) {
+			if (cat == 1000) {
 				dservice = "urn:micasaverde-com:serviceId:HomeAutomationGateway1";
 				daction = 'RunScene';
 				newstatus = record.get('id').substring(1);
+			}
+			
+			//widget ou bouton
+			if (cat == 1001) {
+				switch (record.get('subcategory')) {
+				//widget, ne fait rien
+				case 0:
+					break;
+				//widget avec icône
+				case 1:
+					this.widgetPopup(record.get('wwidth'), record.get('height'), record.get('graphlink'));
+					break;
+				//command html
+				case 2:
+					this.runHtml(record.get('id'), record.get('graphlink'));
+					break;
+				//bouton de navigation
+				case 3:
+					//console.log(view.getParent().id);
+					this.changeView(view.getParent(),record.get('status'));
+					break;
+				//bouton pour afficher masquer la barre d'onglet
+				case 4:
+					this.showHideMenu();
+					break;
+				default:
+					break;
+				}
+				return;
 			}
 			
 			//Lancement d'une scène à la place de l'action normal
@@ -968,13 +1014,13 @@ Ext.define('myvera.controller.contdevices', {
 					newstatus = record.get('sceneoff');
 				}
 			//Pas d'action pour les modules qui ne lancent rien sauf sceneon et sceneoff
-			} else if (Ext.Array.contains([4, 103, 106, 120], record.get('category'))) {
+			} else if (Ext.Array.contains([0, 4, 102, 103, 106, 107, 120], cat)) {
 				return;
 			}
 			
 		} else {
 			//Action lors d'un clic ailleurs que sur l'icône
-			if (record.get('category') == 104) {
+			if (cat == 104) {
 				dservice = "urn:antor-fr:serviceId:PilotWire1";
 				daction = 'SetTarget';
 				dtargetvalue = 'newTargetValue';
@@ -1008,10 +1054,10 @@ Ext.define('myvera.controller.contdevices', {
 				//output_format: 'json'
 			},
 			success: function(response) {
-				var category = record.get('category');
-				if (Ext.Array.contains([2, 3, 8], category)) {
+				//var category = record.get('category');
+				if (Ext.Array.contains([2, 3, 8], cat)) {
 					record.set('state', -2);
-				} else if (category==1000) {
+				} else if (cat==1000) {
 					record.set('state', -1);
 				}
 			},
@@ -1121,6 +1167,7 @@ Ext.define('myvera.controller.contdevices', {
 				isVueL = this.getIsVueL().getValue(),
 				isVueP = this.getIsVueP().getValue(),
 				isReveil = this.getIsReveil().getValue();
+				isTab = this.getIsTab().getValue();
 				if(this.getIsRetina().getValue()) isRetina="@2x";
 				else isRetina = "";
 				profil = this.getViewprofil().getValue();
@@ -1134,6 +1181,7 @@ Ext.define('myvera.controller.contdevices', {
 					isVueL: isVueL,
 					isVueP: isVueP,
 					isReveil: isReveil,
+					isTab: isTab,
 					isRetina: isRetina,
 					profil: profil
 				});
@@ -1293,6 +1341,23 @@ Ext.define('myvera.controller.contdevices', {
 		}, this);
 		}
 	},
+	
+	onIsTabChange: function() {
+		if(this.logged==true) {
+		Ext.ModelMgr.getModel('myvera.model.CurrentUser').load(1, {
+			success: function(user) {
+				var isTab = this.getIsTab().getValue();
+				user.set("isTab", isTab);
+				user.save();
+			},
+			failure: function() {
+				// this should not happen, nevertheless:
+				alert("Erreur !");
+			}
+		}, this);
+		}
+	},
+	
 	
 	onClockSaveTap: function() {
 		Ext.getCmp('paneloverlay').hide();
@@ -1462,7 +1527,7 @@ Ext.define('myvera.controller.contdevices', {
 				var background="";
 				FloorsStore.data.each(function(floor) {
 					if(floor.get('id')!=-1) {
-						//Pas de push si l'onglet n'existe pas (s'il a été supprimé par exemple
+						//Pas de push si l'onglet n'existe pas (s'il a été supprimé par exemple)
 						if(items[floor.get('tab')]) {
 							if(myvera.app.isretina=="@2x"&&floor.get('pathretina')!="") {
 								background='background-size: '+floor.get('widthretina')+'px; background-image: url(./resources/config/img/'+floor.get('pathretina')+'); background-repeat: no-repeat; background-position: 0px 0px;';
@@ -1471,6 +1536,7 @@ Ext.define('myvera.controller.contdevices', {
 							}
 							items[floor.get('tab')].push({
 									xtype: 'dataplan',
+									id: ('vue' +floor.get('id')),
 									style: background,
 									itemTpl: '<tpl if="etage=='+floor.get('id')+'||etage1=='+floor.get('id')+'||etage2=='+floor.get('id')+'">'+
 									'<div style="top:<tpl if="etage=='+floor.get('id')+'">{top}px; left:{left}px;'+
@@ -1597,6 +1663,9 @@ Ext.define('myvera.controller.contdevices', {
 	},
 	
 	switchvuelist: function() {
+		
+		if(this.getIsTab().getValue()==0) Ext.getCmp('main').getTabBar().hide();
+		
 		var application = this.getApplication().getController('Application');
 		var orientation= application.getOrientationFix();
 				
@@ -1701,18 +1770,11 @@ Ext.define('myvera.controller.contdevices', {
 					value: 3
 				}]
 			},
-			//{
-			//	xtype: 'togglefield',
-			//	name: 'automode',
-			//	itemId: 'automode',
-			//	value: automode,
-			//	label: 'Auto. Eco./Confort'
-			//},
 			{
 				xtype: 'radiofield',
 				name: 'automode',
 				itemId: 'automodeeco',
-				value: 'Normal',
+				value: 'EnergySavingsMode',
 				label: 'Auto. Eco'//,
 				//checked: true
 			},
@@ -1720,7 +1782,7 @@ Ext.define('myvera.controller.contdevices', {
 				xtype: 'radiofield',
 				name: 'automode',
 				itemId: 'automodeconf',
-				value: 'EnergySavingsMode',
+				value: 'Normal',
 				label: 'Auto. Confort'
 			},
 			{
@@ -1773,12 +1835,16 @@ Ext.define('myvera.controller.contdevices', {
 						//result=result +"Temp. Confort:" + newvalue;
 					}
 					
+//********Debug
+console.log("Debug: Automode "+energymode+ " new: "+form.down('#automodeconf').getGroupValues());
 					if(form.down('#automodeconf').getGroupValues() != energymode) {
 						//alert(form.down('#automodeconf').getGroupValues());
 //					//if(form.down('#automode').getValue() != automode) {
 //						if(form.down('#automode').getValue()==1) newvalue="EnergySavingsMode";
 						if(form.down('#automodeconf').getGroupValues()=="EnergySavingsMode") newvalue="EnergySavingsMode";
 						else newvalue="Normal";
+//********Debug
+console.log("Debug: NewEnergyModeTarget="+ newvalue);
 						//data_request?id=lu_action&serviceId=urn:upnp-org:serviceId:HVAC_UserOperatingMode1&DeviceNum=86&action=SetEnergyModeTarget&NewEnergyModeTarget=EnergySavingsMode
 						me.ondeviceaction(deviceid, "urn:upnp-org:serviceId:HVAC_UserOperatingMode1", "SetEnergyModeTarget", "NewEnergyModeTarget", newvalue);
 						//result=result +" Mode auto:" + newvalue;
@@ -1837,6 +1903,93 @@ Ext.define('myvera.controller.contdevices', {
 		Ext.Viewport.add(popup);
 		popup.show();
 	},
+	
+	widgetPopup: function(width, height, url) {
+		var popup=new Ext.Panel({
+			modal:true,
+			hideOnMaskTap: true,
+			baseCls:'transparentmodal',
+			width: width,
+			height: height,
+			centered: true,
+			border:false,
+			items:[
+			{
+				html: '<iframe style="width:' + width + 'px;height:'+ height +'px;background:transparent;" src="'+url+'" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe>'
+			}],
+			listeners: {
+				hide: function(panel) {
+					this.destroy();
+				}
+			}
+		});
+					
+		Ext.Viewport.add(popup);
+		popup.show();
+	},
+	
+	changeView: function(panel, index) {
+		//syntaxe : nom onglet/carousel : tabvue+id, nom vue : vue + id
+		var FloorsStore = Ext.getStore('FloorsStore');
+		var view = FloorsStore.getById(index);
+		if(view) {
+			var tabname = "tabvue" + view.get('tab');
+			var vuename = "vue" + index;
+			if(tabname==panel.id) {
+				panel.setActiveItem(Ext.getCmp(vuename));
+				return;
+			} else {
+				var newpanel = Ext.getCmp(tabname);
+				if(newpanel) {
+					Ext.getCmp('main').setActiveItem(newpanel);
+					newpanel.setActiveItem(Ext.getCmp(vuename));
+					return;
+				}
+			}
+		}
+		Ext.Msg.alert('Erreur','Vue non trouvée');
+	},
+	
+	runHtml: function(iddevice, url) {
+		var devices = Ext.getStore('devicesStore');
+		device = devices.getById(iddevice);
+		device.set('state', -2);
+		
+		var send_url = './protect/sendhtml.php';
+		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
+		Ext.Ajax.request({
+			url: send_url,
+			headers: syncheader,
+			method: 'POST',
+			//timeout: 10000,
+			scope: this,
+			params: {
+				url: url
+			},
+			success: function(response) {
+				console.log("Command OK "+response.responseText);
+				device.set('state', 0);
+			},
+			failure: function(response) {
+				//console.log("switch error :" + record.get('name'));
+				Ext.Msg.alert('Erreur','Pas de réponse à la commande');
+				device.set('state', 0);
+			}
+		});
+	},
+	
+	showHideMenu: function() {
+		var tabbar = Ext.getCmp('main').getTabBar();
+		console.log("tap 1");
+		if(tabbar.getHidden()) {
+			console.log("Show Tabbar");
+			tabbar.show();
+		} else {
+			console.log("Hide Tabbar");
+			tabbar.hide();
+		}
+	},
+	
 	ondeviceaction: function(iddevice, dservice, daction, dtargetvalue, newstatus) {
 		var devices = Ext.getStore('devicesStore');
 		device = devices.getById(iddevice);

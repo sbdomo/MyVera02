@@ -15,7 +15,7 @@ Ext.define('myvera.view.PanelConfigItemsMenu', {
 		items: [
 		{ ui: 'normal', text: 'Gestion de la liste des modules', name:'openPanelConfigItems' },
 		{ ui: 'normal', text: 'Gestion de la liste des scènes', name:'openPanelConfigScenes' },
-		{ ui: 'normal', text: 'Gestion de la liste des widgets', name:'openPanelConfigWebViews' },
+		{ ui: 'normal', text: 'Gestion des widgets et boutons', name:'openPanelConfigWebViews' },
 		{ ui: 'normal', text: 'Positionner sur les vues', name:'openPanelMove' },
 		{ ui: 'normal', text: 'Sauver', name: 'sauver', disabled: true}
 		]

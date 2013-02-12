@@ -10,18 +10,18 @@ tplplan: '<tpl if="category==1000&&subcategory!=1">'+
 				'<img class="deviceImage" src="./resources/images/d'+
 					'<tpl if="icon!=null">{icon}<tpl else>1000</tpl>_0{retina}.png" />'+
 				'<img class="indic2" src="./resources/images/indic/'+
-					'<tpl if="state==-2">djaune<tpl elseif="state==-3">drouge<tpl else>vide</tpl>'+
+					'<tpl if="state==-2">djaune<tpl elseif="state==-3">djaune<tpl else>vide</tpl>'+
 				'{retina}.png">'+
 			'</div><div class="txtscene">'+
 		 		'<span class="scenemiddle"<tpl if="color!=null> style="color:#{color};"</tpl> >{name}</span><div>'+
 		 '</div>',
 //Affichage des webviews dans une iframe
-tplpanwebview:	'<tpl elseif="category==1001">'+
-	' z-index:5;width:{width}px;height:{height}px;" class="x-img x-floating">'+
-	'<iframe style="width:{width}px;height:{height}px;background:transparent;" src="{graphlink}" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe></div>',
+tplpanwebview:	'<tpl elseif="category==1001&&subcategory==0">'+
+	' z-index:5;width:{wwidth}px;height:{height}px;" class="x-img x-floating">'+
+	'<iframe style="width:{wwidth}px;height:{height}px;background:transparent;" src="{graphlink}" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe></div>',
 //Pour ne pas afficher l'iframe lors du drag and drop
-tplpanwebviewmove: '<tpl elseif="category==1001">'+
-' z-index:5;width:{width}px;height:{height}px; background-color:rgba(137,224,156,0.6);" class="x-img x-floating">{name}'+
+tplpanwebviewmove: '<tpl elseif="category==1001&&subcategory==0">'+
+' z-index:5;width:{wwidth}px;height:{height}px; background-color:rgba(137,224,156,0.6);" class="x-img x-floating">{name}'+
 	'</div>',
 
 	
@@ -35,10 +35,14 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
 	    '<tpl elseif="category==105">'+
 	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl><tpl if="var5!=\'Heating\'">_0<tpl else>_1</tpl>'+
+	    '<tpl elseif="category==107">'+
+	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
+	    '<tpl elseif="category==1001&&subcategory!=0">'+
+	    	'<tpl if="icon!=null">{icon}<tpl else>{category}{subcategory}</tpl>_0'+
 	    '<tpl else>0_0</tpl>{retina}.png" />'+
 	    
 	    '<tpl if="state==-2"><img class="indic" src="./resources/images/indic/djaune{retina}.png" />'+
-	    '<tpl elseif="state==-3"><img class="indic" src="./resources/images/indic/drouge{retina}.png" />'+
+	    '<tpl elseif="state==-3"><img class="indic" src="./resources/images/indic/djaune{retina}.png" />'+
 	    '<tpl elseif="state==2"><img class="indic" src="./resources/images/indic/dalert{retina}.png" />'+
 	    '<tpl elseif="(category==4||category==103)&&armed==0"><img class="indic" src="./resources/images/indic/darm{retina}.png" />'+
 	    '<tpl elseif="category==120"><tpl if="armed==1&&var3==\'off\'"><img class="indic" src="./resources/images/indic/doff{retina}.png" />'+
@@ -53,6 +57,10 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    '<tpl elseif="(category==2||category==8)&&level!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{level} %</div>'+
 	    '<tpl elseif="category==3&&watts!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{watts} W</div>'+
 	    '<tpl elseif="category==120&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1}<tpl if="subcategory==1&&var2!=null"><br/>{var2}</tpl></div>'+
+	    '<tpl elseif="category==101||category==102"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
+	    	'<tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><tpl if="var2!=null"><br/>{var2}</tpl></div>'+
+	    '<tpl elseif="category==107&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
+	    	'{var1}</div>'+
 	    '<tpl elseif="category==104"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    		'<tpl if="status==0">OFF<tpl elseif="status==1">HG<tpl elseif="status==2">ECO<tpl elseif="status==3">CONF</tpl></div>'+
 	    '<tpl elseif="category==105"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
@@ -66,22 +74,6 @@ tplphone: "",
 tpllistfull: "",
 tplphonefull: "",
 	
-tpllisticon2:'<div class="devicon">'+
-			'<img class="deviceImage" src="./resources/images/indic/'+
-				'<tpl if="state==-2">jaune<tpl elseif="state==-3">rouge<tpl elseif="state==2">alert<tpl else>vide</tpl>'+
-				'{retina}.png" style="background-image: url(./resources/images/l'+
-				'<tpl if="category==2||category==3||category==4||category==7||category==8||category==101||category==103||category==106||category==120">'+
-					'<tpl if="icon != null">{icon}<tpl elseif="category==4&&(subcategory==4||subcategory==1)">4{subcategory}'+
-					'<tpl elseif="category==120&&subcategory==1">121<tpl elseif="category==120&&subcategory==2">122'+
-					'<tpl else>{category}</tpl>'+
-					'_<tpl if="category==4||category==103||category==120">{tripped}<tpl else>{status}</tpl>'+
-				'<tpl elseif="category==6||category==16||category==17||category==18||category==21||category==102||category==104||category==1000">'+
-					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_0'+
-	   			'<tpl elseif="category==105">'+
-					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl><tpl if="var5!=\'Heating\'">_0<tpl else>_1</tpl>'+
-				'<tpl else>0_0</tpl>{retina}.png);" />'+
-			'</div>',
-
 tpllisticon:'<div class="devicon">'+
 			'<img class="deviceImage" src="./resources/images/l'+
 				'<tpl if="category==2||category==3||category==4||category==7||category==8||category==101||category==103||category==106||category==120">'+
@@ -93,9 +85,13 @@ tpllisticon:'<div class="devicon">'+
 					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_0'+
 				'<tpl elseif="category==105">'+
 					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl><tpl if="var5!=\'Heating\'">_0<tpl else>_1</tpl>'+
+				'<tpl elseif="category==107">'+
+					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
+				'<tpl elseif="category==1001">'+
+					'<tpl if="icon!=null">{icon}<tpl else>{category}{subcategory}</tpl>_0'+
 	   			'<tpl else>0_0</tpl>{retina}.png" />'+
 	   			'<img class="indic2" src="./resources/images/indic/'+
-					'<tpl if="state==-2">djaune<tpl elseif="state==-3">drouge<tpl elseif="state==2">dalert<tpl else>vide</tpl>'+
+					'<tpl if="state==-2">djaune<tpl elseif="state==-3">djaune<tpl elseif="state==2">dalert<tpl else>vide</tpl>'+
 				'{retina}.png">'+
 			'</div>',
 			
@@ -124,6 +120,7 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 			'<tpl elseif="category==105">'+
 				'<div class="vargros">{var1}°C</div><div class="varcenter">'+
 				'<tpl if="status==0">OFF<tpl elseif="status==1">Inactif<tpl elseif="status==2">Forcé<tpl elseif="status==3">Auto. <tpl if="var4==\'Normal\'">Confort<br />{var2}<tpl else>Eco.<br />{var3}</tpl>°C</tpl></div>'+
+			'<tpl elseif="category==107"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
 			'<tpl elseif="category==120"><div><div class="clock1"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null||subcategory!=1">&nbsp;<tpl else>{var2}</tpl></div>'+
 			'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/indic/arm{armed}{retina}.png" /></div></tpl>'+
 					'<div class="clock3"><tpl if="var3==null">&nbsp;<tpl else><img width="42px" class="clocknext" src="./resources/images/indic/{var3}{retina}.png" /></tpl></div></div>'+
@@ -140,10 +137,10 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 				'</div>'+
 			'</tpl>',
 
-tplliston: '<tpl if="(verif!=\'off\'&&verif!=\'no\')&&(((category==4||category==103||category==120)&&tripped==1)||(category!=4&&category!=106&&category!=7&&status==1)||(category==7&&status==0)||((category==104||category==105)&&(status==2||status==3)))">',
+tplliston: '<tpl if="(verif!=\'off\'&&verif!=\'no\')&&(((category==4||category==103||category==120)&&tripped==1)||(category!=4&&category!=106&&category!=7&&category!=1001&&status==1)||(category==7&&status==0)||((category==104||category==105)&&(status==2||status==3)))">',
 tpllistoff: '<tpl if="(verif==\'off\'&&('+
 	'((category==4||category==103||category==120)&&tripped==0)||'+
-	'(category!=4&&category!=103&&category!=120&&category!=7&&status==0)||(category==7&&status==1)))||'+
+	'(category!=4&&category!=103&&category!=120&&category!=7&&category!=1001&&status==0)||(category==7&&status==1)))||'+
 	'(verif!=\'no\'&&(category==4||category==103||category==120)&&armed==0)">'
     },
     

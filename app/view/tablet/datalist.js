@@ -64,6 +64,15 @@ Ext.define('myvera.view.tablet.datalist', {
 					    console.log(this.getParent().getParent().getParent().id);
 					    this.getParent().getParent().getParent().toggleContainer();
 				    }
+			    },
+			    {
+				    xtype: 'button',
+				    iconMask: true,
+				    iconCls: 'add',
+				    name: 'hideshow',
+				    handler: function() {
+					    myvera.app.getController('myvera.controller.contdevices').showHideMenu();
+				    }
 			    }
 			    ]
 		    }]
@@ -86,7 +95,7 @@ Ext.define('myvera.view.tablet.datalist', {
 	    var listInRoom = this.down('#listInRoom');
 	    listInRoom.down('#toolbar').setTitle(record.get('name'));
 	    //var tpl ='<tpl if="room==' + record.get('id') + '">' + myvera.util.Templates.getTpllist() +'</tpl>';
-	    var tpl= '<tpl if="category!=1001"><div <tpl if="room==' + record.get('id') + '"> class="devicecadre"<tpl else> style="display:none;"</tpl> >' + myvera.util.Templates.getTpllistfull()+ '</div></tpl>';
+	    var tpl= '<tpl if="!(category==1001&&(subcategory==0||subcategory==3))"><div <tpl if="room==' + record.get('id') + '"> class="devicecadre"<tpl else> style="display:none;"</tpl> >' + myvera.util.Templates.getTpllistfull()+ '</div></tpl>';
 	    
 	    listInRoom.setItemTpl(tpl);
 	    listInRoom.refresh();

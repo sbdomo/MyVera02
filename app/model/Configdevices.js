@@ -19,7 +19,7 @@ Ext.define('myvera.model.Configdevices', {
 			{name: 'etage2', type: 'int', defaultValue: -1},
 			{name: 'left2', type: 'int'},
 			{name: 'top2', type: 'int'},
-			{name:'color', type: 'string', defaultValue:'000000'},
+			{name: 'color', type: 'string', defaultValue:'000000'},
 			{name: 'icon', type: 'int'},
 			{name: 'verif', type: 'string', defaultValue:"yes"},
 			{name: 'sceneon', type: 'int'},

@@ -8,10 +8,10 @@ Ext.define('myvera.model.Veradevices', {
 			{name: 'name', type: 'string'},
 			{name: 'status', type: 'int'},
 			{name: 'state', type: 'int'},
-			{name: 'room', type: 'int'},
+			{name: 'room', type: 'int', defaultValue: 0},
 			{name: 'level', type: 'int'},
 			{name: 'category', type: 'int'},
-			{name: 'subcategory', type: 'int'},
+			{name: 'subcategory', type: 'int', defaultValue: 0},
 			{name: 'watts', type: 'int'},
 			{name: 'etage', type: 'int'},
 			{name: 'left', type: 'int'},
@@ -22,8 +22,8 @@ Ext.define('myvera.model.Veradevices', {
 			{name: 'etage2', type: 'int', defaultValue: -1},
 			{name: 'left2', type: 'int'},
 			{name: 'top2', type: 'int'},
-			{name:'color', type: 'string', defaultValue:'000000'},
-			{name:'fontsize', type: 'string', defaultValue:'10px'},
+			{name: 'color', type: 'string', defaultValue:'000000'},
+			{name: 'fontsize', type: 'string', defaultValue:'10px'},
 			{name: 'tripped', type: 'int'},
 			{name: 'icon', type: 'int'},
 			{name: 'verif', type: 'string', defaultValue:"yes"},
@@ -43,7 +43,9 @@ Ext.define('myvera.model.Veradevices', {
 			{name: 'ind', type: 'int'},
 			{name: 'width', type: 'int', defaultValue:50},
 			{name: 'height', type: 'int', defaultValue:50},
-			{name:'retina', type: 'string', convert: function(value, record) {
+			{name: 'wwidth', type: 'int', defaultValue:50},
+			{name: 'forced', type: 'boolean', defaultValue: false},
+			{name: 'retina', type: 'string', convert: function(value, record) {
 			var result="";
 			if(myvera.app.isretina=="@2x") result= "@2x"
 			return result; } }

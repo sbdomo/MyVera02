@@ -50,8 +50,14 @@ foreach ($array_json['devices'] as $device) {
 		'graphlink' => $device['graphlink'],
 		'ind' => $device['ind']
 		);
-	if($device['width']!="50") $temparray['width']=$device['width'];
-	if($device['category']=="1001") $temparray['height']=$device['height'];
+	if($device['forced']=="1") $temparray['forced']="1";
+	$width =$device['width'];
+	if($width!="50"&&$width!="") $temparray['width']=$width;
+	if($device['category']=="1001") {
+		$temparray['height']=$device['height'];
+		if($device['subcategory']=="3") $temparray['status']=$device['status'];
+		if($device['subcategory']=="0"||$device['subcategory']=="1") $temparray['wwidth']=$device['wwidth'];
+	}
 	if($device['fontsize']!="10px"&&$device['fontsize']!="") $temparray['fontsize']=$device['fontsize'];
 	
 	$data[]=$temparray;

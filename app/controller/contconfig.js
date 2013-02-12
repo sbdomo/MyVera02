@@ -158,11 +158,15 @@ Ext.define('myvera.controller.contconfig', {
 							count++;
 						}
 						var room = configdevice.get('room');
-						if (device.get('room') != room) {
-							device.set('room', room);
-							device.set('state', "-3");
-							letexte+=" " + name + " dans pièce n°" + room;
-							count++;
+						if (device.get('room')!=room) {
+							if(device.get('forced')!=1) {
+								device.set('room', room);
+								device.set('state', "-3");
+								letexte+=" " + name + " dans pièce n°" + room;
+								count++;
+							} else {
+								configdevice.set('room', device.get('room'));
+							}
 						}
 						if(count > 0) {
 							var contconfig = myvera.app.getController('myvera.controller.contconfig');

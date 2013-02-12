@@ -38,6 +38,15 @@ Ext.define('myvera.view.phone.datalistphone', {
 					    console.log(this.getParent().getParent().getParent().id);
 					    this.getParent().getParent().getParent().toggleContainer2();
 				    }
+			    },
+			    {
+				    xtype: 'button',
+				    iconMask: true,
+				    iconCls: 'add',
+				    name: 'hideshow2',
+				    handler: function() {
+					    myvera.app.getController('myvera.controller.contdevices').showHideMenu();
+				    }
 			    }
 			    ]
 		}],
@@ -82,6 +91,15 @@ Ext.define('myvera.view.phone.datalistphone', {
 					    console.log(this.getParent().getParent().getParent().id);
 					    this.getParent().getParent().getParent().toggleContainer();
 				    }
+			    },
+			    {
+				    xtype: 'button',
+				    iconMask: true,
+				    iconCls: 'add',
+				    name: 'hideshow',
+				    handler: function() {
+					    myvera.app.getController('myvera.controller.contdevices').showHideMenu();
+				    }
 			    }
 			    ]
 		    }]
@@ -104,7 +122,7 @@ Ext.define('myvera.view.phone.datalistphone', {
 	    var listInRoom = this.down('#listInRoom');
 	    listInRoom.down('#toolbar').setTitle(record.get('name'));
 	    //var tpl = '<tpl if="room==' + record.get('id') + '">' + myvera.util.Templates.getTplphone() +'</tpl>';
-	    var tpl= '<tpl if="category!=1001"><div <tpl if="room==' + record.get('id') + '"> class="listdevice"<tpl else> style="display:none;"</tpl> >' + myvera.util.Templates.getTplphonefull()+ '</div></tpl>';
+	    var tpl= '<tpl if="!(category==1001&&(subcategory==0||subcategory==3))"><div <tpl if="room==' + record.get('id') + '"> class="listdevice"<tpl else> style="display:none;"</tpl> >' + myvera.util.Templates.getTplphonefull()+ '</div></tpl>';
 	    
 	    listInRoom.setItemTpl(tpl);
 	    listInRoom.refresh();

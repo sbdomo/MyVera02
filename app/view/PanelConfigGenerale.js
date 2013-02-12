@@ -90,6 +90,13 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 			},
 			{
 				xtype: 'togglefield',
+				name: 'isTab',
+				value: 1,
+				label: 'Onglets à l\'ouverture'//,
+				//labelWidth: '40%'
+			},
+			{
+				xtype: 'togglefield',
 				name: 'isRetina',
 				value: 0,
 				label: 'Retina'//,

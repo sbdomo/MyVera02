@@ -35,6 +35,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			{text: 'Pilot wire controller (plugin)',  value: '104'},
 			{text: 'Smart Virtual Thermostat (plugin)',  value: '105'},
 			{text: 'Day Or Night (plugin)',  value: '106'},
+			{text: 'Colored Variable Container (plugin)',  value: '107'},
 			{text: 'Interface',  value: '1'},
 			{text: 'Dimmable light',  value: '2'},
 			{text: 'Switch',  value: '3'},
@@ -114,6 +115,28 @@ Ext.define('myvera.view.PanelConfigItem', {
 			//{text: '5', value:'5'},
 			//{text: '6', value:'6'},
 			//]
+		},
+		{
+			xtype: 'togglefield',
+			name: 'forced',
+			itemId: 'forced',
+			label: 'Choisir une pièce',
+			listeners: {
+				change: function(field, newValue) {
+					if(field.getValue()==1) this.getParent().down('#room').show();
+					else this.getParent().down('#room').hide();
+				}
+			}
+		},
+		{
+			xtype: 'selectfield',
+			label: 'Pièces',
+			name: 'room',
+			itemId: 'room',
+			store: 'Rooms',
+			displayField:'name',
+			hidden: true,
+			valueField: 'id'
 		},
 		{
 			xtype: 'selectfield',
@@ -391,6 +414,8 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device.set("camuser", formdata.camuser);
 					device.set("campassword", formdata.campassword);
 					device.set("graphlink", formdata.graphlink);
+					device.set("forced", formdata.forced);
+					device.set("room", formdata.room);
 					device.set("state", "-3");
 					device.set("ind", formdata.ind);
 				} else {
@@ -401,7 +426,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					state: "-3",
 					status: "0",
 					tripped: "0",
-					room: data.room,
+					room: formdata.room,
 					category: formdata.category,
 					subcategory: formdata.subcategory,
 					etage: formdata.etage,
@@ -423,6 +448,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					camuser: formdata.camuser,
 					campassword: formdata.campassword,
 					graphlink: formdata.graphlink,
+					forced: formdata.forced,
 					ind: formdata.ind
 					});
 					device = devices.getById(data.id);
@@ -434,6 +460,8 @@ Ext.define('myvera.view.PanelConfigItem', {
 				listdevice.set("subcategory", formdata.subcategory);
 				listdevice.set("icon", formdata.icon);
 				listdevice.set("ind", formdata.ind);
+				listdevice.set("room", formdata.room);
+				listdevice.set("name", data.name+formdata.forced);
 				
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
