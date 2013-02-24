@@ -43,7 +43,8 @@ Ext.define('myvera.view.PanelImage', {
 				} else {
 					background='background:url(./resources/config/img/'+floor.get('path')+') no-repeat left top;';
 				}
-				this.getParent().down('image').setStyle(background);
+				this.setStyle(background);
+				//this.getParent().down('image').setStyle(background);
 			}
 		}
 	}

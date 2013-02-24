@@ -6,7 +6,8 @@ Ext.define('myvera.view.dataplan', {
 	config: {
 		emptyText: 'Aucun module',		
 		store: 'devicesStore',
-		scrollable: false,
+		styleHtmlContent: true,
+		scrollable: null,
 		listeners:{
 			itemtaphold: function(view, index, target, record, event){
 				//2: Dimmable light, 8: Window Covering

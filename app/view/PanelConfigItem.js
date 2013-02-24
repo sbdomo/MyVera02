@@ -461,7 +461,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 				listdevice.set("icon", formdata.icon);
 				listdevice.set("ind", formdata.ind);
 				listdevice.set("room", formdata.room);
-				listdevice.set("name", data.name+formdata.forced);
+				listdevice.set("name", data.name);
 				
 				Ext.getCmp('PanelConfigNavigation').pop();
 				myvera.app.getController('myvera.controller.contconfig').alertDirtydevices();
