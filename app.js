@@ -16,9 +16,9 @@ Ext.application({
 	'myvera.util.Templates',
 	'Ext.ux.field.SliderFieldExtended'
     ],
-    
+
     //views: ['Main'],
-    
+
     profiles: ['Phone', 'Tablet'],
     
     icon: {

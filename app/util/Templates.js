@@ -18,7 +18,7 @@ tplplan: '<tpl if="category==1000&&subcategory!=1">'+
 //Affichage des webviews dans une iframe
 tplpanwebview:	'<tpl elseif="category==1001&&subcategory==0">'+
 	' z-index:5;width:{wwidth}px;height:{height}px;" class="x-img x-floating">'+
-	'<iframe style="width:{wwidth}px;height:{height}px;background:transparent;" src="{graphlink}" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe></div>',
+	'<iframe style="width:{wwidth}px;height:{height}px;" src="{graphlink}" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize >Your device does not support iframes.</iframe></div>',
 //Pour ne pas afficher l'iframe lors du drag and drop
 tplpanwebviewmove: '<tpl elseif="category==1001&&subcategory==0">'+
 ' z-index:5;width:{wwidth}px;height:{height}px; background-color:rgba(137,224,156,0.6);" class="x-img x-floating">{name}'+
