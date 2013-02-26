@@ -765,6 +765,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 						width:width+10,
 						height:height+10,
 						centered: true,
+						styleHtmlContent: true,
 						html:'<img src="http://'+record.get('var1')+record.get('var2')+'?user='+record.get('camuser')+'&pwd='+record.get('campassword')+'" width='+width+' height='+height+' border=0 id="cam'+record.get('id')+'" />',
 						listeners: {
 							hide: function(panel) {
@@ -816,6 +817,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 							width:width+10,
 							height:height+10,
 							centered: true,
+							styleHtmlContent: true,
 							html:'<img src="'+record.get('graphlink')+'" width='+width+' height='+height+' border=0 />',
 							listeners: {
 								hide: function(panel) {
@@ -1909,22 +1911,22 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 			modal:true,
 			hideOnMaskTap: true,
 			baseCls:'transparentmodal',
+			styleHtmlContent: true,
 			width: width,
 			height: height,
 			centered: true,
 			border:false,
-			items:[
-			{
-				html: '<iframe style="width:' + width + 'px;height:'+ height +'px;background:transparent;" src="'+url+'" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe>'
-			}],
+			//html: '<iframe style="width:' + width + 'px;height:'+ height +'px;background:transparent;" src="'+url+'" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe>',
 			listeners: {
 				hide: function(panel) {
+					this.setHtml('');
 					this.destroy();
 				}
 			}
 		});
 					
 		Ext.Viewport.add(popup);
+		popup.setHtml('<iframe style="width:' + width + 'px;height:'+ height +'px;background:transparent;" src="'+url+'" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe>');
 		popup.show();
 	},
 	
