@@ -28,6 +28,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			name: 'category',
 			options: [
 			{text: 'Unknown plugin', value:'0'},
+			{text: 'Custom device',  value: '108'},
 			{text: 'Virtual ON/OFF Switches (plugin)',  value: '101'},
 			{text: 'Variable Container (plugin)',  value: '102'},
 			{text: 'Google Calendar Switch (plugin)',  value: '103'},
@@ -94,6 +95,28 @@ Ext.define('myvera.view.PanelConfigItem', {
 						subcat.setOptions(options);
 						subcat.hide();
 					}
+					
+					this.getParent().down('#CamuserItem').hide();
+					this.getParent().down('#CampasswordItem').hide();
+					this.getParent().down('#GraphlinkItem').hide();
+					this.getParent().down('#wwidth').hide();
+					this.getParent().down('#height').hide();
+					if(value=="6") {
+						this.getParent().down('#CamuserItem').show();
+						this.getParent().down('#CampasswordItem').show();
+					} else  if(value=="16" || value=="17" || value=="21") {
+						this.getParent().down('#GraphlinkItem').show();
+					} else  if(value=="108") {
+						this.getParent().down('#GraphlinkItem').show();
+						this.getParent().down('#wwidth').show();
+						this.getParent().down('#height').show();
+						this.getParent().down('#var1').show();
+						this.getParent().down('#var2').show();
+						this.getParent().down('#var3').show();
+						this.getParent().down('#var4').show();
+					}
+					
+					
 					this.getParent().config.data.category = value;
 					var label = this.getParent().down('#titlePanelConfigItem');
 					var html = label.getTpl().apply(this.getParent().config.data);
@@ -115,6 +138,70 @@ Ext.define('myvera.view.PanelConfigItem', {
 			//{text: '5', value:'5'},
 			//{text: '6', value:'6'},
 			//]
+		},
+		{
+			xtype: 'textfield',
+			itemId: 'CamuserItem',
+			label: 'User Camera',
+			hidden: true,
+			name: 'camuser'
+		},
+		{
+			xtype: 'passwordfield',
+			itemId: 'CampasswordItem',
+			label: 'Password Camera',
+			hidden: true,
+			name: 'campassword'
+		},
+		{
+			xtype: 'textfield',
+			itemId: 'var1',
+			label: 'Variable Etat',
+			hidden: true,
+			name: 'var1'
+		},
+		{
+			xtype: 'textfield',
+			itemId: 'var2',
+			label: 'Variable Texte',
+			hidden: true,
+			name: 'var2'
+		},
+		{
+			xtype: 'textfield',
+			itemId: 'var3',
+			label: 'Suffixe Texte',
+			hidden: true,
+			name: 'var3'
+		},
+		{
+			xtype: 'textfield',
+			itemId: 'var4',
+			label: 'Commande',
+			hidden: true,
+			name: 'var4',
+			placeHolder: 'service|action|targetvalue'
+		},
+		{
+			xtype: 'textfield',
+			itemId: 'GraphlinkItem',
+			label: 'Lien vers graph.',
+			hidden: true,
+			name: 'graphlink'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Largeur',
+			name: 'wwidth',
+			hidden: true,
+			itemId: 'wwidth'
+		},
+		{
+			xtype: 'textfield',
+			label: 'Hauteur',
+			name: 'height',
+			hidden: true,
+			itemId: 'height'
 		},
 		{
 			xtype: 'togglefield',
@@ -257,27 +344,6 @@ Ext.define('myvera.view.PanelConfigItem', {
 			name: 'sceneoff'
 		},
 		{
-			xtype: 'textfield',
-			itemId: 'CamuserItem',
-			label: 'User Camera',
-			hidden: true,
-			name: 'camuser'
-		},
-		{
-			xtype: 'passwordfield',
-			itemId: 'CampasswordItem',
-			label: 'Password Camera',
-			hidden: true,
-			name: 'campassword'
-		},
-		{
-			xtype: 'textfield',
-			itemId: 'GraphlinkItem',
-			label: 'Lien vers graph.',
-			hidden: true,
-			name: 'graphlink'
-		},
-		{
 			xtype: 'selectfield',
 			label: 'Vue 1',
 			name: 'etage1',
@@ -418,6 +484,16 @@ Ext.define('myvera.view.PanelConfigItem', {
 					device.set("room", formdata.room);
 					device.set("state", "-3");
 					device.set("ind", formdata.ind);
+					device.set("height", formdata.height);
+					device.set("wwidth", formdata.wwidth);
+					
+					if(formdata.category=="108") {
+						device.set("var1", formdata.var1);
+						device.set("var2", formdata.var2);
+						device.set("var3", formdata.var3);
+						device.set("var4", formdata.var4);
+						device.set("var5", "");
+					}
 				} else {
 					//Il faut ajouter le module
 					devices.add({
@@ -449,9 +525,20 @@ Ext.define('myvera.view.PanelConfigItem', {
 					campassword: formdata.campassword,
 					graphlink: formdata.graphlink,
 					forced: formdata.forced,
-					ind: formdata.ind
+					ind: formdata.ind,
+					height: formdata.height,
+					wwidth: formdata.wwidth
 					});
 					device = devices.getById(data.id);
+					
+					if(formdata.category=="108") {
+						device.set("var1", formdata.var1);
+						device.set("var2", formdata.var2);
+						device.set("var3", formdata.var3);
+						device.set("var4", formdata.var4);
+						device.set("var5", "");
+					}
+					
 					device.setDirty();
 					listdevice.set("state", "-4");
 				}
@@ -580,13 +667,13 @@ Ext.define('myvera.view.PanelConfigItem', {
 						    this.down('#LeftItem2').hide();
 						    this.down('#TopItem2').hide();
 				    }
-				    if(device.get('category')=="6") {
-					    this.down('#CamuserItem').show();
-					    this.down('#CampasswordItem').show();
-				    }
-				    if(device.get('category')=="16" || device.get('category')=="17" || device.get('category')=="21") {
-					    this.down('#GraphlinkItem').show();
-				    }
+//				    if(device.get('category')=="6") {
+//					    this.down('#CamuserItem').show();
+//					    this.down('#CampasswordItem').show();
+//				    }
+//				    if(device.get('category')=="16" || device.get('category')=="17" || device.get('category')=="21") {
+//					    this.down('#GraphlinkItem').show();
+//				    }
 				    this.down('#DeleteItem').show();
 			    } else {
 					    //if(e.config.data.etage==null) e.config.data.etage="-1";

@@ -376,6 +376,7 @@ Ext.define('myvera.controller.contdevices', {
 					var devices = Ext.getStore('devicesStore');
 					var device = "";
 					if (devices) {
+						//var tmp="";
 						for (idrecord in response.devices) {
 							device = devices.getById(response.devices[idrecord].id);
 							if (device) {
@@ -456,6 +457,14 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 									if(!isNaN(parseInt(response.devices[idrecord].variable1))) device.set('status', parseInt(response.devices[idrecord].variable1));
 										else device.set('status', "");
 									device.set('var1', response.devices[idrecord].variable2);
+									break;
+								case 108: //Custom Device
+									if(device.get('var1')!=""&&device.get('var1')!= null) {
+										device.set('status', response.devices[idrecord][device.get('var1')]);
+									} else device.set('status', 0);
+									if(device.get('var2')!=""&&device.get('var2')!= null) {
+										device.set('var5', response.devices[idrecord][device.get('var2')] + device.get('var3') );
+									} else device.set('var5', "");
 									break;
 								case 120: //vclock
 									device.set('var1', response.devices[idrecord].alarmtime);
@@ -636,7 +645,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 		
 		var icontap = false;
 		var cat=record.get('category');
-		if (!Ext.Array.contains([2, 3, 4, 6, 7, 8, 16, 17, 21, 101, 102, 103, 104, 105, 106, 107, 120, 1000, 1001], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
+		if (!Ext.Array.contains([2, 3, 4, 6, 7, 8, 16, 17, 21, 101, 102, 103, 104, 105, 106, 107, 108, 120, 1000, 1001], cat) && (record.get('sceneon') == null || record.get('sceneoff') == null)) {
 			return;
 		}
 		
@@ -968,6 +977,22 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			if(cat == 105&&record.get('sceneon') == null) {
 				this.vthermPopup(record.get('id'), record.get('name'), record.get('status'), record.get('var4'), record.get('var2'), record.get('var3'));
 				return;
+			}
+			
+			//Custom Device
+			if(cat == 108&&record.get('sceneon') == null) {
+				if(record.get('var4')!=""&&record.get('var4')!=null) {
+					//Exemple : urn:upnp-org:serviceId:VSwitch1|SetTarget|newTargetValue
+					var commande =record.get('var4').split('|')
+					dservice = commande[0];
+					daction = commande[1];
+					dtargetvalue = commande[2];
+				} else {
+					if(record.get('graphlink')!=""&&record.get('graphlink')!=null) {
+						this.widgetPopup(record.get('wwidth'), record.get('height'), record.get('graphlink'));
+					}
+					return;
+				}
 			}
 			
 			//Scene
@@ -1926,8 +1951,8 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 		});
 					
 		Ext.Viewport.add(popup);
-		popup.setHtml('<iframe style="width:' + width + 'px;height:'+ height +'px;background:transparent;" src="'+url+'" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe>');
 		popup.show();
+		popup.setHtml('<iframe style="width:' + width + 'px;height:'+ height +'px;background:transparent;" src="'+url+'" frameborder="no" scrolling="no" marginwidth="0" marginheight="0" noresize allowtransparency="true">Your device does not support iframes.</iframe>');
 	},
 	
 	changeView: function(panel, index) {

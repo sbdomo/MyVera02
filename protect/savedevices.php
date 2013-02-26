@@ -58,6 +58,14 @@ foreach ($array_json['devices'] as $device) {
 		if($device['subcategory']=="3") $temparray['status']=$device['status'];
 		if($device['subcategory']=="0"||$device['subcategory']=="1") $temparray['wwidth']=$device['wwidth'];
 	}
+	if($device['category']=="108") {
+		$temparray['var1']=$device['var1'];
+		$temparray['var2']=$device['var2'];
+		$temparray['var3']=$device['var3'];
+		$temparray['var4']=$device['var4'];
+		$temparray['wwidth']=$device['wwidth'];
+		$temparray['height']=$device['height'];
+	}
 	if($device['fontsize']!="10px"&&$device['fontsize']!="") $temparray['fontsize']=$device['fontsize'];
 	
 	$data[]=$temparray;

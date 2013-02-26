@@ -37,6 +37,8 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl><tpl if="var5!=\'Heating\'">_0<tpl else>_1</tpl>'+
 	    '<tpl elseif="category==107">'+
 	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
+	    '<tpl elseif="category==108">'+
+	    	'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
 	    '<tpl elseif="category==1001&&subcategory!=0">'+
 	    	'<tpl if="icon!=null">{icon}<tpl else>{category}{subcategory}</tpl>_0'+
 	    '<tpl else>0_0</tpl>{retina}.png" />'+
@@ -61,6 +63,8 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    	'<tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><tpl if="var2!=null"><br/>{var2}</tpl></div>'+
 	    '<tpl elseif="category==107&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    	'{var1}</div>'+
+	    '<tpl elseif="category==108&&var5!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
+	    	'{var5}</div>'+
 	    '<tpl elseif="category==104"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    		'<tpl if="status==0">OFF<tpl elseif="status==1">HG<tpl elseif="status==2">ECO<tpl elseif="status==3">CONF</tpl></div>'+
 	    '<tpl elseif="category==105"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
@@ -86,6 +90,8 @@ tpllisticon:'<div class="devicon">'+
 				'<tpl elseif="category==105">'+
 					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl><tpl if="var5!=\'Heating\'">_0<tpl else>_1</tpl>'+
 				'<tpl elseif="category==107">'+
+					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
+				'<tpl elseif="category==108">'+
 					'<tpl if="icon!=null">{icon}<tpl else>{category}</tpl>_{status}'+
 				'<tpl elseif="category==1001">'+
 					'<tpl if="icon!=null">{icon}<tpl else>{category}{subcategory}</tpl>_0'+
@@ -121,18 +127,20 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 				'<div class="vargros">{var1}°C</div><div class="varcenter">'+
 				'<tpl if="status==0">OFF<tpl elseif="status==1">Inactif<tpl elseif="status==2">Forcé<tpl elseif="status==3">Auto. <tpl if="var4==\'Normal\'">Confort<br />{var2}<tpl else>Eco.<br />{var3}</tpl>°C</tpl></div>'+
 			'<tpl elseif="category==107"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
+			'<tpl elseif="category==108"><div class="var"><tpl if="var5==null">&nbsp;<tpl else>{var5}</tpl></div>'+
+
 			'<tpl elseif="category==120"><div><div class="clock1"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null||subcategory!=1">&nbsp;<tpl else>{var2}</tpl></div>'+
 			'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/indic/arm{armed}{retina}.png" /></div></tpl>'+
 					'<div class="clock3"><tpl if="var3==null">&nbsp;<tpl else><img width="42px" class="clocknext" src="./resources/images/indic/{var3}{retina}.png" /></tpl></div></div>'+
 			'<tpl elseif="category==2||category==8"><div>'+
 				'<div class="devicelevel1">'+
 					'<div class="lpourcent"><tpl if="level != null">{level} %<tpl else> </tpl></div>'+
-					'<img class="d25" src="./resources/images/indic/25<tpl if="level&gt;=25">on</tpl>{retina}.png" />'+
-					'<img class="d50" src="./resources/images/indic/50<tpl if="level&gt;=50">on</tpl>{retina}.png" />'+
+					'<img class="d25" src="./resources/images/indic/25<tpl if="level&gt;=25">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
+					'<img class="d50" src="./resources/images/indic/50<tpl if="level&gt;=50">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
 				'</div>'+
 				'<div class="devicelevel2">'+
-					'<img class="d75" src="./resources/images/indic/75<tpl if="level&gt;=75">on</tpl>{retina}.png" /> '+
-					'<img class="d100" src="./resources/images/indic/100<tpl if="level==100">on</tpl>{retina}.png" />'+
+					'<img class="d75" src="./resources/images/indic/75<tpl if="level&gt;=75">on<tpl if="category==2">j</tpl></tpl>{retina}.png" /> '+
+					'<img class="d100" src="./resources/images/indic/100<tpl if="level==100">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
 				'</div>'+
 				'</div>'+
 			'</tpl>',
