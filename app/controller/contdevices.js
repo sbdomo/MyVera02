@@ -38,6 +38,8 @@ Ext.define('myvera.controller.contdevices', {
 			viewprofil: 'PanelConfigGenerale [name=viewprofil]',
 			loginBt: 'PanelConfigGenerale [name=loginbutton]',
 			retinaBt: 'PanelConfigGenerale [name=retinabutton]',
+			versionBt: 'PanelConfigGenerale [name=versionbutton]',
+			urlversiontxt: 'PanelConfigGenerale [name=urlversion]',
 			
 			clockfieldsetCt: 'paneloverlay [name=fieldset1]',
 			clockdeiveidCt: 'paneloverlay [name=deviceid]',
@@ -81,6 +83,10 @@ Ext.define('myvera.controller.contdevices', {
 			
 			loginBt: {
 				tap: 'onLoginTap'
+			},
+			
+			versionBt: {
+				tap: 'onVersionTap'
 			},
 			
 			retinaBt: {
@@ -1746,6 +1752,42 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 		var r = data.length % 3;
 		
 		return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
+	},
+	
+	onVersionTap: function() {
+		console.log("Version Verif");
+		var url = './version/newversion.php';
+		Ext.Viewport.setMasked({
+				xtype: 'loadmask',
+				message: 'recherche....'
+		});
+		Ext.Ajax.request({
+			url: url,
+			method: 'GET',
+			timeout: 10000,
+			scope: this,
+			success: function(result) {
+				var response = Ext.decode(result.responseText, true);
+				Ext.Viewport.setMasked(false);
+				if (response) {
+					if(response.result=="true") {
+						this.getUrlversiontxt().setHtml(response.msg+' <a target="_blank" href="' +response.url+'">'+response.url+'</a>');
+						//this.getUsernameCt()
+						this.getUrlversiontxt().show();
+						Ext.Msg.alert('Version',response.msg);
+					} else {
+						Ext.Msg.alert('Version',response.msg);
+					}
+				} else {
+					Ext.Msg.alert('Erreur','Réponse du serveur incorrecte');
+				}
+			},
+			failure: function(result) {
+				Ext.Viewport.setMasked(false);
+				Ext.Msg.alert('Erreur','Pas de réponse du serveur');
+			}
+		});
+
 	},
 	
 	vthermPopup: function(deviceid, name, status, energymode, heatsp, coolsp) {

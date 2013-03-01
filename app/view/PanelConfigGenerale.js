@@ -110,7 +110,19 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 				//ui: 'confirm'
 			}
 			]
+		},
+		{
+			xtype: 'button',
+			text: 'Nouvelle version ?',
+			name: 'versionbutton'
+			//ui: 'confirm'
+		},
+		{
+			name: 'urlversion',
+			hidden: true,
+			html:''
 		}
+			
 		]
 	}
 });

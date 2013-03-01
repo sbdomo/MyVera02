@@ -105,8 +105,10 @@ Ext.define('myvera.view.PanelConfigItem', {
 						this.getParent().down('#CamuserItem').show();
 						this.getParent().down('#CampasswordItem').show();
 					} else  if(value=="16" || value=="17" || value=="21") {
+						this.getParent().down('#GraphlinkItem');setLabel("URL Graph.");
 						this.getParent().down('#GraphlinkItem').show();
 					} else  if(value=="108") {
+						this.getParent().down('#GraphlinkItem');setLabel("URL Widget");
 						this.getParent().down('#GraphlinkItem').show();
 						this.getParent().down('#wwidth').show();
 						this.getParent().down('#height').show();
@@ -143,6 +145,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			xtype: 'textfield',
 			itemId: 'CamuserItem',
 			label: 'User Camera',
+			autoCapitalize: false,
 			hidden: true,
 			name: 'camuser'
 		},
@@ -157,6 +160,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			xtype: 'textfield',
 			itemId: 'var1',
 			label: 'Variable Etat',
+			autoCapitalize: false,
 			hidden: true,
 			name: 'var1'
 		},
@@ -164,6 +168,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			xtype: 'textfield',
 			itemId: 'var2',
 			label: 'Variable Texte',
+			autoCapitalize: false,
 			hidden: true,
 			name: 'var2'
 		},
@@ -171,6 +176,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			xtype: 'textfield',
 			itemId: 'var3',
 			label: 'Suffixe Texte',
+			autoCapitalize: false,
 			hidden: true,
 			name: 'var3'
 		},
@@ -178,6 +184,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			xtype: 'textfield',
 			itemId: 'var4',
 			label: 'Commande',
+			autoCapitalize: false,
 			hidden: true,
 			name: 'var4',
 			placeHolder: 'service|action|targetvalue'
@@ -185,7 +192,8 @@ Ext.define('myvera.view.PanelConfigItem', {
 		{
 			xtype: 'textfield',
 			itemId: 'GraphlinkItem',
-			label: 'Lien vers graph.',
+			label: 'URL widget',
+			autoCapitalize: false,
 			hidden: true,
 			name: 'graphlink'
 		},
