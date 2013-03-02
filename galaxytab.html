@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html manifest="" lang="fr-FR">
+<head>
+	<meta charset="UTF-8">
+	<title>MyVera - Galaxy Tab 2 7.0</title>
+<style type="text/css">	
+#galaxytab {
+}
+
+#galaxytab.landscape {
+  background: url('skin/samsung-galaxy-tab2.png');
+  width: 1265px;
+  height: 803px;
+}
+
+#galaxytab #frame {
+  border: none;
+  background: #fff;
+  position: relative;
+  left: 120px;
+  top: 101px;
+}
+
+#galaxytab.landscape #frame {
+  width: 1024px;
+  height: 554px;
+}
+
+#frame::-webkit-scrollbar { width: 4px; height: 4px; background: transparent; }
+#frame::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.75); -webkit-border-radius: 4px; border-radius: 4px; width: 4px; height: 4px; }
+</style>
+</head>
+<body>
+<div id="galaxytab" class="landscape">
+<iframe id="frame" src="./index.html"></iframe>
+</div>
+</body>
+</html>

@@ -1,1 +1,1 @@
-Répertoire contenant les images des vue 3D.
+Répertoire contenant les images des vues.

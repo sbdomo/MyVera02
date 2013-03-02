@@ -454,10 +454,10 @@ Ext.define('myvera.controller.contdevices', {
 									device.set('var1', response.devices[idrecord].temperature);
 									device.set('var2', response.devices[idrecord].heatsp); //Temp. utilisée en mode Auto. confort
 									device.set('var3', response.devices[idrecord].coolsp); //Temp. utilisée en mode Auto. Eco
-									device.set('var4', response.devices[idrecord].energymode); //Normal pour le mode Confort et EnergySavingsMode pour Eco
+									device.set('var4', response.devices[idrecord].EnergyMode); //Normal pour le mode Confort et EnergySavingsMode pour Eco
 									device.set('var5', response.devices[idrecord].hvacstate); //Heating quand le radiateur est en chauffe et Idle quand il est à l'arrêt
 //********Debug
-console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('status') + ", energymode " + device.get('var4') + ", hvacstate "  + device.get('var5'));
+console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('status') + ", EnergyMode " + device.get('var4') + ", hvacstate "  + device.get('var5'));
 									break;
 								case 107: //colored vcontainer
 									if(!isNaN(parseInt(response.devices[idrecord].variable1))) device.set('status', parseInt(response.devices[idrecord].variable1));
