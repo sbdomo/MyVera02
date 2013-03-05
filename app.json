@@ -96,14 +96,23 @@
     "resources": [
         "resources/images",
         "resources/icons",
-        "resources/startup"
+        "resources/startup",
+        "resources/config/img",
+        "protect",
+	"skin",
+	"version",
+	"ipad.html",
+	"iphone.html",
+	"galaxytab.html",
+	"readme.txt"
     ],
 
     /**
      * File / directory name matchers to ignore when copying to the builds, must be valid regular expressions
      */
     "ignore": [
-        "\.svn$"
+        "\.svn$",
+        "\.htaccess$"
     ],
 
     /**

@@ -105,10 +105,10 @@ Ext.define('myvera.view.PanelConfigItem', {
 						this.getParent().down('#CamuserItem').show();
 						this.getParent().down('#CampasswordItem').show();
 					} else  if(value=="16" || value=="17" || value=="21") {
-						this.getParent().down('#GraphlinkItem');setLabel("URL Graph.");
+						this.getParent().down('#GraphlinkItem').setLabel("URL Graph.");
 						this.getParent().down('#GraphlinkItem').show();
 					} else  if(value=="108") {
-						this.getParent().down('#GraphlinkItem');setLabel("URL Widget");
+						this.getParent().down('#GraphlinkItem').setLabel("URL Widget");
 						this.getParent().down('#GraphlinkItem').show();
 						this.getParent().down('#wwidth').show();
 						this.getParent().down('#height').show();
