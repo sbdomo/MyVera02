@@ -11,7 +11,7 @@ Ext.define('myvera.view.listclock', {
 		disableSelection: true,
 		//itemTpl:  '<tpl if="category==120||category==103">'+
 		// myvera.util.Templates.getTpllist() + '</tpl>',
-		emptyText: 'Aucun réveil',
+		emptyText: locale.getSt().misc.noclock,
 		store: 'devicesStore'
 	}
 });

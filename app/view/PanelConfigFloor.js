@@ -21,14 +21,14 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Nom',
+			label: locale.getSt().field.name,
 			//id: 'name',
 			itemId: 'name',
 			name: 'name'
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Onglet',
+			label: locale.getSt().field.tab,
 			name: 'tab',
 			itemId: 'tab',
 			store: 'TabViewsStore',
@@ -37,21 +37,21 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Index',
+			label: locale.getSt().field.index,
 			name: 'ind',
 			itemId: 'ind',
 			value: 90
 		},
 		{
 			xtype: 'textfield',
-			label: 'Url de l\'image',
+			label: locale.getSt().field.urlimg,
 			//id: 'linkimage',
 			itemId: 'linkimage',
 			name: 'linkimage'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Image',
+			label: locale.getSt().field.img,
 			//id: 'path',
 			itemId: 'path',
 			disabled: true,
@@ -59,7 +59,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'button',
-			text: 'Image d\'une autre vue',
+			text: locale.getSt().field.imgonview,
 			//ui: 'confirm',
 			//iconCls: 'refresh',
 			//iconMask: true,
@@ -81,7 +81,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 					items:[
 						{
 							xtype: 'selectfield',
-							label: 'Vue',
+							label: locale.getSt().field.view,
 							name: 'view',
 							itemId: 'view'
 						},
@@ -89,7 +89,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 							xtype: 'button',
 							name: 'adddimg',
 							ui: 'confirm',
-							text: 'Choisir cette image',
+							text: locale.getSt().field.chooseimg,
 							handler: function(){
 								me.down('#path').setValue(this.getParent().down('#view').getValue());
 								this.getParent().hide();
@@ -116,14 +116,14 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Url Retina',
+			label: locale.getSt().field.urlimgretina,
 			//id: 'linkimage',
 			itemId: 'linkimage2',
 			name: 'linkimage2'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Image Retina',
+			label: locale.getSt().field.imgretina,
 			//id: 'path',
 			itemId: 'pathretina',
 			disabled: true,
@@ -136,7 +136,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'button',
-			text: 'Image d\'une autre vue',
+			text: locale.getSt().field.imgonview,
 			//ui: 'confirm',
 			//iconCls: 'refresh',
 			//iconMask: true,
@@ -158,7 +158,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 					items:[
 						{
 							xtype: 'selectfield',
-							label: 'Vue',
+							label: locale.getSt().field.view,
 							name: 'view',
 							itemId: 'view'
 						},
@@ -171,7 +171,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 							xtype: 'button',
 							name: 'adddimg',
 							ui: 'confirm',
-							text: 'Choisir cette image',
+							text: locale.getSt().field.chooseimg,
 							handler: function(){
 								var Floor = Ext.getStore('FloorsStore').getById(this.getParent().down('#view').getValue());
 								me.down('#pathretina').setValue(Floor.get('pathretina'));
@@ -200,7 +200,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'button',
-			text: 'Ajouter et sauver',
+			text: locale.getSt().field.addsave,
 			ui: 'confirm',
 			iconCls: 'add',
 			iconMask: true,
@@ -210,7 +210,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
                 {
 			xtype: 'button',
-			text: 'Supprimer et sauver',
+			text: locale.getSt().field.deletesave,
 			margin: 5,
 			iconCls: 'trash',
 			ui: 'decline',
@@ -226,7 +226,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 				label.setHtml(html);
 				e.down('#deletefloor').show();
 				e.down('#savefloor').setIconCls('refresh');
-				e.down('#savefloor').setText('Sauver');
+				e.down('#savefloor').setText(locale.getSt().button.save);
 				//Ext.getCmp('name').setValue(d.name);
 				//Ext.getCmp('path').setValue(d.path);
 				e.down('#name').setValue(d.name);

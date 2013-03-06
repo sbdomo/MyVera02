@@ -1,0 +1,124 @@
+{
+   "title":{
+      "board":" Tableau de bord ",
+      "is_on":"Allumés ?",
+      "clocks":"Réveils",
+      "config":"Config.",
+      "rooms":"Pièces",
+      "conf_gen":"Config. générale",
+      "conf_views":"Vues des étages ou des pièces",
+      "conf_devices":"Modules et scènes",
+      "conf":"Conf.",
+      "views":"Vues",
+      "devices":"Modules",
+      "localconnect":"Connexion locale"
+   },
+   "misc":{
+      "nodevice":"Aucun module",
+      "noroom":"Pas de pièce",
+      "devices_on":"Modules allumés",
+      "devices_off":"Modules éteints à surveiller",
+      "noview":"Pas de vue",
+      "noclock":"Aucun réveil",
+      "newview":"Nouvelle vue",
+      "newtab":"Nouvel onglet",
+      "display":"Affichage",
+      "landscapeview":"Vues en mode paysage",
+      "portraitview":"Vues en mode portrait",
+      "viewtabs":"Onglets à l'ouverture",
+      "retina":"Retina",
+      "newversion":"Nouvelle version",
+      "chooseroom":"Choisir une pièce",
+      "defineplace":"Définir l'emplacement",
+      "inison":"Dans Allumés ?",
+      "ifon":"si allumé",
+      "ifoff":"si éteint",
+      "never":"jamais",
+      "position":"Positionner"
+   },
+   "field":{
+      "name":"Nom",
+      "tab":"Onglet",
+      "index":"Index",
+      "urlimg":"Url de l'image",
+      "img":"Image",
+      "imgonview":"Image d'une autre vue",
+      "view":"Vue",
+      "chooseimg":"Choisir cette image",
+      "urlimgretina":"Url Retina",
+      "imgretina":"Image Retina",
+      "addsave":"Ajouter et sauver",
+      "deletesave":"Supprimer et sauver",
+      "password":"Mot de passe",
+      "veraip":"IP de la Vera",
+      "profile":"Profil",
+      "bydefault":"Par défaut",
+      "category":"Catégorie",
+      "urlgraph":"URL Graph.",
+      "urlwidget":"URL Widget",
+      "subcategory":"Sub-catégorie",
+      "camerauser":"User Camera",
+      "camerapassword":"Password Camera",
+      "varstatus":"Variable Etat",
+      "vartext":"Variable Texte",
+      "suffix":"Suffixe Texte",
+      "command":"Commande",
+      "width":"Largeur",
+      "height":"Hauteur",
+      "positionleft":"Position gauche",
+      "positiontop":"Position haut",
+      "textcolor":"Couleur du texte",
+      "textsize":"Taille du texte",
+      "iconnum":"Num. icône",
+      "iconwidth":"Largeur icône",
+      "sceneon":"Num. scène on",
+      "sceneoff":"Num. scène off"
+   },
+   "button":{
+      "back":"Retour",
+      "add":"Ajouter",
+      "login":"S'identifier",
+      "adddevice":"Ajouter le module",
+      "supp":"Supprimer",
+      "update":"Mettre à jour",
+      "cancel":"Annuler",
+      "save":"Sauver",
+      "done":"Fait",
+      "yes":"Oui"
+   },
+   "panel":{
+      "listoff":{
+         "empty":"Aucun module à surveiller éteint coucou"
+      }
+   },
+   "msg":{
+      "update_app":{
+         "title":"Mise à jour de l'application",
+         "msg":"Mise à jour réussie. Recharger maintenant?"
+      }
+   },
+
+   "fields":{
+      "name":"Nom",
+      "dateLabel":"la date",
+      "datePlaceholder":"choisir la date"
+   },
+   "fieldsets":{
+      "title":"Ensemble de champs",
+      "instructions":"des instructions en français"
+   },
+   "months":{
+      "1":"Janvier",
+      "2":"Février",
+      "3":"Mars",
+      "4":"Avril",
+      "5":"Mai",
+      "6":"Juin",
+      "7":"Juillet",
+      "8":"Août",
+      "9":"Septembre",
+      "10":"Octobre",
+      "11":"Novembre",
+      "12":"Décembre"
+   }
+}

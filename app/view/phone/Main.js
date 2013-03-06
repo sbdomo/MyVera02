@@ -12,7 +12,7 @@ Ext.define("myvera.view.phone.Main", {
 		{
 			title: 'liste',
 			id:'datalist',
-			title: ' Tableau de bord ',
+			title: locale.getSt().title.board,
 			iconCls: 'tab1',
 			xtype: 'datalistphone'
 
@@ -27,21 +27,21 @@ Ext.define("myvera.view.phone.Main", {
 		{
 			xtype: 'panelinfophone',
 			id:'panelinfo',
-			title: 'Allumés ?',
+			title: locale.getSt().title.is_on,
 			iconCls: 'info'//,
 			//hidden: true
 		},
 		{
 			xtype: 'listclockphone',
 			id:'listclock',
-			title: 'Réveils',
+			title: locale.getSt().title.clocks,
 			iconCls: 'time'//,
 			//hidden: true
 		},
 		{
 			xtype: 'PanelConfigphone',
 			id:'PanelConfig',
-			title: 'Config.',
+			title: locale.getSt().title.config,
 			iconCls: 'user'
 		}
 		]

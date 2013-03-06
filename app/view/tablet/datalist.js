@@ -27,8 +27,8 @@ Ext.define('myvera.view.tablet.datalist', {
 		{
 			xtype: 'toolbar',
 			docked: 'top',
-			ui: 'light',                    
-			title: 'Pièces'
+			ui: 'light',
+			title: locale.getSt().title.rooms
 		}],
 		listeners: {
 			select: function(view, record) {
@@ -47,12 +47,12 @@ Ext.define('myvera.view.tablet.datalist', {
 		    styleHtmlContent:true,
 		    itemCls:'deviceview',
 		    disableSelection: true,
-		    emptyText: 'Aucun module',
+		    emptyText: locale.getSt().misc.nodevice,
 		    store: 'devicesStore',
 		    items: [{
 			    xtype: 'toolbar',
 			    itemId: 'toolbar',
-			    title: 'Pas de pièce',
+			    title: locale.getSt().misc.noroom,
 			    docked: 'top',
 			    items: [
 			    {

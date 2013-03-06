@@ -4,7 +4,7 @@ Ext.define('myvera.view.dataplan', {
 	requires:['myvera.util.Templates'],
 	stores: ['devicesStore'],
 	config: {
-		emptyText: 'Aucun module',		
+		emptyText: locale.getSt().misc.nodevice,
 		store: 'devicesStore',
 		styleHtmlContent: true,
 		scrollable: null,

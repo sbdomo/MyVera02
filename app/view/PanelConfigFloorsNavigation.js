@@ -5,32 +5,32 @@ Ext.define('myvera.view.PanelConfigFloorsNavigation', {
 	requires: ['myvera.view.PanelConfigViewsMenu', 'myvera.view.PanelConfigFloors','myvera.view.PanelConfigFloor'],
 	config: {
 		iconCls: '',
-		defaultBackButtonText: 'Retour',
+		defaultBackButtonText: locale.getSt().button.back,
 		navigationBar: {
 			items: [
 			{
 				xtype: 'button',
 				id: 'addViewButton',
-				text: 'Ajouter',
+				text: locale.getSt().button.add,
 				align: 'right',
 				hidden: true,
 				handler: function(){
 					Ext.getCmp('PanelConfigFloorsNavigation').push({
 							xtype: 'PanelConfigFloor',
-							title: 'Nouvelle vue'
+							title: locale.getSt().misc.newview
 					});
 				}
 			},
 			{
 				xtype: 'button',
 				id: 'addTabButton',
-				text: 'Ajouter',
+				text: locale.getSt().button.add,
 				align: 'right',
 				hidden: true,
 				handler: function(){
 					Ext.getCmp('PanelConfigFloorsNavigation').push({
 							xtype: 'PanelConfigTab',
-							title: 'Nouvel onglet'
+							title: locale.getSt().misc.newtab
 					});
 				}
 			}

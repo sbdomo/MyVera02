@@ -21,10 +21,11 @@ Ext.define('myvera.controller.Application', {
 //*******				orientationchange: 'onOrientationchange'
 //*******			}
 		}
+
 	},
 	// called when the Application is launched, remove if not needed
 	launch: function(app) {
-			this.initViewport();
+		this.initViewport();
 	},
 	initViewport: function() {
 		//Ext.Viewport.add(Ext.create('myvera.view.Main'));

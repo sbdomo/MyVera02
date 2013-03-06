@@ -9,7 +9,7 @@ Ext.define('myvera.view.phone.datalistphone', {
            items: [
 	   {
 		xtype: 'dataview',
-		title: 'menu',
+		title: '',
 		itemId: 'list',
 		cls: 'slidelist',
 		selectedCls: 'listroomselect',
@@ -26,8 +26,8 @@ Ext.define('myvera.view.phone.datalistphone', {
 		{
 			xtype: 'toolbar',
 			docked: 'top',
-			ui: 'light',                    
-			title: 'Pièces',
+			ui: 'light',
+			title: locale.getSt().title.rooms,
 			items: [
 			    {
 				    xtype: 'button',
@@ -62,19 +62,19 @@ Ext.define('myvera.view.phone.datalistphone', {
 	    },
 	    {
 		    xtype: 'dataview',
-		    title: 'liste',
+		    title: '',
 		    itemId: 'listInRoom',
 		    id: 'listInRoom',
 		    //styleHtmlContent:true,
 		    //itemCls:'deviceview',
 		    disableSelection: true,
-		    emptyText: 'Aucun module',
+		    emptyText: locale.getSt().misc.nodevice,
 		    store: 'devicesStore',
 		    items: [{
 			    xtype: 'toolbar',
 			    itemId: 'toolbar',
 			    title: {
-				    title: 'Pas de pièce',
+				    title: locale.getSt().misc.noroom,
 				    //centered: false,
 				    width: 232//,
 				    //left:200

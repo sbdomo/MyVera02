@@ -1,22 +1,22 @@
 Ext.define('myvera.view.tablet.PanelConfig', {
     extend: 'myvera.view.PanelConfig',
-    xtype: 'PanelConfig',  
+    xtype: 'PanelConfig',
     config: {
 	items: [
 	{
 		xtype:'PanelConfigGenerale',
-		title: 'Config. générale'
+		title: locale.getSt().title.conf_gen
 	},
 	{
 		xtype: 'PanelConfigRoomsNavigation'
 	},
 	{
 		xtype: 'PanelConfigFloorsNavigation',
-		title: 'Vues des étages ou des pièces'
+		title: locale.getSt().title.conf_views
 	},
 	{
 		xtype: 'PanelConfigNavigation',
-		title : 'Modules et scènes'
+		title : locale.getSt().title.conf_devices
 	}
 	]
     }

@@ -10,7 +10,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 			defaults: {
 				labelWidth: '140px'
 			},
-			title: 'Connexion locale',
+			title: locale.getSt().title.localconnect,
 			//iconCls: 'home',
 			//instructions: 'Connexion locale',
 			items: [
@@ -23,38 +23,38 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 				xtype: 'textfield',
 				name: 'login',
 				autoCapitalize: false,
-				placeHolder: 'Nom'
+				placeHolder: locale.getSt().field.name
 			},
 			{
 				xtype: 'passwordfield',
 				name: 'pass',
-				placeHolder: 'Mot de passe'
+				placeHolder: locale.getSt().field.password
 			},
 			{
 				xtype: 'textfield',
-				label: 'IP de la Vera',
+				label: locale.getSt().field.veraip,
 				//id: 'ipvera',
 				name: 'ipvera',
 				placeHolder: 'Ex: 192.168.0.1'
 			},
 			{
 				xtype: 'selectfield',
-				label: 'Profil',
+				label: locale.getSt().field.profile,
 				name:'viewprofil',
 				itemId:'viewprofil',
 				options: [
-				{text: 'Par défaut', value:'0'},
-				{text: 'Profil 1',  value: '1'},
-				{text: 'Profil 2',  value: '2'},
-				{text: 'Profil 3',  value: '3'},
-				{text: 'Profil 4',  value: '4'},
-				{text: 'Profil 5',  value: '5'},
-				{text: 'Profil 6',  value: '6'}
+				{text: locale.getSt().field.bydefault, value:'0'},
+				{text: locale.getSt().field.profile +' 1',  value: '1'},
+				{text: locale.getSt().field.profile +' 2',  value: '2'},
+				{text: locale.getSt().field.profile +' 3',  value: '3'},
+				{text: locale.getSt().field.profile +' 4',  value: '4'},
+				{text: locale.getSt().field.profile +' 5',  value: '5'},
+				{text: locale.getSt().field.profile +' 6',  value: '6'}
 				]
 			},
 			{
 				xtype: 'button',
-				text: 'S\'identifier',
+				text: locale.getSt().button.login,
 				name: 'loginbutton',
 				ui: 'confirm'
 			}
@@ -65,46 +65,46 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 			defaults: {
 				labelWidth: '190px'
 			},
-			title: 'Affichage',
+			title: locale.getSt().misc.display,
 			items: [
 			{
 				xtype: 'togglefield',
 				name: 'isVueL',
 				value: 1,
-				label: 'Vues en mode paysage'//,
+				label: locale.getSt().misc.landscapeview//,
 				//labelWidth: '60%'
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isVueP',
 				value: 0,
-				label: 'Vues en mode portrait'//,
+				label: locale.getSt().misc.portraitview//,
 				//labelWidth: '40%'
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isReveil',
 				value: 1,
-				label: 'Réveils'//,
+				label: locale.getSt().title.clocks//,
 				//labelWidth: '40%'
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isTab',
 				value: 1,
-				label: 'Onglets à l\'ouverture'//,
+				label: locale.getSt().misc.viewtabs//,
 				//labelWidth: '40%'
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isRetina',
 				value: 0,
-				label: 'Retina'//,
+				label: locale.getSt().misc.retina//,
 				//labelWidth: '40%'
 			},
 			{
 				xtype: 'button',
-				text: 'Retina',
+				text: locale.getSt().misc.retina,
 				hidden: true,
 				name: 'retinabutton'
 				//ui: 'confirm'
@@ -113,7 +113,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 		},
 		{
 			xtype: 'button',
-			text: 'Nouvelle version ?',
+			text: locale.getSt().misc.newversion+' ?',
 			name: 'versionbutton'
 			//ui: 'confirm'
 		},

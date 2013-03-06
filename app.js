@@ -14,6 +14,7 @@ Ext.application({
     requires: [
         'Ext.MessageBox',
 	'myvera.util.Templates',
+	'myvera.util.locale',
 	'Ext.ux.field.SliderFieldExtended'
     ],
 
@@ -53,7 +54,7 @@ Ext.application({
 	Ext.apply(MB, {
 		YESNO: [MB.NO, MB.YES]
 	});
-        // Destroy the #appLoadingIndicator element
+	// Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view

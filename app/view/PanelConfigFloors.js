@@ -4,7 +4,7 @@ Ext.define('myvera.view.PanelConfigFloors', {
 	id:'PanelConfigFloors',
 	requires: ['myvera.store.FloorsStore'],
 	config: {
-		title: 'Vues',
+		title: locale.getSt().title.views,
 		itemId:"PanelConfigFloors",
 		itemTpl: '{ind} - {name}',
 		store: 'FloorsStore',

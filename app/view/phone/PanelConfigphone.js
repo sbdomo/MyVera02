@@ -5,18 +5,18 @@ Ext.define('myvera.view.phone.PanelConfigphone', {
 	items: [
 	{
 		xtype:'PanelConfigGenerale',
-		title: 'Conf.'
+		title: locale.getSt().title.conf
 	},
 	{
 		xtype: 'PanelConfigRoomsNavigation'
 	},
 	{
 		xtype: 'PanelConfigFloorsNavigation',
-		title: 'Vues'
+		title: locale.getSt().title.views
 	},
 	{
 		xtype: 'PanelConfigNavigation',
-		title : 'Modules'
+		title : locale.getSt().title.devices
 	}
 	]
     }

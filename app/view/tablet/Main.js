@@ -12,7 +12,7 @@ Ext.define("myvera.view.tablet.Main", {
 		{
 			title: 'liste',
 			id:'datalist',
-			title: ' Tableau de bord ',
+			title: locale.getSt().title.board,
 			iconCls: 'tab1',
 			xtype: 'datalist'
 
@@ -20,21 +20,21 @@ Ext.define("myvera.view.tablet.Main", {
 		{
 			xtype: 'panelinfo',
 			id:'panelinfo',
-			title: 'Allumés ?',
+			title: locale.getSt().title.is_on,
 			iconCls: 'info'//,
 			//hidden: true
 		},
 		{
 			xtype: 'listclock',
 			id:'listclock',
-			title: 'Réveils',
+			title: locale.getSt().title.clocks,
 			iconCls: 'time'//,
 			//hidden: true
 		},
 		{
 			xtype: 'PanelConfig',
 			id:'PanelConfig',
-			title: 'Config.',
+			title: locale.getSt().title.config,
 			iconCls: 'user'
 		}
 		]
