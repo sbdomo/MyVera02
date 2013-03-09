@@ -15,6 +15,7 @@ Ext.define('myvera.controller.contdevices', {
 		logged: null,
 		ipvera: null,
 		profilchoice: null,
+		tabshow: true,//Pour indiquer si isTab était déjà sur 0 (et ne pas mettre le message indiquant de penser à mettre un bouton dans les vues)
 		
 		refs: {
 			plan: 'dataplan',
@@ -109,6 +110,7 @@ Ext.define('myvera.controller.contdevices', {
 		//this.syncdate = 0;
 		this.synccount=0;
 		this.autosync = true;
+		this.tabshow=true;
 		//var tabbarlabel = {
 		//    id: 'tabbarlabel',
                 //    docked: 'right',
@@ -135,7 +137,7 @@ Ext.define('myvera.controller.contdevices', {
 				this.getIsVueP().setValue(cachedLoggedInUser.get('isVueP'));
 				this.getIsReveil().setValue(cachedLoggedInUser.get('isReveil'));
 				this.getIsTab().setValue(cachedLoggedInUser.get('isTab'));
-				
+				if(cachedLoggedInUser.get('isTab')=="0") this.tabshow=false;
 				if(cachedLoggedInUser.get('isRetina')=='@2x') {
 					myvera.app.setIsretina('@2x');
 				} else {
@@ -800,7 +802,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 						width:width+10,
 						height:height+10,
 						centered: true,
-						styleHtmlContent: true,
+						//styleHtmlContent: true,
 						html:'<img src="http://'+record.get('var1')+record.get('var2')+'?user='+record.get('camuser')+'&pwd='+record.get('campassword')+'" width='+width+' height='+height+' border=0 id="cam'+record.get('id')+'" />',
 						listeners: {
 							hide: function(panel) {
@@ -852,7 +854,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 							width:width+10,
 							height:height+10,
 							centered: true,
-							styleHtmlContent: true,
+							//styleHtmlContent: true,
 							html:'<img src="'+record.get('graphlink')+'" width='+width+' height='+height+' border=0 />',
 							listeners: {
 								hide: function(panel) {
@@ -1402,6 +1404,10 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				var isTab = this.getIsTab().getValue();
 				user.set("isTab", isTab);
 				user.save();
+				if(isTab==0&&this.tabshow===true) {
+					this.tabshow=false;
+					Ext.Msg.alert('Message',"Pensez à mettre au moins un bouton dans une des vues pour faire apparaitre la barre d'onglet");
+				}
 			},
 			failure: function() {
 				// this should not happen, nevertheless:
