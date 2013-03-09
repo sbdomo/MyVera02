@@ -1406,7 +1406,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				user.save();
 				if(isTab==0&&this.tabshow===true) {
 					this.tabshow=false;
-					Ext.Msg.alert('Message',"Pensez à mettre au moins un bouton dans une des vues pour faire apparaitre la barre d'onglet");
+					Ext.Msg.alert(locale.getSt().misc.msg,locale.getSt().msg.addbtntab);
 				}
 			},
 			failure: function() {

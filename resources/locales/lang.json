@@ -1,5 +1,8 @@
 {
    "lang":"fr",
+   "unit":{
+      "temp":"°C"
+   },
    "title":{
       "board":" Tableau de bord ",
       "is_on":"Allumés ?",
@@ -103,7 +106,8 @@
       "newbetaversion":"Une nouvelle version de test est disponible.",
       "versionuptodate":"Version à jour.",
       "updateapp":"Mise à jour de l'application",
-      "updatedone":"Mise à jour réussie. Recharger maintenant ?"
+      "updatedone":"Mise à jour réussie. Recharger maintenant ?",
+      "addbtntab":"Pensez à mettre au moins un bouton dans une des vues pour faire apparaitre la barre d'onglet"
    },
    "field":{
       "name":"Nom",
@@ -192,8 +196,5 @@
 	"2":"ECO",
 	"3":"CONF"
       }
-   },
-   "unit":{
-      "temp":"°C"
    }
 }
