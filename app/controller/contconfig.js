@@ -342,7 +342,7 @@ Ext.define('myvera.controller.contconfig', {
 		 });
 		
 		var contdevices = this.getApplication().getController('contdevices');
-		var devicesStore = Ext.getStore('devicesStore')
+		var devicesStore = Ext.getStore('devicesStore');
 		var syncheader = "";
 		syncheader={'Authorization': 'Basic ' + contdevices.loggedUserId};
 		Ext.getStore('devicesStore').getProxy().setHeaders(syncheader);
