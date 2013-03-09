@@ -4,7 +4,7 @@ Ext.define('myvera.view.PanelConfigTabs', {
 	id:'PanelConfigTabs',
 	requires: ['myvera.store.TabViewsStore'],
 	config: {
-		title: 'Onglets',
+		title: locale.getSt().title.tabs,
 		itemId:"PanelConfigTabs",
 		itemTpl: '{ind} - {name}',
 		store: 'TabViewsStore',

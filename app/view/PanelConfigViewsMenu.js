@@ -14,8 +14,8 @@ Ext.define('myvera.view.PanelConfigViewsMenu', {
 			align: 'center'
 		},
 		items: [
-		{ ui: 'normal', text: 'Liste des onglets', name:'openPanelConfigTabs' },
-		{ ui: 'normal', text: 'Liste des vues', name:'openPanelConfigViews' }
+		{ ui: 'normal', text: locale.getSt().button.listtabs, name:'openPanelConfigTabs' },
+		{ ui: 'normal', text: locale.getSt().button.listviews, name:'openPanelConfigViews' }
 		]
 	}
 });

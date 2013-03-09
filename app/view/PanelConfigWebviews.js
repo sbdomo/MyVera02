@@ -5,7 +5,7 @@ Ext.define('myvera.view.PanelConfigWebviews', {
 	stores: ['devicesStore'],
 	//requires: ['myvera.store.ConfigDevicesStore'],
 	config: {
-		emptyText: 'Aucun module',
+		emptyText: locale.getSt().misc.nodevice,
 		store: 'devicesStore',
 		//cls: 'slidelist',
 		selectedCls: 'listroomselect',
@@ -22,7 +22,7 @@ Ext.define('myvera.view.PanelConfigWebviews', {
 				if (event.getTarget('.x-list-disclosure')) {
 					Ext.getCmp('PanelConfigNavigation').push({
 							xtype: 'PanelConfigWebview',
-							title: 'Edition',
+							title: locale.getSt().title.edit,
 							layout: 'vbox',
 							//tpl: '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/' + pathview + '"></div>',
 							data: record.getData()

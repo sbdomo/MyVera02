@@ -1,4 +1,5 @@
 {
+   "lang":"fr",
    "title":{
       "board":" Tableau de bord ",
       "is_on":"Allumés ?",
@@ -11,7 +12,12 @@
       "conf":"Conf.",
       "views":"Vues",
       "devices":"Modules",
-      "localconnect":"Connexion locale"
+      "localconnect":"Connexion locale",
+      "newwidget":"Nouveau widget",
+      "tabs":"Onglets",
+      "edit":"Edition",
+      "scenes":"Scènes",
+      "widgets":"Widgets"
    },
    "misc":{
       "nodevice":"Aucun module",
@@ -34,7 +40,70 @@
       "ifon":"si allumé",
       "ifoff":"si éteint",
       "never":"jamais",
-      "position":"Positionner"
+      "position":"Positionner",
+      "chooseview":"Choisir une vue",
+      "hideroom":"Cacher la pièce",
+      "optional":"facultatif",
+      "widget":"widget",
+      "widgeticon":"widget avec icône",
+      "htmlcommand":"command html",
+      "navigatebutton":"bouton de navigation",
+      "hidetabsbutton":"bouton cacher onglets",
+      "clockprogram":"Programmation du réveil...",
+      "beginning":"Début",
+      "stop":"Arrêt",
+      "msg":"Message",
+      "error":"Erreur",
+      "suppr":"Supression",
+      "iconmove":"Déplacer les icônes",
+      "version":"Version"
+   },
+   "msg":{
+      "renamed":"renommé",
+      "inroom":"dans pièce n°",
+      "savedevices":"Sauver la liste des modules",
+      "nofind":"non trouvé. Il faudrait le supprimer",
+      "noscene":"Pas de scène trouvée",
+      "saving":"Sauvegarde...",
+      "saveerror":"Erreur lors de la sauvegarde.",
+      "noeditview":"Ne peut-être éditée. (Vue par défaut)",
+      "noinview":"Ne peut-être éditée. (Vue non affichée)",
+      "updateview":"Vue mise à jour",
+      "updateerror":"Erreur lors de la mise à jour",
+      "viewdel":"Voulez-vous effacer cette vue?",
+      "deleteok":"Supprimé avec succès",
+      "deviceinnowiew":"Modules déplacés dans Aucune vue. Sauvez la liste des modules !",
+      "deleteerror":"Erreur lors de la supression",
+      "updateok":"Mise à jour avec succès",
+      "updateerror":"Erreur lors de la mise à jour",
+      "tabdel":"Voulez-vous supprimer cet onglet?",
+      "vueinnotab":"Une ou plusieurs vues étaient dans cet onglet. Il faut les mettre dans un autre onglet !",
+      "updating":"Mise à jour",
+      "saverooms":"Enregister la liste des pièces?",
+      "savethink":"Pensez à sauvegarder !",
+      "mustlogin":"Vous devez vous identifier !",
+      "norooms":"Liste des pièces vide. La créer?",
+      "errorcreaterooms":"Erreur lors de la création de la liste des pièces.",
+      "createdevices":"Vous devriez ajouter des modules et, si nécessaire, des vues.",
+      "nosynchro":"Pas de réponse lors de la synchro.",
+      "newtry":"Essayer à nouveau?",
+      "saveiperror":"Erreur lors de la sauvegarde de l'adresse IP",
+      "mustloginandpass":"Vous devez indiquer un login, un mot de passe et l'IP de la Vera.",
+      "notlogin":"Voulez-vous vous déconnecter?",
+      "nochange":"Pas de modification.",
+      "createviews":"Liste des vues vide. La créer?",
+      "initlist":"Initialisation de la liste...",
+      "createlisterror":"Erreur lors de la création de la liste",
+      "createtabs":"Liste des onglets vide. La créer?",
+      "search":"Recherche",
+      "noanswer":"Réponse du serveur incorrecte",
+      "errorversion":"Version actuelle non trouvée.",
+      "nonewversion":"Pas de nouvelle version trouvée.",
+      "newversion":"Une nouvelle version est disponible.",
+      "newbetaversion":"Une nouvelle version de test est disponible.",
+      "versionuptodate":"Version à jour.",
+      "updateapp":"Mise à jour de l'application",
+      "updatedone":"Mise à jour réussie. Recharger maintenant ?"
    },
    "field":{
       "name":"Nom",
@@ -72,7 +141,14 @@
       "iconnum":"Num. icône",
       "iconwidth":"Largeur icône",
       "sceneon":"Num. scène on",
-      "sceneoff":"Num. scène off"
+      "sceneoff":"Num. scène off",
+      "iconname":"Nom icône",
+      "icontitle":"icône et titre",
+      "icononly":"icône seulement",
+      "icon":"Icône",
+      "type":"Type",
+      "go":"'Aller vers",
+      "url":"URL"
    },
    "button":{
       "back":"Retour",
@@ -81,44 +157,43 @@
       "adddevice":"Ajouter le module",
       "supp":"Supprimer",
       "update":"Mettre à jour",
-      "cancel":"Annuler",
+      "devicemngmt":"Gestion de la liste des modules",
+      "scenemngmnt":"Gestion de la liste des scènes",
+      "widgetmngmnt":"Gestion des widgets et boutons",
+      "viewposition":"Positionner sur les vues",
+      "updatelist":"Mettre à jour la liste",
+      "addscene":"Ajouter la scène",
       "save":"Sauver",
-      "done":"Fait",
-      "yes":"Oui"
+      "listtabs":"Liste des onglets",
+      "listviews":"Liste des vues",
+      "retinamode":"Passer en mode Retina",
+      "noretinamode":"Passer en mode non retina",
+      "notlogin":"Se déconnecter",
+      "yes":"Oui",
+      "no":"Non",
+      "cancel":"Annuler",
+      "done":"Fait"
    },
-   "panel":{
-      "listoff":{
-         "empty":"Aucun module à surveiller éteint coucou"
+   "device":{
+      "vtherm":{
+      	"0":"OFF",
+	"1":"Inactif",
+	"2":"Forcé",
+	"3":"Auto.",
+	"mode":"Mode",
+	"eco":"Eco.",
+	"normal":"Conf.",
+	"tempeco":"Temp. Eco",
+	"tempnorm":"Temp. Confort"
+      },
+      "pilotwire":{
+      	"0":"OFF",
+	"1":"HG",
+	"2":"ECO",
+	"3":"CONF"
       }
    },
-   "msg":{
-      "update_app":{
-         "title":"Mise à jour de l'application",
-         "msg":"Mise à jour réussie. Recharger maintenant?"
-      }
-   },
-
-   "fields":{
-      "name":"Nom",
-      "dateLabel":"la date",
-      "datePlaceholder":"choisir la date"
-   },
-   "fieldsets":{
-      "title":"Ensemble de champs",
-      "instructions":"des instructions en français"
-   },
-   "months":{
-      "1":"Janvier",
-      "2":"Février",
-      "3":"Mars",
-      "4":"Avril",
-      "5":"Mai",
-      "6":"Juin",
-      "7":"Juillet",
-      "8":"Août",
-      "9":"Septembre",
-      "10":"Octobre",
-      "11":"Novembre",
-      "12":"Décembre"
+   "unit":{
+      "temp":"°C"
    }
 }

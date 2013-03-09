@@ -154,7 +154,7 @@ Ext.define('myvera.controller.contconfig', {
 						if (device.get('name') != name) {
 							device.set('name', name);
 							device.set('state', "-3");
-							letexte+=" " + name + " renommé.";
+							letexte+=" " + name + " " + locale.getSt().msg.renamed + ".";
 							count++;
 						}
 						var room = configdevice.get('room');
@@ -162,7 +162,7 @@ Ext.define('myvera.controller.contconfig', {
 							if(device.get('forced')!=1) {
 								device.set('room', room);
 								device.set('state', "-3");
-								letexte+=" " + name + " dans pièce n°" + room;
+								letexte+=" " + name + " " +locale.getSt().msg.inroom + room;
 								count++;
 							} else {
 								configdevice.set('room', device.get('room'));
@@ -174,12 +174,12 @@ Ext.define('myvera.controller.contconfig', {
 							contconfig.getListItemsSave().setUi('decline');
 							contconfig.getListItemsSave().setDisabled(false);
 							if(letexte.length > 500) letexte = letexte.substr(0, 500) + "... "
-							Ext.Msg.alert('Message', letexte + ' Sauver la liste des modules');
+							Ext.Msg.alert(locale.getSt().misc.msg, letexte + ' '+locale.getSt().msg.savedevices);
 						}
 						
 					} else {
 						//console.info('error finding ' + device.get('name'));
-						Ext.Msg.alert('Message', device.get('name') + ' non trouvé. Il faudrait le supprimer.');
+						Ext.Msg.alert(locale.getSt().misc.msg, device.get('name') + ' ' +locale.getSt().msg.nofind +'.');
 						ConfigDevicesStore.add({
 								id: device.get('id'),
 								name: device.get('name'),
@@ -199,7 +199,7 @@ Ext.define('myvera.controller.contconfig', {
 	onPanelConfigItemsOpen: function() {
 		this.getConfigDevices().push({
 				xtype: 'PanelConfigItems',
-				title: 'Modules'
+				title: locale.getSt().title.devices
 		});
        },
        
@@ -207,7 +207,7 @@ Ext.define('myvera.controller.contconfig', {
 		this.getConfigFloors().push({
 				xtype: 'PanelConfigFloors',
 				itemId:'PanelConfigFloors',
-				title: 'Vues'
+				title: locale.getSt().title.views
 		});
 		//Ext.getCmp('addViewButton').show();
        },
@@ -216,7 +216,7 @@ Ext.define('myvera.controller.contconfig', {
 		this.getConfigFloors().push({
 				xtype: 'PanelConfigTabs',
 				itemId:'PanelConfigTabs',
-				title: 'Onglets'
+				title: locale.getSt().title.tabs
 		});
 		//Ext.getCmp('addViewButton').show();
        },
@@ -240,7 +240,7 @@ Ext.define('myvera.controller.contconfig', {
 		} else {
 			this.getConfigDevices().push({
 				xtype: 'PanelConfigScenes',
-				title: 'Scènes'
+				title: locale.getSt().title.scenes
 			});
 		}
        },
@@ -248,7 +248,7 @@ Ext.define('myvera.controller.contconfig', {
        onPanelConfigWebViewsOpen: function() {
 	       	this.getConfigDevices().push({
 				xtype: 'PanelConfigWebviews',
-				title: 'Widgets'
+				title: locale.getSt().title.widgets
 		});
        },
        
@@ -281,14 +281,14 @@ Ext.define('myvera.controller.contconfig', {
 						if (device.get('name') != name) {
 							device.set('name', name);
 							device.set('state', "-3");
-							letexte+=" " + name + " renommé.";
+							letexte+=" " + name + " " + locale.getSt().msg.renamed + ".";
 							count++;
 						}
 						var room = configscene.get('room');
 						if (device.get('room') != room) {
 							device.set('room', room);
 							device.set('state', "-3");
-							letexte+=" " + name + " dans pièce n°" + room;
+							letexte+=" " + name + " " +locale.getSt().msg.inroom + room;
 							count++;
 						}
 						if(count > 0) {
@@ -296,12 +296,12 @@ Ext.define('myvera.controller.contconfig', {
 							contconfig.dirtydevices = 2;
 							contconfig.getListItemsSave().setUi('decline');
 							contconfig.getListItemsSave().setDisabled(false);
-							Ext.Msg.alert('Message', letexte + ' Sauver la liste des modules');
+							Ext.Msg.alert('Message', letexte + ' '+locale.getSt().msg.savedevices);
 						}
 						
 					} else {
 						//console.info('error finding ' + device.get('name'));
-						Ext.Msg.alert('Message', device.get('name') + ' non trouvé. Il faudrait le supprimer.');
+						Ext.Msg.alert('Message', device.get('name') + ' ' +locale.getSt().msg.nofind +'.');
 						ConfigScenesStore.add({
 								id: device.get('id'),
 								name: device.get('name'),
@@ -318,11 +318,11 @@ Ext.define('myvera.controller.contconfig', {
 			
 			this.getConfigDevices().push({
 				xtype: 'PanelConfigScenes',
-				title: 'Scènes'
+				title: locale.getSt().title.scenes
 			});
 		
 		} else {
-			Ext.Msg.alert('Erreur', 'Pas de scène trouvée;');
+			Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.noscene);
 		}
 		
        },
@@ -338,11 +338,11 @@ Ext.define('myvera.controller.contconfig', {
 		
 		Ext.Viewport.setMasked({
                      xtype: 'loadmask',
-                     message: 'Sauvegarde....'
+                     message: locale.getSt().msg.saving
 		 });
 		
 		var contdevices = this.getApplication().getController('contdevices');
-		var devicesStore = Ext.getStore('devicesStore')
+		var devicesStore = Ext.getStore('devicesStore');
 		var syncheader = "";
 		syncheader={'Authorization': 'Basic ' + contdevices.loggedUserId};
 		Ext.getStore('devicesStore').getProxy().setHeaders(syncheader);
@@ -383,12 +383,12 @@ Ext.define('myvera.controller.contconfig', {
 					Ext.Viewport.setMasked(false);
 				} else {
 					Ext.Viewport.setMasked(false);
-					Ext.Msg.alert('Erreur lors de la sauvegarde.');
+					Ext.Msg.alert(locale.getSt().msg.saveerror);
 				}
 			},
 			failure: function(result) {
 				Ext.Viewport.setMasked(false);
-				Ext.Msg.alert('Erreur lors de la sauvegarde.');
+				Ext.Msg.alert(locale.getSt().msg.saveerror + " 2");
 			}
 		});
 		
@@ -412,13 +412,13 @@ Ext.define('myvera.controller.contconfig', {
 			if(myvera.app.isretina=="@2x"&&record.get('pathretina')!="") pathview="{pathretina}";
 			this.getConfigFloors().push({
 					xtype: 'PanelConfigFloor',
-					title: 'Edition',
+					title: locale.getSt().title.edit,
 					layout: 'vbox',
 					tpl: '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/' + pathview + '"></div>',
 					data: record.getData()
 			});
 		} else {
-			Ext.Msg.alert('Message', "Ne peut-être éditée. (Vue par défaut)");
+			Ext.Msg.alert(locale.getSt().misc.msg, locale.getSt().msg.noeditview);
 		}
 	},
 	
@@ -426,7 +426,7 @@ Ext.define('myvera.controller.contconfig', {
 		console.info('Record ' + record.get('name'));
 		this.getConfigFloors().push({
 			xtype: 'PanelConfigTab',
-			title: 'Edition',
+			title: locale.getSt().title.edit,
 			layout: 'vbox',
 			data: record.getData()
 		});
@@ -436,16 +436,16 @@ Ext.define('myvera.controller.contconfig', {
 		console.info('Record ' + record.get('name'));
 		this.getConfigDevices().push({
 				xtype: 'PanelConfigScene',
-				title: 'Edition',
+				title: locale.getSt().title.edit,
 				data: record.getData()
 		});
        },
        
        	showDetailRoom: function(list, record) {
-		console.info('Pièces ' + record.get('name'));
+		console.info('Room ' + record.get('name'));
 		this.getConfigRooms().push({
 				xtype: 'PanelConfigRoom',
-				title: 'Détail de la pièce',
+				title: locale.getSt().title.edit,
 				data: record.getData()
 		});
        },
@@ -464,7 +464,7 @@ Ext.define('myvera.controller.contconfig', {
 		}
 		this.getConfigDevices().push({
 			 xtype: 'datamove',
-			 title: 'Déplacer les icônes',
+			 title: locale.getSt().misc.iconmove,
 			 idfloor: floorid,
 			 style: background,
 			 itemTpl: '<tpl if="etage=='+floorid+'||etage1=='+floorid+'||etage2=='+floorid+'">'+
@@ -474,7 +474,7 @@ Ext.define('myvera.controller.contconfig', {
 				myvera.util.Templates.getTplplan() + myvera.util.Templates.getTplpanwebviewmove() + myvera.util.Templates.getTplpanfin() + '</tpl>'
 		});
 	    } else {
-		Ext.Msg.alert('Message', "Ne peut-être éditée. (Vue non affichée)");
+		Ext.Msg.alert(locale.getSt().misc.msg, locale.getSt().msg.noinview);
 	    }
 
        },
@@ -482,7 +482,7 @@ Ext.define('myvera.controller.contconfig', {
        onsavefloor: function() {
 		Ext.Viewport.setMasked({
                      xtype: 'loadmask',
-                     message: 'Sauvegarde....'
+                     message: locale.getSt().msg.saving
 		 });
 		var form = this.getPanelConfigFloor();
 		var formdata = form.getValues();
@@ -514,28 +514,28 @@ Ext.define('myvera.controller.contconfig', {
 						contdevices.pushviews();
 						//if(response.result=="OK") {
 							Ext.getCmp('PanelConfigFloorsNavigation').pop();
-							Ext.Msg.alert('Message', 'Vue mise à jour');
+							Ext.Msg.alert(locale.getSt().misc.msg, locale.getSt().msg.updateview);
 						//} else Ext.Msg.alert('Message', 'Erreur : ' + response.result);
 					} else {
-						Ext.Msg.alert('Erreur:' + response.result);
+						Ext.Msg.alert(locale.getSt().misc.error +':' + response.result);
 					}
 				} else {
-					Ext.Msg.alert('Erreur lors de la mise à jour');
+					Ext.Msg.alert(locale.getSt().msg.updateerror);
 				}
 			},
 			failure: function(response) {
 				Ext.Viewport.setMasked(false);
-				Ext.Msg.alert('Erreur lors de la mise à jour');
+				Ext.Msg.alert(locale.getSt().msg.updateerror);
 			}
 		});
 	},
        
 	ondeletefloor: function() {
-	  Ext.Msg.confirm('Supression', 'Voulez-vous effacer cette vue?', function(confirmed) {
+	  Ext.Msg.confirm(locale.getSt().misc.suppr, locale.getSt().msg.viewdel, function(confirmed) {
 	  if (confirmed == 'yes') {
 		Ext.Viewport.setMasked({
                      xtype: 'loadmask',
-                     message: 'Suppression....'
+                     message: locale.getSt().misc.suppr + '...'
 		 })
 		
 		var form = this.getPanelConfigFloor();
@@ -595,26 +595,26 @@ Ext.define('myvera.controller.contconfig', {
 						
 						Ext.getCmp('PanelConfigFloorsNavigation').pop();
 						if(movemodule==false) {
-							Ext.Msg.alert('Message', 'Vue ' + response.result + ' supprimé.');
+							Ext.Msg.alert(locale.getSt().misc.msg, response.result + " " + locale.getSt().msg.deleteok);
 						} else {
 							var contconfig = myvera.app.getController('myvera.controller.contconfig');
 							contconfig.dirtydevices = 2;
 							contconfig.getListItemsSave().setUi('decline');
 							contconfig.getListItemsSave().setDisabled(false);
-							Ext.Msg.alert('Message', 'Modules déplacés dans "Aucune vue". Sauvez la liste des modules !');
+							Ext.Msg.alert(locale.getSt().misc.msg, locale.getSt().msg.deviceinnowiew);
 						}
 					} else {
 						Ext.Viewport.setMasked(false);
-						Ext.Msg.alert('Erreur lors de la supression de la vue');
+						Ext.Msg.alert(locale.getSt().msg.deleteerror);
 					}
 				} else {
 					Ext.Viewport.setMasked(false);
-					Ext.Msg.alert('Erreur lors de la supression de la vue');
+					Ext.Msg.alert(locale.getSt().msg.deleteerror + " 2");
 				}
 			},
 			failure: function(result) {
 				Ext.Viewport.setMasked(false);
-				Ext.Msg.alert('Erreur lors de la supression de la vue');
+				Ext.Msg.alert(locale.getSt().msg.deleteerror + " 3");
 			}
 		});
 			
@@ -626,7 +626,7 @@ Ext.define('myvera.controller.contconfig', {
 	onsavetab: function() {
 		Ext.Viewport.setMasked({
                      xtype: 'loadmask',
-                     message: 'Sauvegarde....'
+                     message: locale.getSt().msg.saving
 		 });
 		var form = this.getPanelConfigTab();
 		var formdata = form.getValues();
@@ -659,27 +659,27 @@ Ext.define('myvera.controller.contconfig', {
 						contconfig.resettabs();
 						
 						Ext.getCmp('PanelConfigFloorsNavigation').pop();
-						Ext.Msg.alert('Message', 'Onglet ' + response.result + ' mis à jour');
+						Ext.Msg.alert(locale.getSt().misc.msg, response.result + " " + locale.getSt().msg.updateok);
 					} else {
-						Ext.Msg.alert('Erreur lors de la mise à jour');
+						Ext.Msg.alert(locale.getSt().msg.updateerror);
 					}
 				} else {
-					Ext.Msg.alert('Erreur lors de la mise à jour');
+					Ext.Msg.alert(locale.getSt().msg.updateerror+" 2");
 				}
 			},
 			failure: function(response) {
 				Ext.Viewport.setMasked(false);
-				Ext.Msg.alert('Erreur lors de la mise à jour');
+				Ext.Msg.alert(locale.getSt().msg.updateerror+" 3");
 			}
 		});
 	},
 	
 	ondeletetab: function() {
-	Ext.Msg.confirm('Supression', 'Voulez-vous supprimer cet onglet?', function(confirmed) {
+	Ext.Msg.confirm(locale.getSt().misc.suppr, locale.getSt().msg.tabdel, function(confirmed) {
 	  if (confirmed == 'yes') {
 		Ext.Viewport.setMasked({
                      xtype: 'loadmask',
-                     message: 'Suppression....'
+                     message: locale.getSt().misc.suppr + '...'
 		 })
 		
 		var form = this.getPanelConfigTab();
@@ -721,22 +721,22 @@ Ext.define('myvera.controller.contconfig', {
 						
 						Ext.getCmp('PanelConfigFloorsNavigation').pop();
 						if(moveview==false) {
-							Ext.Msg.alert('Message', 'Onglet ' + response.result + ' supprimé.');
+							Ext.Msg.alert(locale.getSt().misc.msg, response.result +" "+locale.getSt().msg.deleteok);
 						} else {
-							Ext.Msg.alert('Message', 'Une ou plusieurs vues étaient dans cet onglet. Il faut les mettre dans un autre onglet !');
+							Ext.Msg.alert(locale.getSt().misc.msg, locale.getSt().msg.vueinnotab);
 						}
 					} else {
 						Ext.Viewport.setMasked(false);
-						Ext.Msg.alert('Erreur lors de la supression de l\'onglet');
+						Ext.Msg.alert(locale.getSt().msg.deleteerror);
 					}
 				} else {
 					Ext.Viewport.setMasked(false);
-					Ext.Msg.alert('Erreur lors de la supression de l\'onglet');
+					Ext.Msg.alert(locale.getSt().msg.deleteerror+" 2");
 				}
 			},
 			failure: function(result) {
 				Ext.Viewport.setMasked(false);
-				Ext.Msg.alert('Erreur lors de la supression de l\'onglet');
+				Ext.Msg.alert(locale.getSt().msg.deleteerror+" 3");
 			}
 		});
 	  }
@@ -772,7 +772,7 @@ Ext.define('myvera.controller.contconfig', {
 		
 		Ext.Viewport.setMasked({
                      xtype: 'loadmask',
-                     message: 'Mise à jour....'
+                     message: locale.getSt().msg.updating+'...'
 		});
 		
 		var contdevices = this.getApplication().getController('contdevices');
@@ -788,7 +788,6 @@ Ext.define('myvera.controller.contconfig', {
 				ipvera: ipvera
 			},
 			success: function(result){
-				
 				var response = Ext.decode(result.responseText, true);
 				if (response) {
 					if (response.success=="true") {
@@ -797,17 +796,19 @@ Ext.define('myvera.controller.contconfig', {
 						for (idrecord in response.rooms) {
 							var result_room = response.rooms[idrecord];
 							var resultId=result_room.id;
-							room = RoomsStore.getById(resultId);
-							if (room) {
-								room.set('name', result_room.name);
-							} else {
-								RoomsStore.add({
+							if(resultId!=0) {
+								room = RoomsStore.getById(resultId);
+								if (room) {
+								  room.set('name', result_room.name);
+								} else {
+								  RoomsStore.add({
 									id: resultId,
 									name: result_room.name,
 									section: result_room.section
-								});
-								room = RoomsStore.getById(resultId);
-								room.setDirty();
+								  });
+								  room = RoomsStore.getById(resultId);
+								  room.setDirty();
+								}
 							}
 							listId.push(resultId);
 						}
@@ -831,7 +832,7 @@ Ext.define('myvera.controller.contconfig', {
 						contconfig.getRoomsSave().setDisabled(false);
 
 						Ext.Viewport.setMasked(false);
-						Ext.Msg.confirm('Mise à jour', 'Enregister la liste des pièces?', function(confirmed) {
+						Ext.Msg.confirm(locale.getSt().msg.updating, locale.getSt().msg.saverooms, function(confirmed) {
 							if (confirmed == 'yes') {
 								this.saveRooms();
 							}
@@ -839,18 +840,18 @@ Ext.define('myvera.controller.contconfig', {
 				
 					} else {
 						Ext.Viewport.setMasked(false);
-						Ext.Msg.alert('Erreur lors de la lecture des pièces');
+						Ext.Msg.alert(locale.getSt().misc.error + " 120");
 					}				
 				} else {
 					Ext.Viewport.setMasked(false);
-					Ext.Msg.alert('Erreur lors de la lecture des pièces');
+					Ext.Msg.alert(locale.getSt().misc.error + " 121");
 				}
 				
 
 			},
 			failure: function(response) {
 				Ext.Viewport.setMasked(false);
-				Ext.Msg.alert('Erreur lors de la lecture des pièces');
+				Ext.Msg.alert(locale.getSt().misc.error + " 122");
 			}
 		});
 	
@@ -860,7 +861,7 @@ Ext.define('myvera.controller.contconfig', {
 	saveRooms: function() {
 		 Ext.Viewport.setMasked({
                      xtype: 'loadmask',
-                     message: 'Sauvegarde....'
+                     message: locale.getSt().msg.saving
 		 });
 		
 		var RoomsStore = Ext.getStore('Rooms');
@@ -896,23 +897,23 @@ Ext.define('myvera.controller.contconfig', {
 				} else {
 					Ext.Viewport.setMasked(false);
 					new Ext.MessageBox().show({
-							title: 'Pièces',
-							message: 'Erreur lors de la sauvegarde.'
+							title: locale.getSt().title.rooms,
+							message: locale.getSt().msg.saveerror
 					});
 				}
 			},
 			failure: function(result) {
 				Ext.Viewport.setMasked(false);
 				new Ext.MessageBox().show({
-					title: 'Pièces',
-					message: 'Erreur lors de la sauvegarde.'
+					title: locale.getSt().title.rooms,
+					message: locale.getSt().msg.saveerror
 				});
 			}
 		});
 	},
 	
 	alertDirtydevices: function(msg) {
-		if(!msg) msg='Pensez à sauvegarder !';
+		if(!msg) msg=locale.getSt().msg.savethink;
 		switch (this.dirtydevices) {
 		case 1: //si plus rien à sauver mais qu'il y a eu le message d'alerte
 			this.getListItemsSave().setUi('decline');
@@ -927,7 +928,7 @@ Ext.define('myvera.controller.contconfig', {
 			this.getListItemsSave().setUi('decline');
 			this.getListItemsSave().setDisabled(false);
 			new Ext.MessageBox().show({
-				title: 'Modules',
+				title: locale.getSt().title.devices,
 				message: msg
 			});
 			break;
@@ -935,7 +936,7 @@ Ext.define('myvera.controller.contconfig', {
 	},
 	
 	alertDirtyrooms: function(msg) {
-		if(!msg) msg='Pensez à sauvegarder !';
+		if(!msg) msg=locale.getSt().msg.savethink;
 		switch (this.dirtyrooms) {
 		case 1: //si plus rien à sauver mais qu'il y a eu le message d'alerte
 			this.getRoomsSave().setUi('decline');
@@ -950,7 +951,7 @@ Ext.define('myvera.controller.contconfig', {
 			this.getRoomsSave().setUi('decline');
 			this.getRoomsSave().setDisabled(false);
 			new Ext.MessageBox().show({
-				title: 'Modules',
+				title: locale.getSt().title.rooms,
 				message: msg
 			});
 			break;

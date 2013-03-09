@@ -5,21 +5,21 @@ Ext.define('myvera.view.PanelConfigRoomsNavigation', {
 	requires: ['myvera.view.PanelConfigRooms','myvera.view.PanelConfigRoom'],
 	config: {
 		iconCls: '',
-		title: 'Pièces',
-		defaultBackButtonText: 'Retour',
+		title: locale.getSt().title.rooms,
+		defaultBackButtonText: locale.getSt().button.back,
 		navigationBar: {
 			items: [
 			{
 				xtype: 'button',
 				id: 'RefreshRoomsButton',
 				itemId: 'RefreshRoomsButton',
-				text: 'Mettre à jour la liste',
+				text: locale.getSt().button.updatelist,
 				align: 'right',
 				hidden: false
 			},
 			{
 				ui: 'normal',
-				text: 'Sauver', 
+				text: locale.getSt().button.save, 
 				itemId: 'sauver', 
 				disabled: true,
 				align: 'right'

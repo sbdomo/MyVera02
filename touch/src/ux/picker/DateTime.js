@@ -5,8 +5,8 @@ Ext.define('Ext.ux.picker.DateTime', {
     requires: ['Ext.DateExtras'],
 
     config: {
-	doneButton: "OK"  ,
-        cancelButton: "Annuler",
+	doneButton: "Done"  ,
+        cancelButton: "Cancel",
         /**
          * @cfg {Number} yearFrom
          * The start year for the date picker.

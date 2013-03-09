@@ -23,22 +23,22 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Nom',
+			label: locale.getSt().field.name,
 			name: 'name',
 			itemId: 'name',
-			placeHolder: 'facultatif'
+			placeHolder: locale.getSt().misc.optional
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Type',
+			label: locale.getSt().field.type,
 			name: 'subcategory',
 			itemId: 'subcategory',
 			options: [
-			{text: 'widget', value:0},
-			{text: 'widget avec icône',  value: 1},
-			{text: 'command html',  value: 2},
-			{text: 'bouton de navigation',  value: 3},
-			{text: 'bouton cacher onglets',  value: 4}
+			{text: locale.getSt().misc.widget, value:0},
+			{text: locale.getSt().misc.widgeticon,  value: 1},
+			{text: locale.getSt().misc.htmlcommand,  value: 2},
+			{text: locale.getSt().misc.navigatebutton,  value: 3},
+			{text: locale.getSt().misc.hidetabsbutton,  value: 4}
 			],
 			listeners: 
 			{
@@ -103,7 +103,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Pièces',
+			label: locale.getSt().title.rooms,
 			name: 'room',
 			itemId: 'room',
 			store: 'Rooms',
@@ -113,7 +113,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Aller vers',
+			label: locale.getSt().field.go,
 			name: 'status',
 			itemId: 'status',
 			hidden: true,
@@ -123,14 +123,14 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. icône',
+			label: locale.getSt().field.iconnum,
 			name: 'icon',
 			hidden: true,
 			itemId: 'icon'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Largeur icône',
+			label: locale.getSt().field.iconwidth,
 			name: 'width',
 			hidden: true,
 			itemId: 'width'
@@ -138,24 +138,24 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		{
 			xtype: 'textfield',
 			itemId: 'graphlink',
-			label: 'URL',
+			label: locale.getSt().field.url,
 			name: 'graphlink'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Largeur',
+			label: locale.getSt().field.width,
 			name: 'wwidth',
 			itemId: 'wwidth'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Hauteur',
+			label: locale.getSt().field.height,
 			name: 'height',
 			itemId: 'height'
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue 0',
+			label: locale.getSt().field.view +' 0',
 			name: 'etage',
 			itemId: 'etage',
 			store: 'FloorsStore',
@@ -178,14 +178,14 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position gauche',
+			label: locale.getSt().field.positionleft,
 			itemId: 'LeftItem',
 			hidden: true,
 			name: 'left'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position haut',
+			label: locale.getSt().field.positiontop,
 			itemId: 'TopItem',
 			hidden: true,
 			name: 'top'
@@ -198,21 +198,21 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			iconCls: 'locate',
 			iconMask: true,
 			hidden: true,
-			text: 'Définir l\'emplacement',
+			text: locale.getSt().misc.defineplace,
 			handler: function(){
 			this.getParent().openpanelimage('');
 			}
 		},
 		{
 			xtype: 'textfield',
-			label: 'Index',
+			label: locale.getSt().field.index,
 			name: 'ind',
 			itemId: 'ind',
 			value: 90
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue 1',
+			label: locale.getSt().field.view+ ' 1',
 			name: 'etage1',
 			itemId: 'etage1',
 			store: 'FloorsStore',
@@ -235,14 +235,14 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position gauche',
+			label: locale.getSt().field.positionleft,
 			itemId: 'LeftItem1',
 			hidden: true,
 			name: 'left1'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position haut',
+			label: locale.getSt().field.positiontop,
 			itemId: 'TopItem1',
 			hidden: true,
 			name: 'top1'
@@ -255,14 +255,14 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			iconCls: 'locate',
 			iconMask: true,
 			hidden: true,
-			text: 'Définir l\'emplacement',
+			text: locale.getSt().misc.defineplace,
 			handler: function(){
 			this.getParent().openpanelimage('1');
 			}
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue 2',
+			label: locale.getSt().field.view +' 2',
 			name: 'etage2',
 			itemId: 'etage2',
 			store: 'FloorsStore',
@@ -285,14 +285,14 @@ Ext.define('myvera.view.PanelConfigWebview', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position gauche',
+			label: locale.getSt().field.positionleft,
 			itemId: 'LeftItem2',
 			hidden: true,
 			name: 'left2'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position haut',
+			label: locale.getSt().field.positiontop,
 			itemId: 'TopItem2',
 			hidden: true,
 			name: 'top2'
@@ -305,7 +305,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			iconCls: 'locate',
 			hidden: true,
 			iconMask: true,
-			text: 'Définir l\'emplacement',
+			text: locale.getSt().misc.defineplace,
 			handler: function(){
 			this.getParent().openpanelimage('2');
 			}
@@ -315,7 +315,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			margin: 5,
 			itemId: 'SaveItem',
 			ui: 'confirm',
-			text: 'Ajouter',
+			text: locale.getSt().button.add,
 			iconCls: 'add',
 			iconMask: true,
 			handler: function(){
@@ -403,7 +403,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			iconMask: true,
 			ui: 'decline',
 			hidden: true,
-			text: 'Supprimer',
+			text: locale.getSt().button.supp,
 			
 			handler: function(){
 				var form = this.getParent();
@@ -428,7 +428,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			    if (id!="") {
 				    e.down('#DeleteItem').show();
 				    e.down('#SaveItem').setIconCls('refresh');
-				    e.down('#SaveItem').setText('Mettre à jour');
+				    e.down('#SaveItem').setText(locale.getSt().button.update);
 			    
 			    
 			    //html = d.name + ' - ID: ' + id;
@@ -489,7 +489,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 				Ext.getCmp('PanelConfigNavigation').push({
 					xtype: 'PanelImage',
 					//title: 'Positionner le module sur la vue',
-					title: 'Positionner',
+					title: locale.getSt().misc.position,
 					data: {id: this.getParent().down('#etage'+numetage).getValue(), typepanel: 'webview', etage: numetage}
 					});
 	}

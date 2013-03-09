@@ -4,7 +4,7 @@ Ext.define('myvera.view.PanelConfigMove', {
 	id:'PanelConfigMove',
 	requires: ['myvera.store.FloorsStore'],
 	config: {
-		title: 'Choisir une vues',
+		title: locale.getSt().misc.chooseview,
 		itemTpl: ' {name}',
 		store: 'FloorsStore',
 		onItemDisclosure: true

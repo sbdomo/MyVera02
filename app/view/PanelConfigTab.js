@@ -16,14 +16,14 @@ Ext.define('myvera.view.PanelConfigTab', {
 		items: [
 		{
 			xtype: 'textfield',
-			label: 'Nom',
+			label: locale.getSt().field.name,
 			//id: 'name',
 			itemId: 'name',
 			name: 'name'
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Icône',
+			label: locale.getSt().field.icon,
 			name:'cls',
 			itemId:'cls',
 			options: [
@@ -39,14 +39,14 @@ Ext.define('myvera.view.PanelConfigTab', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Index',
+			label: locale.getSt().field.index,
 			name: 'ind',
 			itemId: 'ind',
 			value: 90
 		},
 		{
 			xtype: 'button',
-			text: 'Ajouter et sauver',
+			text: locale.getSt().field.addsave,
 			ui: 'confirm',
 			iconCls: 'add',
 			iconMask: true,
@@ -56,7 +56,7 @@ Ext.define('myvera.view.PanelConfigTab', {
 		},
                 {
 			xtype: 'button',
-			text: 'Supprimer et sauver',
+			text: locale.getSt().field.deletesave,
 			margin: 5,
 			iconCls: 'trash',
 			ui: 'decline',
@@ -69,7 +69,7 @@ Ext.define('myvera.view.PanelConfigTab', {
 			updatedata:function(e,d){
 				if(d.id!=0) e.down('#deletetab').show();
 				e.down('#savetab').setIconCls('refresh');
-				e.down('#savetab').setText('Sauver');
+				e.down('#savetab').setText(locale.getSt().button.save);
 
 				e.down('#name').setValue(d.name);
 				e.down('#cls').setValue(d.cls);

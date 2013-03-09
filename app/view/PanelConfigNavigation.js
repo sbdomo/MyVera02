@@ -5,19 +5,19 @@ Ext.define('myvera.view.PanelConfigNavigation', {
 	requires: ['myvera.view.PanelConfigItemsMenu', 'myvera.view.PanelConfigWebviews','myvera.view.PanelConfigWebview'],
 	config: {
 		iconCls : '',
-		defaultBackButtonText: 'Retour',
+		defaultBackButtonText: locale.getSt().button.back,
 		navigationBar: {
 			items: [
 			{
 				xtype: 'button',
 				id: 'addWebViewButton',
-				text: 'Ajouter',
+				text: locale.getSt().button.add,
 				align: 'right',
 				hidden: true,
 				handler: function(){
 					Ext.getCmp('PanelConfigNavigation').push({
 							xtype: 'PanelConfigWebview',
-							title: 'Nouveau widget',
+							title: locale.getSt().title.newwidget,
 							data: { id:"", subcategory:'0', status:'-1', room:'0', icon:null, etage:"-1", etage1:"-1", etage2:"-1", width:"50", retina:myvera.app.isretina}
 					});
 				}

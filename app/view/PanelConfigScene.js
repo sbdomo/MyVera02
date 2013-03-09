@@ -22,7 +22,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue 0',
+			label: locale.getSt().field.view +' 0',
 			name: 'etage',
 			itemId: 'etage',
 			store: 'FloorsStore',
@@ -45,13 +45,13 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position gauche',
+			label: locale.getSt().field.positionleft,
 			itemId: 'LeftItem',
 			name: 'left'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position haut',
+			label: locale.getSt().field.positiontop,
 			itemId: 'TopItem',
 			name: 'top'
 		},
@@ -62,24 +62,24 @@ Ext.define('myvera.view.PanelConfigScene', {
 			itemId: 'PlaceItem',
 			iconCls: 'locate',
 			iconMask: true,
-			text: 'Définir l\'emplacement',
+			text: locale.getSt().misc.defineplace,
 			handler: function(){
 			this.getParent().openpanelimage('');
 			}
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Affichage',
+			label: locale.getSt().misc.display,
 			name: 'subcategory',
 			itemId: 'subcategory',
 			options: [
-			{text: 'icône et titre', value:0},
-			{text: 'icône seulement',  value: 1}
+			{text: locale.getSt().field.icontitle, value:0},
+			{text: locale.getSt().field.icononly,  value: 1}
 			]
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Couleur du texte',
+			label: locale.getSt().field.textcolor,
 			    defaultType: 'panel',
 			name:'color',
 			itemId:'color',
@@ -104,26 +104,26 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Num. icône',
+			label: locale.getSt().field.iconnum,
 			name: 'icon',
 			itemId: 'icon'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Largeur icône',
+			label: locale.getSt().field.iconwidth,
 			name: 'width',
 			itemId: 'width'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Index',
+			label: locale.getSt().field.index,
 			name: 'ind',
 			itemId: 'ind',
 			value: 90
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue 1',
+			label: locale.getSt().field.view+ ' 1',
 			name: 'etage1',
 			itemId: 'etage1',
 			store: 'FloorsStore',
@@ -146,13 +146,13 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position gauche',
+			label: locale.getSt().field.positionleft,
 			itemId: 'LeftItem1',
 			name: 'left1'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position haut',
+			label: locale.getSt().field.positiontop,
 			itemId: 'TopItem1',
 			name: 'top1'
 		},
@@ -163,14 +163,14 @@ Ext.define('myvera.view.PanelConfigScene', {
 			itemId: 'PlaceItem1',
 			iconCls: 'locate',
 			iconMask: true,
-			text: 'Définir l\'emplacement',
+			text: locale.getSt().misc.defineplace,
 			handler: function(){
 			this.getParent().openpanelimage('1');
 			}
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Vue 2',
+			label: locale.getSt().field.view +' 2',
 			name: 'etage2',
 			itemId: 'etage2',
 			store: 'FloorsStore',
@@ -193,13 +193,13 @@ Ext.define('myvera.view.PanelConfigScene', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position gauche',
+			label: locale.getSt().field.positionleft,
 			itemId: 'LeftItem2',
 			name: 'left2'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Position haut',
+			label: locale.getSt().field.positiontop,
 			itemId: 'TopItem2',
 			name: 'top2'
 		},
@@ -210,7 +210,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 			itemId: 'PlaceItem2',
 			iconCls: 'locate',
 			iconMask: true,
-			text: 'Définir l\'emplacement',
+			text: locale.getSt().misc.defineplace,
 			handler: function(){
 			this.getParent().openpanelimage('2');
 			}
@@ -220,7 +220,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 			margin: 5,
 			itemId: 'SaveItem',
 			ui: 'confirm',
-			text: 'Ajouter la scène',
+			text: locale.getSt().button.addscene,
 			iconCls: 'add',
 			iconMask: true,
 			handler: function(){
@@ -293,7 +293,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 			iconMask: true,
 			ui: 'decline',
 			hidden: true,
-			text: 'Enlever la scène',
+			text: locale.getSt().button.supp,
 			
 			handler: function(){
 				var form = this.getParent();
@@ -362,7 +362,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 			    
 			    
 			    if (e.config.data.state=="-4") {
-				    this.down('#SaveItem').setText('Mettre à jour');
+				    this.down('#SaveItem').setText(locale.getSt().button.update);
 				    this.down('#SaveItem').setIconCls('refresh');
 				    var devices = Ext.getStore('devicesStore');
 				    var id = e.config.data.id;
@@ -443,7 +443,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 				Ext.getCmp('PanelConfigNavigation').push({
 					xtype: 'PanelImage',
 					//title: 'Positionner le module sur la vue',
-					title: 'Positionner',
+					title: locale.getSt().misc.position,
 					data: {id: this.getParent().down('#etage'+numetage).getValue(), typepanel: 'scene', etage: numetage}
 					});
 	}

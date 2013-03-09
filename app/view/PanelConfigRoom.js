@@ -18,13 +18,13 @@ Ext.define('myvera.view.PanelConfigRoom', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Nom icône',
+			label: locale.getSt().field.iconname,
 			name: 'icon',
 			itemId: 'icon'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Index',
+			label: locale.getSt().field.index,
 			name: 'ind',
 			itemId: 'ind'
 		},
@@ -32,11 +32,11 @@ Ext.define('myvera.view.PanelConfigRoom', {
 			xtype: 'togglefield',
 			name: 'hidden',
 			itemId: 'hidden',
-			label: 'Cacher la pièce'
+			label: locale.getSt().misc.hideroom
 		},
 		{
 			xtype: 'button',
-			text: 'Mettre à jour',
+			text: locale.getSt().button.update,
 			ui: 'confirm',
 			iconCls: 'refresh',
 			iconMask: true,

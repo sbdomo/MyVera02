@@ -10,15 +10,15 @@ $url=$urlbuild.'version.json';
 $newver=file_get_contents($url);
 $newver=json_decode($newver, true);
 if($json["version"]=="") {
-	$result='{"result":"false", "msg":"Version actuelle non trouvée."}';
+	$result='{"result":"false", "msg":"errorversion"}';
 } else if($newver["version"]=="") {
-	$result='{"result":"false", "msg":"Pas de nouvelle version trouvée."}';
+	$result='{"result":"false", "msg":"nonewversion"}';
 } else if($json["version"]!=$newver["version"]) {
-	$result='{"result":"true", "msg":"Une nouvelle version est disponible.", "url":"'.$urlbuild.$newver["build"].'"}';
+	$result='{"result":"true", "msg":"newversion", "url":"'.$urlbuild.$newver["build"].'"}';
 } else if($newver["nightlybuild"]>$json["nightlybuild"]){
-	$result='{"result":"true", "msg":"Une nouvelle version de test est disponible.", "url":"'.$urlbuild.$newver["beta"].'"}';
+	$result='{"result":"true", "msg":"newbetaversion", "url":"'.$urlbuild.$newver["beta"].'"}';
 } else {
-	$result='{"result":"false", "msg":"Version à jour."}';
+	$result='{"result":"false", "msg":"versionuptodate"}';
 }
 
 echo $result;

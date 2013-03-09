@@ -13,11 +13,12 @@ Ext.define('myvera.util.locale', {
 		method: 'POST',
 		success: function(result){
 			me.config.st = Ext.decode(result.responseText, true);
+			if(!me.config.st) alert('Error localization');
 			me.initConfig(config);
 			//me.callParent([config]);
 		},
 		failure: function(response) {
-			Ext.Msg.alert('Error localization');
+			alert('Error localization');
 		}
 	});
     }

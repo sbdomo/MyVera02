@@ -13,8 +13,8 @@ Ext.application({
 
     requires: [
         'Ext.MessageBox',
-	'myvera.util.Templates',
 	'myvera.util.locale',
+	'myvera.util.Templates',
 	'Ext.ux.field.SliderFieldExtended'
     ],
 
@@ -46,14 +46,16 @@ Ext.application({
     },
     
     launch: function() {
-	var MB = Ext.MessageBox;
-	Ext.apply(MB, {
-		YES: { text: 'Oui', itemId: 'yes', ui: 'action' },
-		NO: { text: 'Non', itemId: 'no' }
-	});
-	Ext.apply(MB, {
-		YESNO: [MB.NO, MB.YES]
-	});
+	if(locale.getSt().lang!="en") {
+		var MB = Ext.MessageBox;
+		Ext.apply(MB, {
+			YES: { text: locale.getSt().button.yes, itemId: 'yes', ui: 'action' },
+			NO: { text: locale.getSt().button.no, itemId: 'no' }
+		});
+		Ext.apply(MB, {
+			YESNO: [MB.NO, MB.YES]
+		});
+	}
 	// Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
@@ -65,8 +67,8 @@ Ext.application({
             //"Application Update",
             //"This application has just successfully been updated to the latest version. Reload now?",
         Ext.Msg.confirm(
-		"Mise à jour de l'application",
-		"Mise à jour réussie. Recharger maintenant ?",
+		locale.getSt().msg.updateapp,
+		locale.getSt().msg.updatedone,
             function(buttonId) {
                 if (buttonId === 'yes') {
                     window.location.reload();

@@ -13,11 +13,11 @@ Ext.define('myvera.view.PanelConfigItemsMenu', {
 			align: 'center'
 		},
 		items: [
-		{ ui: 'normal', text: 'Gestion de la liste des modules', name:'openPanelConfigItems' },
-		{ ui: 'normal', text: 'Gestion de la liste des scènes', name:'openPanelConfigScenes' },
-		{ ui: 'normal', text: 'Gestion des widgets et boutons', name:'openPanelConfigWebViews' },
-		{ ui: 'normal', text: 'Positionner sur les vues', name:'openPanelMove' },
-		{ ui: 'normal', text: 'Sauver', name: 'sauver', disabled: true}
+		{ ui: 'normal', text: locale.getSt().button.devicemngmt, name:'openPanelConfigItems' },
+		{ ui: 'normal', text: locale.getSt().button.scenemngmnt, name:'openPanelConfigScenes' },
+		{ ui: 'normal', text: locale.getSt().button.widgetmngmnt, name:'openPanelConfigWebViews' },
+		{ ui: 'normal', text: locale.getSt().button.viewposition, name:'openPanelMove' },
+		{ ui: 'normal', text: locale.getSt().button.save, name: 'sauver', disabled: true}
 		]
 	}
 });

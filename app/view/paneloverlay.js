@@ -17,7 +17,7 @@ Ext.define('myvera.view.paneloverlay', {
 				xtype: 'fieldset',
 				name:'fieldset1',
 				id:'titleform',
-				instructions: 'Programmation du réveil...',
+				instructions: locale.getSt().misc.clockprogram,
 				defaults: {
 					labelWidth: '90px'
 				},
@@ -29,9 +29,11 @@ Ext.define('myvera.view.paneloverlay', {
 				{
 					xtype: 'datetimepickerfield',
 					name: 'heuredeb',
-					label: 'Début',
+					label: locale.getSt().misc.beginning,
 					dateTimeFormat : 'H:i:s',
 					picker: {
+						cancelButton: locale.getSt().button.cancel,
+						doneButton: locale.getSt().button.done,
 						yearFrom: 1998,
 						minuteInterval : 1,
 						secondeInterval : 1,
@@ -41,9 +43,11 @@ Ext.define('myvera.view.paneloverlay', {
 				{
 					xtype: 'datetimepickerfield',
 					name: 'heurefin',
-					label: 'Arrêt',
+					label: locale.getSt().misc.stop,
 					dateTimeFormat : 'H:i:s',
 					picker: {
+						cancelButton: locale.getSt().button.cancel,
+						doneButton: locale.getSt().button.done,
 						yearFrom: 1998,
 						minuteInterval : 1,
 						secondeInterval : 1,
@@ -53,7 +57,7 @@ Ext.define('myvera.view.paneloverlay', {
 				{
 					xtype: 'textfield',
 					name: 'message',
-					label: 'Message'
+					label: locale.getSt().misc.msg
 				}
 				]
 			},
@@ -61,7 +65,7 @@ Ext.define('myvera.view.paneloverlay', {
 				xtype: 'button',
 				name: 'saveclock',
 				ui: 'confirm',
-				text: 'Sauver'
+				text: locale.getSt().button.save
 			}
 		]
 	}

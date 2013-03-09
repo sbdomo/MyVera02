@@ -149,8 +149,8 @@ Ext.define('myvera.controller.contdevices', {
 				
 				if(this.getIsReveil().getValue()==0) Ext.getCmp('listclock').tab.hide();
 				
-				if(myvera.app.isretina=="@2x") this.getRetinaBt().setText("Passer en mode non retina");
-				else  this.getRetinaBt().setText("Passer en mode Retina");
+				if(myvera.app.isretina=="@2x") this.getRetinaBt().setText(locale.getSt().button.noretinamode);
+				else  this.getRetinaBt().setText(locale.getSt().button.retinamode);
 				this.getIsRetina().hide();
 				this.getRetinaBt().show();
 				
@@ -184,7 +184,7 @@ Ext.define('myvera.controller.contdevices', {
 				Ext.getCmp('panelinfo').tab.hide();
 				Ext.getCmp('listclock').tab.hide();
 				
-				Ext.Msg.alert('Erreur','Vous devez vous identifier !');
+				Ext.Msg.alert(locale.getSt().misc.error,locale.getSt().msg.mustlogin);
 			}
 		});
 	},
@@ -192,7 +192,7 @@ Ext.define('myvera.controller.contdevices', {
 	LogIn: function() {
 		this.logged = true;
 		this.startstore();
-		this.getLoginBt().setText('Se déconnecter');
+		this.getLoginBt().setText(locale.getSt().button.notlogin);
 		//this.getLoginBt().setUi('decline');
 		this.getUsernameCt().hide();
 		this.getPasswordCt().hide();
@@ -241,6 +241,10 @@ Ext.define('myvera.controller.contdevices', {
 		console.log("loading Rooms");
 		var storeRooms = Ext.getStore('Rooms');
 		if (storeRooms.getCount()>0) {
+			if(locale.getSt().lang!="fr") {
+				var noroom = storeRooms.getById(0)
+				if(noroom) noroom.set("name",locale.getSt().misc.noroom);
+			}
 			var DevicesStore = Ext.getStore('devicesStore');
 			
 			var syncheader = "";
@@ -273,11 +277,11 @@ Ext.define('myvera.controller.contdevices', {
 			}
 			
 		} else {
-			Ext.Msg.confirm('Erreur', 'Liste des pièces vide. La créer?', function(confirmed) {
+			Ext.Msg.confirm(locale.getSt().misc.error, locale.getSt().msg.norooms, function(confirmed) {
 				if (confirmed == 'yes') {
 					Ext.Viewport.setMasked({
 						xtype: 'loadmask',
-						message: 'Sauvegarde....'
+						message: locale.getSt().msg.saving
 					});
 
 					console.log("Create Rooms");
@@ -301,12 +305,12 @@ Ext.define('myvera.controller.contdevices', {
 								if (result.responseText=="OK") {
 									storeRooms.load();
 								} else {
-									Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des pièces.');
+									Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.errorcreaterooms);
 								}
 							},
 							failure: function(response) {
 								Ext.Viewport.setMasked(false);
-								Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des pièces.');
+								Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.errorcreaterooms + " 2");
 							}
 					});
 				}
@@ -319,7 +323,7 @@ Ext.define('myvera.controller.contdevices', {
 		var devices = Ext.getStore('devicesStore');
 		if (!devices.getCount()>0) {
 			Ext.getCmp('main').setActiveItem(Ext.getCmp('PanelConfig'));
-			Ext.Msg.alert('Pas de modules', 'Vous devriez ajouter des modules et, si nécessaire, des vues.');
+			Ext.Msg.alert(locale.getSt().misc.nodevice, locale.getSt().msg.createdevices);
 		}
 		//*******************Debug mode
 		//this.verifsync(0);
@@ -411,6 +415,7 @@ Ext.define('myvera.controller.contdevices', {
 									break;
 								case 17: //temperature sensor
 									device.set('var1', response.devices[idrecord].temperature);
+									device.set('var3', locale.getSt().unit.temp);//Unité utilisée ex: °C
 									break;
 								case 18: //light sensor
 									device.set('var1', response.devices[idrecord].light);
@@ -432,23 +437,31 @@ Ext.define('myvera.controller.contdevices', {
 								case 103: //gcal
 									if(response.devices[idrecord].nextevent) device.set('var1', response.devices[idrecord].nextevent);
 									break;
+								case 104:
+									device.set('var1', locale.getSt().device.pilotwire[response.devices[idrecord].status]);
+									break;
 								case 105: //Smart Virtual Thermostat
 									//Status 5 : non connu, 0 : mode off, 1 : mode CoolOn (Inactif), 2: Mode HeatOn (Forcé), 3: Auto
 									switch (response.devices[idrecord].mode) {
 									case "AutoChangeOver":
 										device.set('status', 3);
+										device.set('var6', locale.getSt().device.vtherm["3"]);//status en texte et traduit
 										break;
 									case "HeatOn":
 										device.set('status', 2);
+										device.set('var6', locale.getSt().device.vtherm["2"]);
 										break;
 									case "CoolOn":
 										device.set('status', 1);
+										device.set('var6', locale.getSt().device.vtherm["1"]);
 										break;
 									case "Off":
 										device.set('status', 0);
+										device.set('var6', locale.getSt().device.vtherm["0"]);
 										break;
 									default:
 										device.set('status', 5);
+										device.set('var6', "Unknown");
 										break;
 									}
 									device.set('var1', response.devices[idrecord].temperature);
@@ -456,6 +469,13 @@ Ext.define('myvera.controller.contdevices', {
 									device.set('var3', response.devices[idrecord].coolsp); //Temp. utilisée en mode Auto. Eco
 									device.set('var4', response.devices[idrecord].EnergyMode); //Normal pour le mode Confort et EnergySavingsMode pour Eco
 									device.set('var5', response.devices[idrecord].hvacstate); //Heating quand le radiateur est en chauffe et Idle quand il est à l'arrêt
+									device.set('camuser', locale.getSt().unit.temp);//Unité utilisée ex: °C
+									if(response.devices[idrecord].EnergyMode=="Normal") {
+										device.set('campassword', locale.getSt().device.vtherm.normal);//mode auto : Conf ou Eco, traduction de var4
+									} else {
+										device.set('campassword', locale.getSt().device.vtherm.eco);
+									}
+									
 //********Debug
 console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('status') + ", EnergyMode " + device.get('var4') + ", hvacstate "  + device.get('var5'));
 									break;
@@ -564,7 +584,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 							//this.devicesync(response.loadtime,response.dataversion);
 							this.newsync(response.loadtime,response.dataversion);//, syncstamp
 						} else {
-							Ext.Msg.alert('Erreur', 'Synchronisation sans loadtime');
+							Ext.Msg.alert(locale.getSt().misc.error, 'no loadtime');
 							this.newsync(0, 0);//, syncstamp
 							//this.devicesync(0, 0, nonewsync);
 						}
@@ -576,7 +596,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 						if(this.synccount<10) {
 							this.newsync(0, 0);//, syncstamp
 						} else {
-							Ext.Msg.confirm('Erreur', 'Pas de réponse lors de la synchro. Essayer à nouveau?', function(confirmed) {
+							Ext.Msg.confirm(locale.getSt().misc.error, locale.getSt().msg.nosynchro+" "+locale.getSt().msg.newtry, function(confirmed) {
 								if (confirmed == 'yes') {
 									//this.devicesync(0,0, nonewsync);
 									//this.devicesync(0,0);
@@ -587,7 +607,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 							}, this);
 						}
 					} else {
-						Ext.Msg.alert('Erreur', 'Pas de réponse lors de la synchro.');
+						Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.nosynchro);
 					}
 				}
 			},
@@ -599,7 +619,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 						this.newsync(0, 0);//, syncstamp
 					} else {
 						//Ext.Msg.alert('Erreur','Synchronisation avec la Vera impossible ou interrompue');
-						Ext.Msg.confirm('Erreur', 'Synchronisation avec la Vera impossible ou interrompue. Essayer à nouveau?', function(confirmed) {
+						Ext.Msg.confirm(locale.getSt().misc.error, locale.getSt().msg.nosynchro+" "+locale.getSt().msg.newtry, function(confirmed) {
 							if (confirmed == 'yes') {
 								//this.devicesync(0,0, nonewsync);
 								this.newsync(0, 0);//, syncstamp
@@ -607,7 +627,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 						}, this);
 					}
 				} else {
-					Ext.Msg.alert('Erreur', 'Synchronisation avec la Vera impossible ou interrompue.');
+					Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.nosynchro);
 				}
 				
 				//setTimeout(this.devicesync(0,0),2000);
@@ -1096,7 +1116,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			},
 			failure: function(response) {
 				console.log("switch error :" + record.get('name'));
-				Ext.Msg.alert('Erreur','Switch Error');
+				Ext.Msg.alert(locale.getSt().misc.error,'Switch Error');
 			}
 		});
 	},
@@ -1155,7 +1175,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 								},
 								failure: function(response) {
 									console.log("switch error :" + record.get('name'));
-									Ext.Msg.alert('Erreur','Switch Error');
+									Ext.Msg.alert(locale.getSt().misc.error,'Switch Error');
 								}
 						});
 					}
@@ -1186,7 +1206,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			},
 			failure: function() {
 				// this should not happen, nevertheless:
-				alert("Erreur !");
+				alert(locale.getSt().misc.error);
 			}
 		}, this);
 		}
@@ -1227,8 +1247,8 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				
 				//Affichage bouton Retina et affectztion valeur @2x
 				myvera.app.setIsretina(isRetina);
-				if(myvera.app.isretina=="@2x") this.getRetinaBt().setText("Passer en mode non retina");
-				else  this.getRetinaBt().setText("Passer en mode Retina");
+				if(myvera.app.isretina=="@2x") this.getRetinaBt().setText(locale.getSt().button.noretinamode);
+				else  this.getRetinaBt().setText(locale.getSt().button.retinamode);
 				this.getIsRetina().hide();
 				this.getRetinaBt().show();
 				
@@ -1253,7 +1273,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 					success: function(response) {
 					},
 					failure: function(response) {
-						Ext.Msg.alert('Erreur',"Erreur lors de la sauvegarde de l'adresse IP");
+						Ext.Msg.alert(locale.getSt().misc.error,locale.getSt().msg.saveiperror);
 					}
 				});
 				
@@ -1276,11 +1296,11 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 //*******				}
 				
 //*******				Ext.getCmp('main').setActiveItem(Ext.getCmp('homepanel'));
-			} else Ext.Msg.alert('Erreur','vous devez indiquer un login, un mot de passe et l\'IP de la Vera.');
+			} else Ext.Msg.alert(locale.getSt().misc.error,locale.getSt().msg.mustloginandpass);
 		} else {
 			Ext.ModelMgr.getModel('myvera.model.CurrentUser').load(1, {
 				success: function(user) {
-					Ext.Msg.confirm('Message', 'Voulez-vous vous déconnecter?', function(confirmed) {
+					Ext.Msg.confirm(locale.getSt().misc.msg, locale.getSt().msg.notlogin, function(confirmed) {
 						if (confirmed == 'yes') {
 							user.erase({success: function() {window.location.reload(); } });
 						}
@@ -1306,7 +1326,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			},
 			failure: function() {
 				// this should not happen, nevertheless:
-				alert("Erreur !");
+				alert(locale.getSt().misc.error);
 			}
 		}, this);
 		}
@@ -1324,7 +1344,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			},
 			failure: function() {
 				// this should not happen, nevertheless:
-				alert("Erreur !");
+				alert(locale.getSt().misc.error);
 			}
 		}, this);
 		}
@@ -1369,7 +1389,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			},
 			failure: function() {
 				// this should not happen, nevertheless:
-				alert("Erreur !");
+				alert(locale.getSt().misc.error);
 			}
 		}, this);
 		}
@@ -1385,7 +1405,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			},
 			failure: function() {
 				// this should not happen, nevertheless:
-				alert("Erreur !");
+				alert(locale.getSt().misc.error);
 			}
 		}, this);
 		}
@@ -1446,11 +1466,11 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				},
 				failure: function(response) {
 					//console.log("switch error :" + record.get('name'));
-					Ext.Msg.alert('Erreur','Clock Error');
+					Ext.Msg.alert(locale.getSt().misc.error,'Clock Error');
 				}
 			});
 		} else {
-			Ext.Msg.alert('Message','Pas de modification.');
+			Ext.Msg.alert(locale.getSt().misc.msg,locale.getSt().msg.nochange);
 			//Ext.Msg.alert('Message',''+heuredeb+' '+heurefin);
 		}
 	
@@ -1492,7 +1512,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			},
 			failure: function(response) {
 				console.log("switch error :" + device.get('name'));
-				Ext.Msg.alert('Erreur','Switch Error');
+				Ext.Msg.alert(locale.getSt().misc.error,'Switch Error');
 			}
 		});
 		} else {
@@ -1549,6 +1569,11 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			//Vérifie qu'il y a au moins une vue (en principe -1 - Aucune vue)
 			//Initialise floors.json sinon.
 			if(FloorsStore.getCount()>0) {
+				if(locale.getSt().lang!="fr") {
+					var noview = FloorsStore.getById("-1")
+					if(noview) noview.set("name",locale.getSt().misc.noview);
+				}
+				
 				var TabViewsStore = Ext.getStore('TabViewsStore');
 				var items = [];
 				TabViewsStore.data.each(function(tabview) {
@@ -1616,11 +1641,11 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 	},
 	
 	initfloors: function() {
-		Ext.Msg.confirm('Erreur', 'Liste des vues vide. La créer?', function(confirmed) {
+		Ext.Msg.confirm(locale.getSt().misc.error, locale.getSt().msg.createviews, function(confirmed) {
 				if (confirmed == 'yes') {
 					Ext.Viewport.setMasked({
 						xtype: 'loadmask',
-						message: 'Initialisation de la liste...'
+						message: locale.getSt().msg.initlist
 					});
 
 					console.log("Create Floors");
@@ -1643,12 +1668,12 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 									this.pushviews();
 									//this.pushplans();
 								} else {
-									Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des vues.');
+									Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.createlisterror);
 								}
 							},
 							failure: function(response) {
 								Ext.Viewport.setMasked(false);
-								Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des vues.');
+								Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.createlisterror);
 							}
 					});
 				}
@@ -1657,11 +1682,11 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 	
 	//Lancé quand la liste des onglets n'existe pas pour la créer
 	initTabsViews: function() {
-		Ext.Msg.confirm('Erreur', 'Liste des onglets vide. La créer?', function(confirmed) {
+		Ext.Msg.confirm(locale.getSt().misc.error, locale.getSt().msg.createtabs, function(confirmed) {
 				if (confirmed == 'yes') {
 					Ext.Viewport.setMasked({
 						xtype: 'loadmask',
-						message: 'Initialisation de la liste...'
+						message: locale.getSt().msg.initlist
 					});
 
 					console.log("Create Tabs");
@@ -1683,12 +1708,12 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 								if (result.responseText=="OK") {
 									this.startstore();
 								} else {
-									Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des onglets.');
+									Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.createlisterror);
 								}
 							},
 							failure: function(response) {
 								Ext.Viewport.setMasked(false);
-								Ext.Msg.alert('Erreur', 'Erreur lors de la création de la liste des onglets.');
+								Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.createlisterror);
 							}
 					});
 				}
@@ -1759,7 +1784,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 		var url = './version/newversion.php';
 		Ext.Viewport.setMasked({
 				xtype: 'loadmask',
-				message: 'recherche....'
+				message: locale.getSt().msg.search + '...'
 		});
 		Ext.Ajax.request({
 			url: url,
@@ -1771,20 +1796,21 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				Ext.Viewport.setMasked(false);
 				if (response) {
 					if(response.result=="true") {
-						this.getUrlversiontxt().setHtml(response.msg+' <a target="_blank" href="' +response.url+'">'+response.url+'</a>');
+						this.getUrlversiontxt().setHtml(locale.getSt().msg[response.msg]+' <a target="_blank" href="' +response.url+'">'+response.url+'</a>');
 						//this.getUsernameCt()
 						this.getUrlversiontxt().show();
-						Ext.Msg.alert('Version',response.msg);
+						Ext.Msg.alert(locale.getSt().misc.version,locale.getSt().msg[response.msg]);
 					} else {
-						Ext.Msg.alert('Version',response.msg);
+						this.getUrlversiontxt().hide();
+						Ext.Msg.alert(locale.getSt().misc.version,locale.getSt().msg[response.msg]);
 					}
 				} else {
-					Ext.Msg.alert('Erreur','Réponse du serveur incorrecte');
+					Ext.Msg.alert(locale.getSt().misc.error,locale.getSt().msg.noanswer);
 				}
 			},
 			failure: function(result) {
 				Ext.Viewport.setMasked(false);
-				Ext.Msg.alert('Erreur','Pas de réponse du serveur');
+				Ext.Msg.alert(locale.getSt().misc.error,locale.getSt().msg.noanswer);
 			}
 		});
 
@@ -1822,20 +1848,20 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			items: [
 			{
 				xtype: 'selectfield',
-				label: 'Mode',
+				label: locale.getSt().device.vtherm.mode,
 				name: 'status',
 				itemId: 'status',
 				options: [{
-					text: 'Off',
+					text: locale.getSt().device.vtherm["0"],
 					value: 0
 				}, {
-					text: 'Inactif',
+					text: locale.getSt().device.vtherm["1"],
 					value: 1
 				}, {
-					text: 'Forcé',
+					text: locale.getSt().device.vtherm["2"],
 					value: 2
 				}, {
-					text: 'Auto.',
+					text: locale.getSt().device.vtherm["3"],
 					value: 3
 				}]
 			},
@@ -1844,7 +1870,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				name: 'automode',
 				itemId: 'automodeeco',
 				value: 'EnergySavingsMode',
-				label: 'Auto. Eco'//,
+				label: locale.getSt().device.vtherm["3"]+" "+locale.getSt().device.vtherm.eco//,
 				//checked: true
 			},
 			{
@@ -1852,15 +1878,15 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				name: 'automode',
 				itemId: 'automodeconf',
 				value: 'Normal',
-				label: 'Auto. Confort'
+				label: locale.getSt().device.vtherm["3"]+" "+locale.getSt().device.vtherm.normal
 			},
 			{
 				xtype: 'sliderfieldextended',
 				name: 'coolsp',
 				itemId: 'coolsp',
 				labelAlign: 'top',
-				labelText: 'Temp. Eco',
-				label: 'Temp. Eco (°C)',
+				labelText: locale.getSt().device.vtherm.tempeco,
+				label: locale.getSt().device.vtherm.tempeco+ " ("+locale.getSt().unit.temp+")",
 				value: coolsp,
 				minValue: 0,
 				maxValue: 35,
@@ -1871,8 +1897,8 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				name: 'heatsp',
 				itemId: 'heatsp',
 				labelAlign: 'top',
-				labelText: 'Temp. Confort',
-				label: 'Temp. Confort (°C)',
+				labelText: locale.getSt().device.vtherm.tempnorm,
+				label: locale.getSt().device.vtherm.tempnorm+ " ("+locale.getSt().unit.temp+")",
 				value: heatsp,
 				minValue: 0,
 				maxValue: 35,
@@ -1883,7 +1909,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				margin: 5,
 				itemId: 'confirm',
 				ui: 'confirm',
-				text: 'Mettre à jour',
+				text: locale.getSt().button.update,
 				iconCls: 'refresh',
 				iconMask: true,
 				handler: function(){
@@ -2016,7 +2042,7 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 				}
 			}
 		}
-		Ext.Msg.alert('Erreur','Vue non trouvée');
+		Ext.Msg.alert(locale.getSt().misc.error,locale.getSt().misc.noview);
 	},
 	
 	runHtml: function(iddevice, url) {
@@ -2041,7 +2067,7 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 			},
 			failure: function(response) {
 				//console.log("switch error :" + record.get('name'));
-				Ext.Msg.alert('Erreur','Pas de réponse à la commande');
+				Ext.Msg.alert(locale.getSt().misc.error,locale.getSt().msg.noanswer);
 				device.set('state', 0);
 			}
 		});
@@ -2092,7 +2118,7 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 			},
 			failure: function(response) {
 				console.log("switch error :" + device.get('name'));
-				Ext.Msg.alert('Erreur','Switch Error');
+				Ext.Msg.alert(locale.getSt().misc.error,'Switch Error');
 			}
 		});
 		} else {

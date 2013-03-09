@@ -52,7 +52,7 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    '</tpl>'+
 	    
 	    '<tpl if="category==16&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1} %</div>'+
-	    '<tpl elseif="category==17&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1} °C</div>'+
+	    '<tpl elseif="category==17&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1} {var3}</div>'+
 	    '<tpl elseif="category==18&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{var1} %</div>'+
 	    '<tpl elseif="category==21&&(watts!=null||var1!=null)"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' ><tpl if="watts!=null">{watts} W<br/></tpl><tpl if="var1!=null">{var1} kwh</tpl></div>'+
 	    '<tpl elseif="(category==2||category==8)&&level!=null&&watts!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >{level} %<br/>{watts} W</div>'+
@@ -62,14 +62,15 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    '<tpl elseif="category==101||category==102"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    	'<tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><tpl if="var2!=null"><br/>{var2}</tpl></div>'+
 	    '<tpl elseif="category==107&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
-	    	'{var1}</div>'+
+	    '{var1}</div>'+
 	    '<tpl elseif="category==108&&var5!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    	'{var5}</div>'+
 	    '<tpl elseif="category==104"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
-	    		'<tpl if="status==0">OFF<tpl elseif="status==1">HG<tpl elseif="status==2">ECO<tpl elseif="status==3">CONF</tpl></div>'+
+	    	'{var1}</div>'+
 	    '<tpl elseif="category==105"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
-	    '<tpl if="status==0">OFF<br/>&nbsp;<tpl elseif="status==1">Inactif<br/>&nbsp;<tpl elseif="status==2">Forcé<br/>&nbsp;<tpl elseif="status==3">Auto. <tpl if="var4==\'Normal\'">Conf.<br/>{var2}<tpl else>Eco.<br/>{var3}</tpl>°C</tpl></div>'+
-		'<div style=\'font-weight:bold; text-shadow: 0 0 5px white; font-size:{fontsize}; position: absolute; color:#009ade; width:50px; text-align:center; top: 25%;"\' > {var1}°C </div>'+
+	    	'<tpl if="status==3>{var6} {campassword}<br/><tpl if="var4==\'Normal\'">{var2}<tpl else>{var3}</tpl>{camuser}'+
+		'<tpl else>{var6}<br/>&nbsp;</tpl></div>'+
+		'<div style=\'font-weight:bold; text-shadow: 0 0 5px white; font-size:{fontsize}; position: absolute; color:#009ade; width:50px; text-align:center; top: 25%;"\' > {var1}{camuser} </div>'+
 	    '</tpl>'+
 	'</div></tpl>',
 	
@@ -102,7 +103,7 @@ tpllisticon:'<div class="devicon">'+
 			'</div>',
 			
 tplfooter: '<div class="footer"><tpl if="watts != null&&category!=3&&category!=21"><span class="wattfooter">{watts} W</span>'+
-		'<tpl elseif="category==104"><span class="wattfooter"><tpl if="status==0">OFF<tpl elseif="status==1">HG<tpl elseif="status==2">ECO<tpl elseif="status==3">CONF</tpl></span>'+
+		'<tpl elseif="category==104"><span class="wattfooter">{var1}</span>'+
 		'</tpl>' +
 		'<tpl if="comment!=\'\'&&comment!=null">{comment}<tpl else>&nbsp;</tpl>' + '</div>',
 
@@ -110,7 +111,7 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 '<img class="armed" src="./resources/images/indic/arm{armed}{retina}.png" /> '+
 				'</div>'+
 			'<tpl elseif="category==16"><div class="vargros"><tpl if="var1==null">&nbsp;<tpl else>{var1} %</tpl></div>'+
-			'<tpl elseif="category==17"><div class="vargros"><tpl if="var1==null">&nbsp;<tpl else>{var1} °C</tpl></div>'+
+			'<tpl elseif="category==17"><div class="vargros"><tpl if="var1==null">&nbsp;<tpl else>{var1} {var3}</tpl></div>'+
 			'<tpl elseif="category==18"><div class="vargros"><tpl if="var1==null">&nbsp;<tpl else>{var1} %</tpl></div>'+
 			'<tpl elseif="category==3"><div class="vargros"><tpl if="watts==null">&nbsp;<tpl else>{watts} W</tpl></div>'+
 			'<tpl elseif="category==21"><div class="vargros"><tpl if="watts==null">&nbsp;<tpl else>{watts} W</tpl><br /><tpl if="var1!=null">{var1} kwh</tpl></div>'+
@@ -124,8 +125,9 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 					'&nbsp;&nbsp;&nbsp;<img class="i2" src="./resources/images/plugin/pw2_<tpl if="status==2">1<tpl else>0</tpl>{retina}.png" />'+
 					'&nbsp;&nbsp;&nbsp;<img class="i3" src="./resources/images/plugin/pw3_<tpl if="status==3">1<tpl else>0</tpl>{retina}.png" />'+
 			'<tpl elseif="category==105">'+
-				'<div class="vargros">{var1}°C</div><div class="varcenter">'+
-				'<tpl if="status==0">OFF<tpl elseif="status==1">Inactif<tpl elseif="status==2">Forcé<tpl elseif="status==3">Auto. <tpl if="var4==\'Normal\'">Confort<br />{var2}<tpl else>Eco.<br />{var3}</tpl>°C</tpl></div>'+
+				'<div class="vargros">{var1}{camuser}</div><div class="varcenter">'+
+				'<tpl if="status==3">{var6} {campassword}<br/><tpl if="var4==\'Normal\'">{var2}<tpl else>{var3}</tpl>{camuser}'+
+				'<tpl else>{var6}</tpl></div>'+
 			'<tpl elseif="category==107"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
 			'<tpl elseif="category==108"><div class="var"><tpl if="var5==null">&nbsp;<tpl else>{var5}</tpl></div>'+
 
