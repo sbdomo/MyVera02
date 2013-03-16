@@ -107,7 +107,17 @@
       "versionuptodate":"Version à jour.",
       "updateapp":"Mise à jour de l'application",
       "updatedone":"Mise à jour réussie. Recharger maintenant ?",
-      "addbtntab":"Pensez à mettre au moins un bouton dans une des vues pour faire apparaitre la barre d'onglet"
+      "addbtntab":"Pensez à mettre au moins un bouton dans une des vues pour faire apparaitre la barre d'onglet",
+      "savefloor":{
+      	  "0":"format image 2 incorrect",
+      	  "1":"url 2 incorrecte",
+      	  "2":"format image 1 incorrect",
+      	  "3":"url 1 incorrecte",
+      	  "4":"image non ajoutée",
+      	  "5":"image retina non ajoutée",
+      	  "6":"Pas de vue ?",
+      	  "7":"commande incorrecte"
+      }
    },
    "field":{
       "name":"Nom",

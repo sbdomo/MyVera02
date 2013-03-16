@@ -466,7 +466,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 				var listdevice = listdevices.getById(data.id);
 				//Le module est déjà dans la liste
 				if (form.config.data.state=="-4") {
-					device = devices.getById(data.id);
+					var device = devices.getById(data.id);
 					device.set("category", formdata.category);
 					device.set("subcategory", formdata.subcategory);
 					device.set("etage", formdata.etage);
@@ -537,7 +537,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 					height: formdata.height,
 					wwidth: formdata.wwidth
 					});
-					device = devices.getById(data.id);
+					var device = devices.getById(data.id);
 					
 					if(formdata.category=="108") {
 						device.set("var1", formdata.var1);
@@ -575,7 +575,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 			handler: function(){
 				var form = this.getParent();
 				var devices = Ext.getStore('devicesStore');
-				device = devices.getById(form.config.data.id);
+				var device = devices.getById(form.config.data.id);
 				//var width =device.get('width');
 				//var height =device.get('height');
 				devices.remove(device);
@@ -650,7 +650,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 				    this.down('#SaveItem').setText(locale.getSt().button.update);
 				    this.down('#SaveItem').setIconCls('refresh');
 				    var devices = Ext.getStore('devicesStore');
-				    device = devices.getById(e.config.data.id);
+				    var device = devices.getById(e.config.data.id);
 				    e.setValues(device.getData());
 				    //if(device.get('verif')==null) e.setValues({verif:"yes"});
 				    //if(device.get('color')==null) e.setValues({color:'000000'});

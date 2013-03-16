@@ -12,7 +12,7 @@ Ext.define('myvera.view.datamove', {
 				console.log('element tap!');
 				//Ext.getCmp('carouselitemmove').toggleSwipe(false);
 				var currentdrag = new Ext.util.Draggable({
-						element : target,
+						element: target,
 						//direction: 'both',
 						//revert:true,
 						constraint: ({

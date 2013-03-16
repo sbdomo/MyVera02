@@ -49,7 +49,7 @@ Ext.define('myvera.view.PanelConfigRoom', {
 				var data = form.config.data;
 				var rooms = Ext.getStore('Rooms');
 				
-				room = rooms.getById(data.id);
+				var room = rooms.getById(data.id);
 				room.set("icon", formdata.icon);
 				room.set("hidden", formdata.hidden);
 				room.set("ind", formdata.ind);

@@ -81,7 +81,7 @@ Ext.define('myvera.view.tablet.datalist', {
     },
     
     toggleContainer: function(duration) {
-	list = this.down('#list');
+	var list = this.down('#list');
 	if(list.isHidden()) {
 	    this.down('#list').show();
 	    //{type: 'slide', direction: 'right'}

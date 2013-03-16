@@ -134,11 +134,11 @@ Ext.define('myvera.controller.contconfig', {
 				var count = 0;
 				var letexte = "";
 				devices.data.each(function(device) {
-					var cat = device.get('category');
-					//si la catégorie est 1000, c'est une scène, 1001 c'est une webview : ne pas prendre en compte, il serait possible également de vérifier que l'ID ne commence pas par s ou w
-					if(cat!=1000&&cat!=1001) {
+				    var cat = device.get('category');
+				    //si la catégorie est 1000, c'est une scène, 1001 c'est une webview : ne pas prendre en compte, il serait possible également de vérifier que l'ID ne commence pas par s ou w
+				    if(cat!=1000&&cat!=1001) {
 					var id = device.get('id');
-					configdevice = ConfigDevicesStore.getById(id);
+					var configdevice = ConfigDevicesStore.getById(id);
 					if (configdevice) {
 						configdevice.set('state', '-4');
 						configdevice.set('category', cat);
@@ -190,7 +190,7 @@ Ext.define('myvera.controller.contconfig', {
 								icon: device.get('icon')
 						});
 					}
-					}
+				    }
 				});
 			}
 		}
@@ -265,7 +265,7 @@ Ext.define('myvera.controller.contconfig', {
 					//si la catégorie est 1000, c'est une scène, il serait possible également de vérifier que l'ID ne commence pas par s
 					if(cat==1000) {
 					var id = device.get('id').substring(1);
-					configscene = ConfigScenesStore.getById(id);
+					var configscene = ConfigScenesStore.getById(id);
 					if (configscene) {
 						configscene.set('state', '-4');
 						//configscene.set('category', cat);
@@ -455,7 +455,7 @@ Ext.define('myvera.controller.contconfig', {
 	       	Ext.getCmp('main').getTabBar().hide();
 		Ext.getCmp('PanelConfig').getTabBar().hide();
 		Ext.getCmp('PanelConfigNavigation').setNavigationBar({ docked : 'bottom'});
-		floorid= record.get('id');
+		var floorid= record.get('id');
 		var background="";
 		if(myvera.app.isretina=="@2x"&&record.get('pathretina')!="") {
 			background='background-size: '+record.get('widthretina')+'px; background-image: url(./resources/config/img/'+record.get('pathretina')+'); background-repeat: no-repeat; background-position: 0px 0px;';
@@ -517,7 +517,7 @@ Ext.define('myvera.controller.contconfig', {
 							Ext.Msg.alert(locale.getSt().misc.msg, locale.getSt().msg.updateview);
 						//} else Ext.Msg.alert('Message', 'Erreur : ' + response.result);
 					} else {
-						Ext.Msg.alert(locale.getSt().misc.error +':' + response.result);
+						Ext.Msg.alert(locale.getSt().misc.error +':' + locale.getSt().msg.savefloor[response.result]);
 					}
 				} else {
 					Ext.Msg.alert(locale.getSt().msg.updateerror);
@@ -778,7 +778,7 @@ Ext.define('myvera.controller.contconfig', {
 		var contdevices = this.getApplication().getController('contdevices');
 		var syncheader = "";
 		syncheader={'Authorization': 'Basic ' + contdevices.loggedUserId};
-		ipvera = contdevices.ipvera;
+		var ipvera = contdevices.ipvera;
 		Ext.Ajax.request({
 			scope: this,
 			url: './protect/readrooms.php',
@@ -797,7 +797,7 @@ Ext.define('myvera.controller.contconfig', {
 							var result_room = response.rooms[idrecord];
 							var resultId=result_room.id;
 							if(resultId!=0) {
-								room = RoomsStore.getById(resultId);
+								var room = RoomsStore.getById(resultId);
 								if (room) {
 								  room.set('name', result_room.name);
 								} else {

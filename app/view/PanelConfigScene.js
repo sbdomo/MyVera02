@@ -233,7 +233,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 				var listdevice = listdevices.getById(data.id);
 				
 				if (form.config.data.state=="-4") {
-					device = devices.getById("s" + data.id);
+					var device = devices.getById("s" + data.id);
 					//device.set("category", formdata.category);
 					device.set("subcategory", formdata.subcategory);
 					device.set("etage", formdata.etage);
@@ -272,7 +272,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 					width: formdata.width,
 					ind: formdata.ind
 					});
-					device = devices.getById("s" + data.id);
+					var device = devices.getById("s" + data.id);
 					device.setDirty();
 					listdevice.set("state", "-4");
 				}
@@ -298,7 +298,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 			handler: function(){
 				var form = this.getParent();
 				var devices = Ext.getStore('devicesStore');
-				device = devices.getById("s" + form.config.data.id);
+				var device = devices.getById("s" + form.config.data.id);
 				//var width =device.get('width');
 				//var height =device.get('height');
 				devices.remove(device);
@@ -366,7 +366,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 				    this.down('#SaveItem').setIconCls('refresh');
 				    var devices = Ext.getStore('devicesStore');
 				    var id = e.config.data.id;
-				    device = devices.getById("s" + e.config.data.id);
+				    var device = devices.getById("s" + e.config.data.id);
 				    e.setValues(device.getData());
 				    
 				    //affecte l'ID sans le s

@@ -15,7 +15,7 @@ Ext.define('myvera.view.PanelImage', {
 			//height: 768,
 			listeners:{
 				tap:function(e,t){
-					typepanel = 'PanelConfigItem';
+					var typepanel = 'PanelConfigItem';
 					if (this.getParent().config.data.typepanel=='scene') {
 						typepanel = 'PanelConfigScene';
 					} else if (this.getParent().config.data.typepanel=='webview') {

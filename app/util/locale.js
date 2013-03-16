@@ -6,7 +6,8 @@ Ext.define('myvera.util.locale', {
 	st: ""
     },
     constructor : function(config) {
-	me=this;
+	var me=this;
+	config = config || {};
 	Ext.Ajax.request({
 		url: './resources/locales/lang.json',
 		async:false,

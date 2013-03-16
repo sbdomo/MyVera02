@@ -329,7 +329,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 				
 				//Le module est déjà dans la liste
 				if (data.id!="") {
-					device = devices.getById(data.id);
+					var device = devices.getById(data.id);
 					device.set("name", formdata.name);
 					//device.set("category", 1001);
 					//device.set("subcategory", formdata.subcategory);
@@ -386,7 +386,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 					status: formdata.status,
 					wwidth: formdata.wwidth
 					});
-					device = devices.getById(newid);
+					var device = devices.getById(newid);
 					device.setDirty();
 					//listdevice.set("state", "-4");
 				}
@@ -408,7 +408,7 @@ Ext.define('myvera.view.PanelConfigWebview', {
 			handler: function(){
 				var form = this.getParent();
 				var devices = Ext.getStore('devicesStore');
-				device = devices.getById(form.config.data.id);
+				var device = devices.getById(form.config.data.id);
 				//var width =device.get('width');
 				//var height =device.get('height');
 				devices.remove(device);

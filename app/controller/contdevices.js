@@ -386,11 +386,10 @@ Ext.define('myvera.controller.contdevices', {
 				var response = Ext.decode(result.responseText, true);
 				if (response) {
 					var devices = Ext.getStore('devicesStore');
-					var device = "";
 					if (devices) {
 						//var tmp="";
 						for (idrecord in response.devices) {
-							device = devices.getById(response.devices[idrecord].id);
+							var device = devices.getById(response.devices[idrecord].id);
 							if (device) {
 								//Le status des Smart Virtual Thermostat - cat 105 n'est pas dans status
 								if(device.set('cat')!=105) device.set('status', response.devices[idrecord].status);
@@ -497,10 +496,10 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 								case 120: //vclock
 									device.set('var1', response.devices[idrecord].alarmtime);
 									if (response.devices[idrecord].alarmtime != null) {
-										heuredep = new Date("February 5, 2001 " + response.devices[idrecord].alarmtime);
-										duration = response.devices[idrecord].alarmduration;
+										var heuredep = new Date("February 5, 2001 " + response.devices[idrecord].alarmtime);
+										var duration = response.devices[idrecord].alarmduration;
 										heuredep.setTime(heuredep.getTime() + (eval(duration) * 1000));
-										heures = Ext.Date.format(heuredep, 'H:i:s')
+										var heures = Ext.Date.format(heuredep, 'H:i:s')
 										device.set('var2', heures);
 									}
 									device.set('var3', response.devices[idrecord].next);
@@ -645,7 +644,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 
 	//Sert à mettre un timer sur la synchro pour qu'elle s'arrête pendant la veille et reprenne ensuite
 	newsync: function(loadtime, dataversion) {//, timestamp
-		newsynctask = Ext.create('Ext.util.DelayedTask', function() {
+		var newsynctask = Ext.create('Ext.util.DelayedTask', function() {
 				//var date = new Date();
 				//console.log("New Sync Timer" + Ext.Date.format(date, 'h:i:s'));
 				//if(timestamp==this.syncdate) {
@@ -761,7 +760,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 					record.data.var2="/snapshot.cgi";
 				}
 				var RefreshCam = function() {
-					task = Ext.create('Ext.util.DelayedTask', function() {
+					var task = Ext.create('Ext.util.DelayedTask', function() {
 						var rand = Math.random();
 						var obj =document.getElementById('cam'+record.get('id'));
 						obj.src = 'http://'+record.get('var1')+record.get('var2')+'?user='+record.get('camuser')+'&pwd='+record.get('campassword')+'&t='+rand;
@@ -872,6 +871,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			
 			//Vclock
 			if (cat == 120&&record.get('sceneon') == null) {
+				var dateheure="";
 				this.getClockfieldsetCt().setTitle(record.get('name'));
 				this.getClockdeiveidCt().setValue(record.get('id'));
 				dateheure=new Date("February 5, 2001 "+record.get('var1'));
@@ -902,40 +902,40 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				var html0 = '<img class="i0" src="./resources/images/plugin/pw0_';
 				if(record.get('status')==0) {
 					html0=html0+'1';
-					press0= true;
+					var press0= true;
 				} else {
 					html0=html0+'0';
-					press0=false;
+					var press0=false;
 				}
 				html0= html0+ retina + '.png" />';
 				var html1 = '<img class="i1" src="./resources/images/plugin/pw1_';
 				if(record.get('status')==1) {
 					html1=html1+'1';
-					press1= true;
+					var press1= true;
 				} else {
 					html1=html1+'0';
-					press1=false;
+					var press1=false;
 				}
 				html1= html1+ retina + '.png" />';
 				var html2 = '<img class="i2" src="./resources/images/plugin/pw2_';
 				if(record.get('status')==2) {
 					html2=html2+'1';
-					press2= true;
+					var press2= true;
 				} else {
 					html2=html2+'0';
-					press2=false;
+					var press2=false;
 				}
 				html2= html2+ retina + '.png" />';
 				var html3 = '<img class="i3" src="./resources/images/plugin/pw3_';
 				if(record.get('status')==3) {
 					html3=html3+'1';
-					press3= true;
+					var press3= true;
 				} else {
 					html3=html3+'0';
-					press3=false;
+					var press3=false;
 				}
 				html3= html3+ retina + '.png" />';
-				me =this;
+				var me =this;
 				var segmentedButton = Ext.create('Ext.SegmentedButton', {
 						//numid: record.get('id'),
 						allowMultiple: true,
@@ -1221,11 +1221,11 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				ipvera = this.getIpveraCt().getValue(),
 				isVueL = this.getIsVueL().getValue(),
 				isVueP = this.getIsVueP().getValue(),
-				isReveil = this.getIsReveil().getValue();
-				isTab = this.getIsTab().getValue();
-				if(this.getIsRetina().getValue()) isRetina="@2x";
-				else isRetina = "";
+				isReveil = this.getIsReveil().getValue(),
+				isTab = this.getIsTab().getValue(),
 				profil = this.getViewprofil().getValue();
+			if(this.getIsRetina().getValue()) var isRetina="@2x";
+			else var isRetina = "";
 				
 			if(!Ext.isEmpty(password) && !Ext.isEmpty(username) && !Ext.isEmpty(ipvera)) {
 				var user = Ext.create('myvera.model.CurrentUser', {
@@ -1261,6 +1261,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				
 				//Sauvegarde de la dernière adresse IP de la Vera
 				var url = './protect/saveconfig.php';
+				var syncheader = "";
 				syncheader={'Authorization': 'Basic ' + this.loggedUserId};
 				var ipvera = this.ipvera;
 				Ext.Ajax.request({
@@ -1429,9 +1430,10 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 			//Ext.Msg.alert('Message',Ext.Date.format(datedeb, 'd/m/y H:i:s')+' '+Ext.Date.format(datefin, 'd/m/y H:i:s'));
 		var message = this.getClockmessageCt().getValue();
 		var devices = Ext.getStore('devicesStore');
-		device=devices.getById(id);
-		devicetype=device.get('subcategory');
+		var device=devices.getById(id);
+		var devicetype=device.get('subcategory');
 		var change=false;
+		var heurefin="";
 		if (devicetype == "1") {
 			if (Date.parse(datefin) < Date.parse(datedeb)) {
 				datefin.setTime(datefin.getTime() + (24 * 60 * 60 * 1000));
@@ -1487,7 +1489,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 		daction = 'SetTarget';
 		dtargetvalue = 'newTargetValue';
 		var devices = Ext.getStore('devicesStore');
-		device = devices.getById(iddevice);
+		var device = devices.getById(iddevice);
 		if(device) {
 		//switch status
 		console.log("switch : " + device.get('name'));
@@ -1741,7 +1743,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 					//Ext.getCmp('carouselplan').hide();
 		}
 		
-		var typevue = this.getIsVueP().getValue();
+		typevue = this.getIsVueP().getValue();
 //*******		application.setPanel3dP(typevue);
 		if(typevue==true&&orientation=='portrait') {
 			Ext.getCmp('main').setActiveItem(0);
@@ -1753,9 +1755,9 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 	base64_encode: function(data) {
 		var b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 		var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
-		ac = 0,
-		enc = "",
-		tmp_arr = [];
+			ac = 0,
+			enc = "",
+			tmp_arr = [];
 		
 		if (!data) {
 			return data;
@@ -1827,7 +1829,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 		//device.set('var3', response.devices[idrecord].coolsp);
 		//device.set('var4', response.devices[idrecord].hvacstate);
 		
-		me=this;
+		var me=this;
 		
 //		var automode=1;
 //		if(hvacstate=="Heating") automode=0;
@@ -2053,10 +2055,11 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 	
 	runHtml: function(iddevice, url) {
 		var devices = Ext.getStore('devicesStore');
-		device = devices.getById(iddevice);
+		var device = devices.getById(iddevice);
 		device.set('state', -2);
 		
 		var send_url = './protect/sendhtml.php';
+		var syncheader = "";
 		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
 		Ext.Ajax.request({
 			url: send_url,
@@ -2093,7 +2096,7 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 	
 	ondeviceaction: function(iddevice, dservice, daction, dtargetvalue, newstatus) {
 		var devices = Ext.getStore('devicesStore');
-		device = devices.getById(iddevice);
+		var device = devices.getById(iddevice);
 		if(device) {
 		//switch status
 		console.log("switch : " + device.get('name'));

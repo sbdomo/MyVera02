@@ -2,6 +2,8 @@
 //inclog
 $success="false";
 $result="";
+$formatimg1="";
+$formatimg2="";
 
 $profil=$_GET["profil"];
 $fichierjson="./config/floors";
@@ -30,17 +32,19 @@ if ($json = @file_get_contents('php://input'))
 	    $widthretina="";
 	    if($floor['linkimage2']!='') {
 		    if ($dataimage = @getimagesize($floor['linkimage2'])) {
-			   //Format jpg = type 2
-			   if ($dataimage[2] == 2) {
+			   //Format jpg = type 2, png = type 3
+			   if ($dataimage[2] == 2||$dataimage[2] == 3) {
 				   $widthretina=(int)($dataimage[0]/2);
+				   if($dataimage[2] == 2) $formatimg2=".jpg";
+				   else $formatimg2=".png";
 				   //$success="true";
 			   } else {
 				   $success="false";
-				   $result="Erreur format image 2";
+				   $result="0";
 			   }
 		    } else {
 			   $success="false";
-			   $result="Erreur url 2";
+			   $result="1";
 		    }
 	    }
 	    
@@ -48,19 +52,21 @@ if ($json = @file_get_contents('php://input'))
 	    if($floor['linkimage']!=''&&$success=="true") {
 		    if ($dataimage = @getimagesize($floor['linkimage'])) {
 			   //Format jpg = type 2
-			   if ($dataimage[2] == 2) {
+			   if ($dataimage[2] == 2||$dataimage[2] == 3) {
+				   if($dataimage[2] == 2) $formatimg1=".jpg";
+				   else $formatimg1=".png";
 				   //$widthretina=(int)($dataimage[0]/2);
 				   //$success="true";
 			   } else {
 				   $success="false";
-				   $result="Erreur format image 1";
+				   $result="2";
 			   }
 		    } else {
 			   $success="false";
-			   $result="Erreur url 1";
+			   $result="3";
 		    }
 	    }
-	    $result=$success;
+	    //$result=$success;
 	    //Arrête s'il y a un problème avec l'URL
 	    if($success=="true") {
 		    $success="false";
@@ -77,7 +83,7 @@ if ($json = @file_get_contents('php://input'))
 				    
 				    if($floor['linkimage']!='') {
 					    $floorpathold=$floors[$floorkey]['path'];
-					    $floor['path']='vue'.$profil.$id.time().'.jpg';
+					    $floor['path']='vue'.$profil.$id.time().$formatimg1;
 					    $floors[$floorkey]['path']=$floor['path'];
 				    } elseif($floors[$floorkey]['path']!=$floor['path']) {
 					    $floorpathold=$floors[$floorkey]['path'];
@@ -86,7 +92,7 @@ if ($json = @file_get_contents('php://input'))
 				    
 				    if($floor['linkimage2']!='') {
 					    $floorpathold2=$floors[$floorkey]['pathretina'];
-					    $floor['pathretina']='vue'.$profil.$id.time().'2x.jpg';
+					    $floor['pathretina']='vue'.$profil.$id.time().'2x'.$formatimg2;
 					    $floors[$floorkey]['pathretina']=$floor['pathretina'];
 					    $floors[$floorkey]['widthretina']=$widthretina;
 				    } elseif($floors[$floorkey]['pathretina']!=$floor['pathretina']) {
@@ -113,11 +119,11 @@ if ($json = @file_get_contents('php://input'))
 				    if($newid<=$fid) $newid=$fid + 1;
 			    }
 			    if($floor['linkimage']!='') {
-				    $floor['path']='vue'.$profil.$newid.time().'.jpg';
+				    $floor['path']='vue'.$profil.$newid.time().$formatimg1;
 			    }
 			    
 			    if($floor['linkimage2']!='') {
-				    $floor['pathretina']='vue'.$profil.$newid.time().'2x.jpg';
+				    $floor['pathretina']='vue'.$profil.$newid.time().'2x'.$formatimg2;
 				    $floor['widthretina']=$widthretina;
 			    }
 			    
@@ -170,7 +176,7 @@ if ($json = @file_get_contents('php://input'))
 				    
 			    } else {
 				$success="false";
-				$result="Erreur image";
+				$result="4";
 			    }
 			    fclose($fp);
 		    }
@@ -185,7 +191,7 @@ if ($json = @file_get_contents('php://input'))
 				
 			    } else {
 				$success="false";
-				$result="Erreur image retina";
+				$result="5";
 			    }
 			    fclose($fp);
 		    }
@@ -195,12 +201,12 @@ if ($json = @file_get_contents('php://input'))
 		    }
 	    }
     } else {
-	    $result="Pas de vue ?";
+	    $result="6";
     }
 }
 else
 {
-	$result="erreur";
+	$result="7";
 }
 echo '{"success":"'.$success.'", "result":"'.$result.'"}';
 ?>
