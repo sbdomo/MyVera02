@@ -12,6 +12,7 @@ Ext.application({
 	],
 
     requires: [
+        'Ext.i18n.Bundle',
         'Ext.MessageBox',
 	'myvera.util.Templates',
 	'Ext.ux.field.SliderFieldExtended'
@@ -45,6 +46,14 @@ Ext.application({
     },
     
     launch: function() {
+	Ext.i18n.Bundle.configure({
+		bundle: 'Application',
+		language: 'fr-FR',
+		path: 'resources/locales',
+		noCache: true
+		//noCache: false
+  	});
+    	    
 	var MB = Ext.MessageBox;
 	Ext.apply(MB, {
 		YES: { text: 'Oui', itemId: 'yes', ui: 'action' },

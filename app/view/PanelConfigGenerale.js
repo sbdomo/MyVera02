@@ -2,7 +2,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 	extend: 'Ext.form.Panel',
 	xtype: 'PanelConfigGenerale',
 	id:'PanelConfigGenerale',
-	requires: ['Ext.field.Hidden', 'Ext.field.Password', 'Ext.field.Toggle'],
+	requires: ['Ext.i18n.Bundle', 'Ext.field.Hidden', 'Ext.field.Password', 'Ext.field.Toggle'],
 	config: {
 		items: [
 		{
@@ -10,7 +10,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 			defaults: {
 				labelWidth: '140px'
 			},
-			title: 'Connexion locale',
+			title: Ext.i18n.Bundle.message('msg.connect'),
 			//iconCls: 'home',
 			//instructions: 'Connexion locale',
 			items: [
@@ -23,38 +23,38 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 				xtype: 'textfield',
 				name: 'login',
 				autoCapitalize: false,
-				placeHolder: 'Nom'
+				placeHolder: Ext.i18n.Bundle.message('field.name')
 			},
 			{
 				xtype: 'passwordfield',
 				name: 'pass',
-				placeHolder: 'Mot de passe'
+				placeHolder: Ext.i18n.Bundle.message('field.pass')
 			},
 			{
 				xtype: 'textfield',
-				label: 'IP de la Vera',
+				label: Ext.i18n.Bundle.message('field.ipvera'),
 				//id: 'ipvera',
 				name: 'ipvera',
 				placeHolder: 'Ex: 192.168.0.1'
 			},
 			{
 				xtype: 'selectfield',
-				label: 'Profil',
+				label: Ext.i18n.Bundle.message('field.profil'),
 				name:'viewprofil',
 				itemId:'viewprofil',
 				options: [
-				{text: 'Par défaut', value:'0'},
-				{text: 'Profil 1',  value: '1'},
-				{text: 'Profil 2',  value: '2'},
-				{text: 'Profil 3',  value: '3'},
-				{text: 'Profil 4',  value: '4'},
-				{text: 'Profil 5',  value: '5'},
-				{text: 'Profil 6',  value: '6'}
+				{text: Ext.i18n.Bundle.message('profil.default'), value:'0'},
+				{text: Ext.i18n.Bundle.message('profil.name', {num: '1'}),  value: '1'},
+				{text: Ext.i18n.Bundle.message('profil.name', {num: '2'}),  value: '2'},
+				{text: Ext.i18n.Bundle.message('profil.name', {num: '3'}),  value: '3'},
+				{text: Ext.i18n.Bundle.message('profil.name', {num: '4'}),  value: '4'},
+				{text: Ext.i18n.Bundle.message('profil.name', {num: '5'}),  value: '5'},
+				{text: Ext.i18n.Bundle.message('profil.name', {num: '6'}),  value: '6'}
 				]
 			},
 			{
 				xtype: 'button',
-				text: 'S\'identifier',
+				text: Ext.i18n.Bundle.message('button.auth'),
 				name: 'loginbutton',
 				ui: 'confirm'
 			}
@@ -65,46 +65,41 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 			defaults: {
 				labelWidth: '190px'
 			},
-			title: 'Affichage',
+			title: Ext.i18n.Bundle.message('msg.screen'),
 			items: [
 			{
 				xtype: 'togglefield',
 				name: 'isVueL',
 				value: 1,
-				label: 'Vues en mode paysage'//,
-				//labelWidth: '60%'
+				label: Ext.i18n.Bundle.message('button.landscape')
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isVueP',
 				value: 0,
-				label: 'Vues en mode portrait'//,
-				//labelWidth: '40%'
+				label: Ext.i18n.Bundle.message('button.portrait')
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isReveil',
 				value: 1,
-				label: 'Réveils'//,
-				//labelWidth: '40%'
+				label: Ext.i18n.Bundle.message('main.listclock')
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isTab',
 				value: 1,
-				label: 'Onglets à l\'ouverture'//,
-				//labelWidth: '40%'
+				label: Ext.i18n.Bundle.message('button.tabbarshow')
 			},
 			{
 				xtype: 'togglefield',
 				name: 'isRetina',
 				value: 0,
-				label: 'Retina'//,
-				//labelWidth: '40%'
+				label: Ext.i18n.Bundle.message('msg.retina')
 			},
 			{
 				xtype: 'button',
-				text: 'Retina',
+				text: Ext.i18n.Bundle.message('msg.retina'),
 				hidden: true,
 				name: 'retinabutton'
 				//ui: 'confirm'
@@ -113,7 +108,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 		},
 		{
 			xtype: 'button',
-			text: 'Nouvelle version ?',
+			text: Ext.i18n.Bundle.message('button.searchversion'),
 			name: 'versionbutton'
 			//ui: 'confirm'
 		},

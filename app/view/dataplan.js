@@ -1,10 +1,10 @@
 Ext.define('myvera.view.dataplan', {
 	extend: 'Ext.DataView',
 	xtype: 'dataplan',
-	requires:['myvera.util.Templates'],
+	requires:['Ext.i18n.Bundle','myvera.util.Templates'],
 	stores: ['devicesStore'],
 	config: {
-		emptyText: 'Aucun module',		
+		emptyText: Ext.i18n.Bundle.message('msg.devices'),		
 		store: 'devicesStore',
 		styleHtmlContent: true,
 		scrollable: null,

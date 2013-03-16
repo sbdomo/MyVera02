@@ -1,6 +1,7 @@
 Ext.define('myvera.view.tablet.datalist', {
     extend: 'Ext.Container',
     xtype: 'datalist',
+    requires: ['Ext.i18n.Bundle'],
     config: {
 	   layout:'card',
 	   //tpl: myvera.util.Templates.getTpllist(),
@@ -28,7 +29,7 @@ Ext.define('myvera.view.tablet.datalist', {
 			xtype: 'toolbar',
 			docked: 'top',
 			ui: 'light',                    
-			title: 'Pièces'
+			title: Ext.i18n.Bundle.message('msg.rooms'),
 		}],
 		listeners: {
 			select: function(view, record) {
@@ -47,12 +48,12 @@ Ext.define('myvera.view.tablet.datalist', {
 		    styleHtmlContent:true,
 		    itemCls:'deviceview',
 		    disableSelection: true,
-		    emptyText: 'Aucun module',
-		    store: 'devicesStore',
+		    emptyText: Ext.i18n.Bundle.message('msg.nodevice'),
+		    //store: 'devicesStore',
 		    items: [{
 			    xtype: 'toolbar',
 			    itemId: 'toolbar',
-			    title: 'Pas de pièce',
+			    title: Ext.i18n.Bundle.message('msg.noroom'),
 			    docked: 'top',
 			    items: [
 			    {

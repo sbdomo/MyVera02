@@ -1,10 +1,10 @@
 Ext.define('myvera.view.datamove', {
 	extend: 'Ext.DataView',
 	xtype: 'datamove',
-	requires:['Ext.util.Draggable', 'Ext.ux.util.Draggable', 'myvera.util.Templates'],
+	requires:['Ext.i18n.Bundle','Ext.util.Draggable', 'Ext.ux.util.Draggable', 'myvera.util.Templates'],
 	stores: ['devicesStore'],
 	config: {
-		emptyText: 'Aucun module',		
+		emptyText: Ext.i18n.Bundle.message('msg.nodevice'),		
 		store: 'devicesStore',
 		scrollable: false,
 		listeners:{
@@ -36,7 +36,7 @@ Ext.define('myvera.view.datamove', {
 					record.set('left2', record.get('left2')+target.getX());
 					record.set('top2', record.get('top2')+target.getY());
 				} else {
-					alert("Pas de vue trouvée !");
+					alert(Ext.i18n.Bundle.message('msg.noviewfind'));
 					return;
 				}
 				

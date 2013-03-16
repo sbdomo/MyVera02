@@ -1,22 +1,23 @@
 Ext.define('myvera.view.phone.PanelConfigphone', {
     extend: 'myvera.view.PanelConfig',
+    requires: ['Ext.i18n.Bundle'],
     xtype: 'PanelConfigphone',  
     config: {
 	items: [
 	{
 		xtype:'PanelConfigGenerale',
-		title: 'Conf.'
+		title: Ext.i18n.Bundle.message('panelconfig.conf')
 	},
 	{
 		xtype: 'PanelConfigRoomsNavigation'
 	},
 	{
 		xtype: 'PanelConfigFloorsNavigation',
-		title: 'Vues'
+		title: Ext.i18n.Bundle.message('msg.views')
 	},
 	{
 		xtype: 'PanelConfigNavigation',
-		title : 'Modules'
+		title : Ext.i18n.Bundle.message('msg.devices')
 	}
 	]
     }

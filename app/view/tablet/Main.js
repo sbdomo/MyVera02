@@ -3,7 +3,8 @@ Ext.define("myvera.view.tablet.Main", {
 	id: 'main',
 	alias: 'widget.main',
 	requires: [
-		'Ext.TitleBar'
+		'Ext.TitleBar',
+		'Ext.i18n.Bundle'
 	],
 	config: {
 		fullscreen: true,
@@ -12,7 +13,8 @@ Ext.define("myvera.view.tablet.Main", {
 		{
 			title: 'liste',
 			id:'datalist',
-			title: ' Tableau de bord ',
+			//title: ' Tableau de bord ',
+			title: Ext.i18n.Bundle.message('main.liste'),
 			iconCls: 'tab1',
 			xtype: 'datalist'
 
@@ -20,21 +22,24 @@ Ext.define("myvera.view.tablet.Main", {
 		{
 			xtype: 'panelinfo',
 			id:'panelinfo',
-			title: 'Allumés ?',
+			title: Ext.i18n.Bundle.message('main.panelinfo'),
+			//title: 'Allumés ?',
 			iconCls: 'info'//,
 			//hidden: true
 		},
 		{
 			xtype: 'listclock',
 			id:'listclock',
-			title: 'Réveils',
+			title: Ext.i18n.Bundle.message('main.listclock'),
+			//title: 'Réveils',
 			iconCls: 'time'//,
 			//hidden: true
 		},
 		{
 			xtype: 'PanelConfig',
 			id:'PanelConfig',
-			title: 'Config.',
+			title: Ext.i18n.Bundle.message('main.panelconfig'),
+			//title: 'Config.',
 			iconCls: 'user'
 		}
 		]

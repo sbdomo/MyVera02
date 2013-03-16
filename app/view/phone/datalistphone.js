@@ -1,6 +1,7 @@
 Ext.define('myvera.view.phone.datalistphone', {
     extend: 'Ext.tab.Panel',
     xtype: 'datalistphone',
+    requires: ['Ext.i18n.Bundle'],
     config: {
 	   layout:'card',
 	   activeItem: 0,
@@ -9,7 +10,7 @@ Ext.define('myvera.view.phone.datalistphone', {
            items: [
 	   {
 		xtype: 'dataview',
-		title: 'menu',
+		//title: 'menu',
 		itemId: 'list',
 		cls: 'slidelist',
 		selectedCls: 'listroomselect',
@@ -27,7 +28,7 @@ Ext.define('myvera.view.phone.datalistphone', {
 			xtype: 'toolbar',
 			docked: 'top',
 			ui: 'light',                    
-			title: 'Pièces',
+			title: Ext.i18n.Bundle.message('msg.rooms'),
 			items: [
 			    {
 				    xtype: 'button',
@@ -62,19 +63,19 @@ Ext.define('myvera.view.phone.datalistphone', {
 	    },
 	    {
 		    xtype: 'dataview',
-		    title: 'liste',
+		    //title: 'liste',
 		    itemId: 'listInRoom',
 		    id: 'listInRoom',
 		    //styleHtmlContent:true,
 		    //itemCls:'deviceview',
 		    disableSelection: true,
-		    emptyText: 'Aucun module',
+		    emptyText: Ext.i18n.Bundle.message('msg.nodevice'),
 		    store: 'devicesStore',
 		    items: [{
 			    xtype: 'toolbar',
 			    itemId: 'toolbar',
 			    title: {
-				    title: 'Pas de pièce',
+				    title: Ext.i18n.Bundle.message('msg.noroom'),
 				    //centered: false,
 				    width: 232//,
 				    //left:200

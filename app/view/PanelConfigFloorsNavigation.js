@@ -2,35 +2,35 @@ Ext.define('myvera.view.PanelConfigFloorsNavigation', {
 	extend: 'Ext.navigation.View',
 	xtype: 'PanelConfigFloorsNavigation',
 	id:'PanelConfigFloorsNavigation',
-	requires: ['myvera.view.PanelConfigViewsMenu', 'myvera.view.PanelConfigFloors','myvera.view.PanelConfigFloor'],
+	requires: ['Ext.i18n.Bundle','myvera.view.PanelConfigViewsMenu', 'myvera.view.PanelConfigFloors','myvera.view.PanelConfigFloor'],
 	config: {
 		iconCls: '',
-		defaultBackButtonText: 'Retour',
+		defaultBackButtonText: Ext.i18n.Bundle.message('button.back'),
 		navigationBar: {
 			items: [
 			{
 				xtype: 'button',
 				id: 'addViewButton',
-				text: 'Ajouter',
+				text: Ext.i18n.Bundle.message('button.add'),
 				align: 'right',
 				hidden: true,
 				handler: function(){
 					Ext.getCmp('PanelConfigFloorsNavigation').push({
 							xtype: 'PanelConfigFloor',
-							title: 'Nouvelle vue'
+							title: Ext.i18n.Bundle.message('msg.newview')
 					});
 				}
 			},
 			{
 				xtype: 'button',
 				id: 'addTabButton',
-				text: 'Ajouter',
+				text: Ext.i18n.Bundle.message('button.add'),
 				align: 'right',
 				hidden: true,
 				handler: function(){
 					Ext.getCmp('PanelConfigFloorsNavigation').push({
 							xtype: 'PanelConfigTab',
-							title: 'Nouvel onglet'
+							title: Ext.i18n.Bundle.message('msg.tab')
 					});
 				}
 			}

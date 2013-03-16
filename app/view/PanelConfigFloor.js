@@ -2,7 +2,8 @@ Ext.define('myvera.view.PanelConfigFloor', {
 	extend: 'Ext.form.Panel',
 	xtype: 'PanelConfigFloor',
 	requires: [
-        'Ext.field.Text'
+        'Ext.field.Text',
+        'Ext.i18n.Bundle'
     ],
     
 	config: {
@@ -21,14 +22,14 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Nom',
+			label: Ext.i18n.Bundle.message('field.name'),
 			//id: 'name',
 			itemId: 'name',
 			name: 'name'
 		},
 		{
 			xtype: 'selectfield',
-			label: 'Onglet',
+			label: Ext.i18n.Bundle.message('field.tab'),
 			name: 'tab',
 			itemId: 'tab',
 			store: 'TabViewsStore',
@@ -37,21 +38,21 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Index',
+			label: Ext.i18n.Bundle.message('field.index'),
 			name: 'ind',
 			itemId: 'ind',
 			value: 90
 		},
 		{
 			xtype: 'textfield',
-			label: 'Url de l\'image',
+			label: Ext.i18n.Bundle.message('field.linkimage'),
 			//id: 'linkimage',
 			itemId: 'linkimage',
 			name: 'linkimage'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Image',
+			label: Ext.i18n.Bundle.message('field.img'),
 			//id: 'path',
 			itemId: 'path',
 			disabled: true,
@@ -59,7 +60,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'button',
-			text: 'Image d\'une autre vue',
+			text: Ext.i18n.Bundle.message('button.imglink'),
 			//ui: 'confirm',
 			//iconCls: 'refresh',
 			//iconMask: true,
@@ -89,7 +90,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 							xtype: 'button',
 							name: 'adddimg',
 							ui: 'confirm',
-							text: 'Choisir cette image',
+							text: Ext.i18n.Bundle.message('button.adddimg'),
 							handler: function(){
 								me.down('#path').setValue(this.getParent().down('#view').getValue());
 								this.getParent().hide();
@@ -116,14 +117,14 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'textfield',
-			label: 'Url Retina',
+			label: Ext.i18n.Bundle.message('field.linkimage2'),
 			//id: 'linkimage',
 			itemId: 'linkimage2',
 			name: 'linkimage2'
 		},
 		{
 			xtype: 'textfield',
-			label: 'Image Retina',
+			label: Ext.i18n.Bundle.message('field.imgretina'),
 			//id: 'path',
 			itemId: 'pathretina',
 			disabled: true,
@@ -136,7 +137,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'button',
-			text: 'Image d\'une autre vue',
+			text: Ext.i18n.Bundle.message('button.imglink'),
 			//ui: 'confirm',
 			//iconCls: 'refresh',
 			//iconMask: true,
@@ -171,7 +172,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 							xtype: 'button',
 							name: 'adddimg',
 							ui: 'confirm',
-							text: 'Choisir cette image',
+							text: Ext.i18n.Bundle.message('button.adddimg'),
 							handler: function(){
 								var Floor = Ext.getStore('FloorsStore').getById(this.getParent().down('#view').getValue());
 								me.down('#pathretina').setValue(Floor.get('pathretina'));
@@ -200,7 +201,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
 		{
 			xtype: 'button',
-			text: 'Ajouter et sauver',
+			text: Ext.i18n.Bundle.message('button.addsave'),
 			ui: 'confirm',
 			iconCls: 'add',
 			iconMask: true,
@@ -210,7 +211,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		},
                 {
 			xtype: 'button',
-			text: 'Supprimer et sauver',
+			text: Ext.i18n.Bundle.message('button.deletesave'),
 			margin: 5,
 			iconCls: 'trash',
 			ui: 'decline',
@@ -226,7 +227,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 				label.setHtml(html);
 				e.down('#deletefloor').show();
 				e.down('#savefloor').setIconCls('refresh');
-				e.down('#savefloor').setText('Sauver');
+				e.down('#savefloor').setText(Ext.i18n.Bundle.message('button.save'));
 				//Ext.getCmp('name').setValue(d.name);
 				//Ext.getCmp('path').setValue(d.path);
 				e.down('#name').setValue(d.name);

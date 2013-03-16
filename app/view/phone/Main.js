@@ -3,7 +3,8 @@ Ext.define("myvera.view.phone.Main", {
 	id: 'main',
 	alias: 'widget.main',
 	requires: [
-		'Ext.TitleBar'
+		'Ext.TitleBar',
+		'Ext.i18n.Bundle'
 	],
 	config: {
 		fullscreen: true,
@@ -12,36 +13,27 @@ Ext.define("myvera.view.phone.Main", {
 		{
 			title: 'liste',
 			id:'datalist',
-			title: ' Tableau de bord ',
+			title: Ext.i18n.Bundle.message('main.liste'),
 			iconCls: 'tab1',
 			xtype: 'datalistphone'
 
 		},
-		//{
-		//	xtype: 'homepanelphone',
-		//	id: 'homepanel',
-		//	title: ' Tableau de bord ',
-		//	iconCls: 'home',
-		//	hidden: true
-		//},
 		{
 			xtype: 'panelinfophone',
 			id:'panelinfo',
-			title: 'Allumés ?',
-			iconCls: 'info'//,
-			//hidden: true
+			title: Ext.i18n.Bundle.message('main.panelinfo'),
+			iconCls: 'info'
 		},
 		{
 			xtype: 'listclockphone',
 			id:'listclock',
-			title: 'Réveils',
-			iconCls: 'time'//,
-			//hidden: true
+			title: Ext.i18n.Bundle.message('main.listclock'),
+			iconCls: 'time'
 		},
 		{
 			xtype: 'PanelConfigphone',
 			id:'PanelConfig',
-			title: 'Config.',
+			title: Ext.i18n.Bundle.message('main.panelconfig'),
 			iconCls: 'user'
 		}
 		]
