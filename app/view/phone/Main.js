@@ -7,7 +7,11 @@ Ext.define("myvera.view.phone.Main", {
 	],
 	config: {
 		fullscreen: true,
-		tabBarPosition: 'bottom',
+		tabBar: {
+			docked: 'bottom',
+			scrollable: 'horizontal'
+		},
+		//tabBarPosition: 'bottom',
 		items: [
 		{
 			title: 'liste',

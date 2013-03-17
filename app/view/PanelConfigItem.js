@@ -11,7 +11,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 		scrollable: 'vertical',
 		//tpl: ['<img src="resources/images/l<tpl if="icon!=null&#icon!=\'\'">{icon}<tpl else>{category}</tpl>_0.png" /> ID:{id}<br/>Nom: {name}'],
 		defaults: {
-			labelWidth: '150px'
+			labelWidth: '155px'
 		},
 		items: [
 		{
@@ -101,6 +101,10 @@ Ext.define('myvera.view.PanelConfigItem', {
 					this.getParent().down('#GraphlinkItem').hide();
 					this.getParent().down('#wwidth').hide();
 					this.getParent().down('#height').hide();
+					this.getParent().down('#var1').hide();
+					this.getParent().down('#var2').hide();
+					this.getParent().down('#var3').hide();
+					this.getParent().down('#var4').hide();
 					if(value=="6") {
 						this.getParent().down('#CamuserItem').show();
 						this.getParent().down('#CampasswordItem').show();

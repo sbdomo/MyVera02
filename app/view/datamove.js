@@ -6,7 +6,7 @@ Ext.define('myvera.view.datamove', {
 	config: {
 		emptyText: locale.getSt().misc.nodevice,
 		store: 'devicesStore',
-		scrollable: false,
+		scrollable: null,
 		listeners:{
 			itemtouchstart: function(me, index, target, record, e, eOpts) {
 				console.log('element tap!');

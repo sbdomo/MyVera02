@@ -8,7 +8,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 		{
 			xtype: 'fieldset',
 			defaults: {
-				labelWidth: '140px'
+				labelWidth: '125px'
 			},
 			title: locale.getSt().title.localconnect,
 			//iconCls: 'home',
@@ -39,17 +39,17 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 			},
 			{
 				xtype: 'selectfield',
-				label: locale.getSt().field.profile,
+				label: locale.getSt().field.profile.name,
 				name:'viewprofil',
 				itemId:'viewprofil',
 				options: [
-				{text: locale.getSt().field.bydefault, value:'0'},
-				{text: locale.getSt().field.profile +' 1',  value: '1'},
-				{text: locale.getSt().field.profile +' 2',  value: '2'},
-				{text: locale.getSt().field.profile +' 3',  value: '3'},
-				{text: locale.getSt().field.profile +' 4',  value: '4'},
-				{text: locale.getSt().field.profile +' 5',  value: '5'},
-				{text: locale.getSt().field.profile +' 6',  value: '6'}
+				{text: locale.getSt().field.profile['0'],  value: '0'},
+				{text: locale.getSt().field.profile['1'],  value: '1'},
+				{text: locale.getSt().field.profile['2'],  value: '2'},
+				{text: locale.getSt().field.profile['3'],  value: '3'},
+				{text: locale.getSt().field.profile['4'],  value: '4'},
+				{text: locale.getSt().field.profile['5'],  value: '5'},
+				{text: locale.getSt().field.profile['6'],  value: '6'}
 				]
 			},
 			{
@@ -63,7 +63,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 		{
 			xtype: 'fieldset',
 			defaults: {
-				labelWidth: '190px'
+				labelWidth: '180px'
 			},
 			title: locale.getSt().misc.display,
 			items: [
@@ -120,6 +120,7 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 		{
 			name: 'urlversion',
 			hidden: true,
+			width:'250px',
 			html:''
 		}
 			

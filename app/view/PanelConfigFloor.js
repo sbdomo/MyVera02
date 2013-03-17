@@ -12,7 +12,7 @@ Ext.define('myvera.view.PanelConfigFloor', {
 		//styleHtmlContent: true,
 		scrollable: 'vertical',
 		defaults: {
-			labelWidth: '120px'
+			labelWidth: '127px'
 		},
 		items: [
 		{

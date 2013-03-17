@@ -10,7 +10,7 @@ Ext.define('myvera.view.PanelConfigScene', {
 		name:'PanelConfigScene',
 		scrollable: 'vertical',
 		defaults: {
-			labelWidth: '150px'
+			labelWidth: '155px'
 		},
 		items: [
 		{

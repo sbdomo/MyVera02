@@ -17,9 +17,9 @@ Ext.define('myvera.view.paneloverlay', {
 				xtype: 'fieldset',
 				name:'fieldset1',
 				id:'titleform',
-				instructions: locale.getSt().misc.clockprogram,
+				//instructions: locale.getSt().misc.clockprogram,
 				defaults: {
-					labelWidth: '90px'
+					labelWidth: '100px'
 				},
 				items: [
 				{

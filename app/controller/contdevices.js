@@ -1804,7 +1804,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				Ext.Viewport.setMasked(false);
 				if (response) {
 					if(response.result=="true") {
-						this.getUrlversiontxt().setHtml(locale.getSt().msg[response.msg]+' <a target="_blank" href="' +response.url+'">'+response.url+'</a>');
+						this.getUrlversiontxt().setHtml(locale.getSt().msg[response.msg]+' <a style="font-size:12px;" target="_blank" href="' +response.url+'">'+response.url+'</a>');
 						//this.getUsernameCt()
 						this.getUrlversiontxt().show();
 						Ext.Msg.alert(locale.getSt().misc.version,locale.getSt().msg[response.msg]);

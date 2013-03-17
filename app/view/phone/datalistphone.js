@@ -9,7 +9,7 @@ Ext.define('myvera.view.phone.datalistphone', {
            items: [
 	   {
 		xtype: 'dataview',
-		title: '',
+		title: 'menu',
 		itemId: 'list',
 		cls: 'slidelist',
 		selectedCls: 'listroomselect',
@@ -62,7 +62,7 @@ Ext.define('myvera.view.phone.datalistphone', {
 	    },
 	    {
 		    xtype: 'dataview',
-		    title: '',
+		    title: 'liste',
 		    itemId: 'listInRoom',
 		    id: 'listInRoom',
 		    //styleHtmlContent:true,
@@ -73,12 +73,12 @@ Ext.define('myvera.view.phone.datalistphone', {
 		    items: [{
 			    xtype: 'toolbar',
 			    itemId: 'toolbar',
-			    title: {
-				    title: locale.getSt().misc.noroom,
-				    //centered: false,
-				    width: 232//,
-				    //left:200
-			    },
+			    //title: {
+				    //title: locale.getSt().misc.noroom,
+				    //centered: true,
+				    //width: 200,
+				    //left:300
+			    //},
 			    //title: 'Pas de pièce',
 			    docked: 'top',
 			    items: [
@@ -100,6 +100,11 @@ Ext.define('myvera.view.phone.datalistphone', {
 				    handler: function() {
 					    myvera.app.getController('myvera.controller.contdevices').showHideMenu();
 				    }
+			    },
+			    {
+			    	    xtype: 'title',
+			    	    itemId: 'title',
+			    	    title : locale.getSt().misc.noroom
 			    }
 			    ]
 		    }]
@@ -120,7 +125,7 @@ Ext.define('myvera.view.phone.datalistphone', {
     onSelect: function(view, record) {
             //console.log('You selected ' + record.get('name'));
 	    var listInRoom = this.down('#listInRoom');
-	    listInRoom.down('#toolbar').setTitle(record.get('name'));
+	    listInRoom.down('#toolbar').down('#title').setTitle(record.get('name'));
 	    //var tpl = '<tpl if="room==' + record.get('id') + '">' + myvera.util.Templates.getTplphone() +'</tpl>';
 	    var tpl= '<tpl if="!(category==1001&&(subcategory==0||subcategory==3||subcategory==4))"><div <tpl if="room==' + record.get('id') + '"> class="listdevice"<tpl else> style="display:none;"</tpl> >' + myvera.util.Templates.getTplphonefull()+ '</div></tpl>';
 	    

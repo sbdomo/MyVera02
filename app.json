@@ -98,6 +98,7 @@
         "resources/icons",
         "resources/startup",
         "resources/config/img",
+        "resources/locales",
         "protect",
 	"skin",
 	"version",

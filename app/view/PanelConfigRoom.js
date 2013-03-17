@@ -7,7 +7,7 @@ Ext.define('myvera.view.PanelConfigRoom', {
     
 	config: {
 		defaults: {
-				labelWidth: '135px'
+				labelWidth: '148px'
 		},
 		items: [
 		{
