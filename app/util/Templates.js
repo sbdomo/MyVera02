@@ -63,12 +63,13 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    	'<tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><tpl if="var2!=null"><br/>{var2}</tpl></div>'+
 	    '<tpl elseif="category==107&&var1!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    '{var1}</div>'+
-	    '<tpl elseif="category==108&&var5!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
-	    	'{var5}</div>'+
+	    '<tpl elseif="category==108">'+
+	    	'<tpl if="camuser!=null||campassword!=null"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
+	    	'<tpl if="camuser!=null">{camuser}<br/></tpl><tpl if="campassword!=null">{campassword}</tpl></div></tpl>'+
 	    '<tpl elseif="category==104"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
 	    	'{var1}</div>'+
 	    '<tpl elseif="category==105"><div class="texticon" style=\'font-size:{fontsize};<tpl if="color!=null"> color:#{color};</tpl>\' >'+
-	    	'<tpl if="status==3>{var6} {campassword}<br/><tpl if="var4==\'Normal\'">{var2}<tpl else>{var3}</tpl>{camuser}'+
+	    	'<tpl if="status==3">{var6} {campassword}<br/><tpl if="var4==\'Normal\'">{var2}<tpl else>{var3}</tpl>{camuser}'+
 		'<tpl else>{var6}<br/>&nbsp;</tpl></div>'+
 		'<div style=\'font-weight:bold; text-shadow: 0 0 5px white; font-size:{fontsize}; position: absolute; color:#009ade; width:50px; text-align:center; top: 25%;"\' > {var1}{camuser} </div>'+
 	    '</tpl>'+
@@ -129,8 +130,8 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 				'<tpl if="status==3">{var6} {campassword}<br/><tpl if="var4==\'Normal\'">{var2}<tpl else>{var3}</tpl>{camuser}'+
 				'<tpl else>{var6}</tpl></div>'+
 			'<tpl elseif="category==107"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
-			'<tpl elseif="category==108"><div class="var"><tpl if="var5==null">&nbsp;<tpl else>{var5}</tpl></div>'+
-
+			'<tpl elseif="category==108"><div class="var"><tpl if="camuser==null">&nbsp;<tpl else>{camuser}</tpl>'+
+				'<tpl if="campassword!=null"></br>{campassword}</tpl></div>'+
 			'<tpl elseif="category==120"><div><div class="clock1"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null||subcategory!=1">&nbsp;<tpl else>{var2}</tpl></div>'+
 			'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/indic/arm{armed}{retina}.png" /></div></tpl>'+
 					'<div class="clock3"><tpl if="var3==null">&nbsp;<tpl else><img width="42px" class="clocknext" src="./resources/images/indic/{var3}{retina}.png" /></tpl></div></div>'+

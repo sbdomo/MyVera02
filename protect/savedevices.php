@@ -63,6 +63,8 @@ foreach ($array_json['devices'] as $device) {
 		$temparray['var2']=$device['var2'];
 		$temparray['var3']=$device['var3'];
 		$temparray['var4']=$device['var4'];
+		$temparray['var5']=$device['var5'];
+		$temparray['var6']=$device['var6'];
 		$temparray['wwidth']=$device['wwidth'];
 		$temparray['height']=$device['height'];
 	}

@@ -485,13 +485,20 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 										else device.set('status', "");
 									device.set('var1', response.devices[idrecord].variable2);
 									break;
-								case 108: //Custom Device
+								case 108: //Custom Device utilise: var1: variable status, var2: text 1, var3: suffixe 1, var5: text 2, var 6: suffixe 2,
+										//var4: commande, GraphlinkItem pour l'url du popup, wwidth et height
+										//Affectation : status en fonction de var1
+										//camuser : contient var2+var3
+										//campassword : contient var5+var6
 									if(device.get('var1')!=""&&device.get('var1')!= null) {
 										device.set('status', response.devices[idrecord][device.get('var1')]);
 									} else device.set('status', 0);
 									if(device.get('var2')!=""&&device.get('var2')!= null) {
-										device.set('var5', response.devices[idrecord][device.get('var2')] + device.get('var3') );
-									} else device.set('var5', "");
+										device.set('camuser', response.devices[idrecord][device.get('var2')] + device.get('var3') );
+									} else device.set('camuser', "");
+									if(device.get('var5')!=""&&device.get('var5')!= null) {
+										device.set('campassword', response.devices[idrecord][device.get('var5')] + device.get('var6') );
+									} else device.set('campassword', "");									
 									break;
 								case 120: //vclock
 									device.set('var1', response.devices[idrecord].alarmtime);

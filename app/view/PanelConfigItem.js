@@ -105,6 +105,8 @@ Ext.define('myvera.view.PanelConfigItem', {
 					this.getParent().down('#var2').hide();
 					this.getParent().down('#var3').hide();
 					this.getParent().down('#var4').hide();
+					this.getParent().down('#var5').hide();
+					this.getParent().down('#var6').hide();
 					if(value=="6") {
 						this.getParent().down('#CamuserItem').show();
 						this.getParent().down('#CampasswordItem').show();
@@ -120,6 +122,8 @@ Ext.define('myvera.view.PanelConfigItem', {
 						this.getParent().down('#var2').show();
 						this.getParent().down('#var3').show();
 						this.getParent().down('#var4').show();
+						this.getParent().down('#var5').show();
+						this.getParent().down('#var6').show();
 					}
 					
 					
@@ -171,7 +175,7 @@ Ext.define('myvera.view.PanelConfigItem', {
 		{
 			xtype: 'textfield',
 			itemId: 'var2',
-			label: locale.getSt().field.vartext,
+			label: locale.getSt().field.vartext + " 1",
 			autoCapitalize: false,
 			hidden: true,
 			name: 'var2'
@@ -179,10 +183,26 @@ Ext.define('myvera.view.PanelConfigItem', {
 		{
 			xtype: 'textfield',
 			itemId: 'var3',
-			label: locale.getSt().field.suffix,
+			label: locale.getSt().field.suffix + " 1",
 			autoCapitalize: false,
 			hidden: true,
 			name: 'var3'
+		},
+				{
+			xtype: 'textfield',
+			itemId: 'var5',
+			label: locale.getSt().field.vartext + " 2",
+			autoCapitalize: false,
+			hidden: true,
+			name: 'var5'
+		},
+		{
+			xtype: 'textfield',
+			itemId: 'var6',
+			label: locale.getSt().field.suffix + " 2",
+			autoCapitalize: false,
+			hidden: true,
+			name: 'var6'
 		},
 		{
 			xtype: 'textfield',
@@ -504,7 +524,10 @@ Ext.define('myvera.view.PanelConfigItem', {
 						device.set("var2", formdata.var2);
 						device.set("var3", formdata.var3);
 						device.set("var4", formdata.var4);
-						device.set("var5", "");
+						device.set("var5", formdata.var5);
+						device.set("var6", formdata.var6);
+						device.set("camuser", "");
+						device.set("campassword", "");
 					}
 				} else {
 					//Il faut ajouter le module
@@ -548,7 +571,10 @@ Ext.define('myvera.view.PanelConfigItem', {
 						device.set("var2", formdata.var2);
 						device.set("var3", formdata.var3);
 						device.set("var4", formdata.var4);
-						device.set("var5", "");
+						device.set("var5", formdata.var5);
+						device.set("var6", formdata.var6);
+						device.set("camuser", "");
+						device.set("campassword", "");
 					}
 					
 					device.setDirty();
