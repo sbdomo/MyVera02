@@ -177,13 +177,18 @@ padding-top: 5px;
 div.longvar {
 	text-align:left;
 	float:left;
-	/*overflow: hidden;
-	white-space : nowrap;
-	text-overflow: ellipsis;*/
+	overflow: hidden;
+	/*white-space : nowrap;*/
+	/*text-overflow: ellipsis;*/
 	font-size:10px;
 	padding-left:5px;
 	padding-top: 5px;
 	width: 60px;
+	max-height:53px;
+	line-height:12px;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
 }
 
 div.texticon {

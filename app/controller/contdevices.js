@@ -36,6 +36,8 @@ Ext.define('myvera.controller.contdevices', {
 			isReveil: 'PanelConfigGenerale [name=isReveil]',
 			isRetina: 'PanelConfigGenerale [name=isRetina]',
 			isTab: 'PanelConfigGenerale [name=isTab]',
+			autoVue: 'PanelConfigGenerale [name=autoVue]',
+			autoBord: 'PanelConfigGenerale [name=autoBord]',
 			viewprofil: 'PanelConfigGenerale [name=viewprofil]',
 			loginBt: 'PanelConfigGenerale [name=loginbutton]',
 			retinaBt: 'PanelConfigGenerale [name=retinabutton]',
@@ -80,6 +82,14 @@ Ext.define('myvera.controller.contdevices', {
 			
 			isTab: {
 				change: 'onIsTabChange'
+			},
+			
+			autoVue: {
+				change: 'onAutoVueChange'
+			},
+			
+			autoBord: {
+				change: 'onAutoBordChange'
 			},
 			
 			loginBt: {
@@ -138,6 +148,10 @@ Ext.define('myvera.controller.contdevices', {
 				this.getIsReveil().setValue(cachedLoggedInUser.get('isReveil'));
 				this.getIsTab().setValue(cachedLoggedInUser.get('isTab'));
 				if(cachedLoggedInUser.get('isTab')=="0") this.tabshow=false;
+				
+				this.getAutoVue().setValue(cachedLoggedInUser.get('autoVue'));
+				this.getAutoBord().setValue(cachedLoggedInUser.get('autoBord'));
+				
 				if(cachedLoggedInUser.get('isRetina')=='@2x') {
 					myvera.app.setIsretina('@2x');
 				} else {
@@ -1230,6 +1244,8 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				isVueP = this.getIsVueP().getValue(),
 				isReveil = this.getIsReveil().getValue(),
 				isTab = this.getIsTab().getValue(),
+				autoVue = this.getAutoVue().getValue(),
+				autoBord = this.getAutoBord().getValue(),
 				profil = this.getViewprofil().getValue();
 			if(this.getIsRetina().getValue()) var isRetina="@2x";
 			else var isRetina = "";
@@ -1244,6 +1260,8 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 					isVueP: isVueP,
 					isReveil: isReveil,
 					isTab: isTab,
+					autoVue: autoVue,
+					autoBord: autoBord,
 					isRetina: isRetina,
 					profil: profil
 				});
@@ -1254,7 +1272,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				
 				console.log('logUserIn: ', username);
 				
-				//Affichage bouton Retina et affectztion valeur @2x
+				//Affichage bouton Retina et affectation valeur @2x
 				myvera.app.setIsretina(isRetina);
 				if(myvera.app.isretina=="@2x") this.getRetinaBt().setText(locale.getSt().button.noretinamode);
 				else  this.getRetinaBt().setText(locale.getSt().button.retinamode);
@@ -1425,6 +1443,41 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 		}
 	},
 	
+	onAutoVueChange: function() {
+		if(this.logged==true) {
+		Ext.ModelMgr.getModel('myvera.model.CurrentUser').load(1, {
+			success: function(user) {
+				var autoVue = this.getAutoVue().getValue();
+				user.set("autoVue", autoVue);
+				user.save();
+				var application = this.getApplication().getController('Application');
+				application.setAutoVue(autoVue);
+			},
+			failure: function() {
+				// this should not happen, nevertheless:
+				alert(locale.getSt().misc.error);
+			}
+		}, this);
+		}
+	},
+	
+	onAutoBordChange: function() {
+		if(this.logged==true) {
+		Ext.ModelMgr.getModel('myvera.model.CurrentUser').load(1, {
+			success: function(user) {
+				var autoBord = this.getAutoBord().getValue();
+				user.set("autoBord", autoBord);
+				user.save();
+				var application = this.getApplication().getController('Application');
+				application.setAutoBord(autoBord);
+			},
+			failure: function() {
+				// this should not happen, nevertheless:
+				alert(locale.getSt().misc.error);
+			}
+		}, this);
+		}
+	},
 	
 	onClockSaveTap: function() {
 		Ext.getCmp('paneloverlay').hide();
@@ -1642,8 +1695,12 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				//carouselplan.setItems(items);
 				//carouselplan.setActiveItem(0);
 				
-				//Charge devicesStore seulement la première fois.
+				//Charge devicesStore seulement la première fois et initialise application.autoVue et application.autoBord
 				if(contdevices.storeloaded==false) {
+					//this=contdevices
+					var application = contdevices.getApplication().getController('Application');
+					application.setAutoVue(contdevices.getAutoVue().getValue());
+					application.setAutoBord(contdevices.getAutoBord().getValue());
 					var DevicesStore = Ext.getStore('devicesStore');
 					DevicesStore.load();
 					contdevices.storeloaded=true;
@@ -2039,7 +2096,7 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 	},
 	
 	changeView: function(panel, index) {
-		//syntaxe : nom onglet/carousel : tabvue+id, nom vue : vue + id
+		//syntaxe : nom onglet/carousel "id" : tabvue+id, nom vue : vue + id
 		var FloorsStore = Ext.getStore('FloorsStore');
 		var view = FloorsStore.getById(index);
 		if(view) {

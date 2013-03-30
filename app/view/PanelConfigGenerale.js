@@ -112,6 +112,29 @@ Ext.define('myvera.view.PanelConfigGenerale', {
 			]
 		},
 		{
+			xtype: 'fieldset',
+			defaults: {
+				labelWidth: '180px'
+			},
+			title: locale.getSt().misc.shift,
+			items: [
+			{
+				xtype: 'togglefield',
+				name: 'autoVue',
+				value: 0,
+				label: locale.getSt().title.views//,
+				//labelWidth: '60%'
+			},
+			{
+				xtype: 'togglefield',
+				name: 'autoBord',
+				value: 0,
+				label: locale.getSt().title.board//,
+				//labelWidth: '40%'
+			}
+			]
+		},
+		{
 			xtype: 'button',
 			text: locale.getSt().misc.newversion+' ?',
 			name: 'versionbutton'

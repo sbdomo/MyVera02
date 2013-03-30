@@ -59,7 +59,8 @@
       "error":"Error",
       "suppr":"Deletion",
       "iconmove":"Move Icon",
-      "version":"Version"
+      "version":"Version",
+      "shift":"Auto. switch toward"
    },
    "msg":{
       "renamed":"Renamed",
@@ -142,7 +143,7 @@
       	   "3":"Profile 3",
       	   "4":"Profile 4",
       	   "5":"Profile 5",
-      	   "6":"Profile 6",
+      	   "6":"Profile 6"
       },
       "category":"Category",
       "urlgraph":"Graph URL.",

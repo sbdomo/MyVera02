@@ -12,14 +12,16 @@ Ext.define('myvera.controller.Application', {
 		//'Main','datalist','HomePanel','listclock', 'panelinfo','dataliston','datalistoff', 'PanelConfig',
 		panel3dL: false,
 		panel3dP: false,
+		autoVue: false,
+		autoBord: false,
 		
 		refs: {
 		},
 		control: {
-//*******			'viewport': {
+			'viewport': {
 				//capture the orientation change event
-//*******				orientationchange: 'onOrientationchange'
-//*******			}
+				orientationchange: 'onOrientationchange'
+			}
 		}
 
 	},
@@ -44,13 +46,24 @@ Ext.define('myvera.controller.Application', {
 					orientation = 'portrait';
 				}
 		}
-		
-		var vue=false;
+		//alert(Ext.getCmp('main').getActiveItem().id);
 		if(orientation=='landscape') {
-			vue=this.getApplication().getController('Application').getPanel3dL()
+			if(this.getAutoVue()==true&&Ext.getCmp('main').getActiveItem().id=="datalist") {
+				Ext.getCmp('main').setActiveItem(0);
+			}
 		} else {
-			vue=this.getApplication().getController('Application').getPanel3dP()
+			if(this.getAutoBord()==true&&Ext.getCmp('main').getActiveItem().id.substring(0,6)=="tabvue") {
+				Ext.getCmp('main').setActiveItem(Ext.getCmp('datalist'));
+			}
 		}
+		
+		
+//*******		var vue=false;
+//*******		if(orientation=='landscape') {
+//*******			vue=this.getApplication().getController('Application').getPanel3dL()
+//*******		} else {
+//*******			vue=this.getApplication().getController('Application').getPanel3dP()
+//*******		}
 		
 //*******		var homepanel = Ext.getCmp('homepanel');
 //*******		console.log('orientationchange : ' + homepanel.id);
