@@ -8,6 +8,7 @@ Ext.define('myvera.view.PanelConfigRooms', {
 		'<img style="height:40px;" src="resources/images/rooms/{icon}{retina}.png" /></div></tpl><div class="listconfig"><span class="<tpl if="hidden!=true">listconfig<tpl else>hideitem</tpl>">{ind} - {name}</span></div>',
 		store: 'Rooms',
 		//grouped: true,
-		onItemDisclosure: true
+		onItemDisclosure: true,
+		variableHeights: false
 	}
 });

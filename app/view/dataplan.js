@@ -21,6 +21,14 @@ Ext.define('myvera.view.dataplan', {
 				console.log('tap');
 				myvera.app.getController('myvera.controller.contdevices').onDeviceTap(view, index, target, record, event);
 			   }
+			},
+			//painted: function(list, opts){
+			painted: {
+				single: true,
+				fn: function() {
+				myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+				console.log("dataplan: " + this.id);
+				}
 			}
 		}
 	}

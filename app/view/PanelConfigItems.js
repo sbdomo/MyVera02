@@ -11,6 +11,14 @@ Ext.define('myvera.view.PanelConfigItems', {
 		'<tpl else>{category}</tpl>_0{retina}.png" /></div><div class="listconfig"><span class="listconfig"><tpl if="ind!=null">{ind} - </tpl>{name}</span></div>',
 		store: 'ConfigDevicesStore',
 		grouped: true,
-		onItemDisclosure: true
+		onItemDisclosure: true,
+		variableHeights: false,
+		listeners: {
+			painted:function(e,d){
+				myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+				console.log(this.id + " painted");
+				
+			}
+		}
 	}
 });

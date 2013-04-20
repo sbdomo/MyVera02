@@ -27,6 +27,13 @@ Ext.define('myvera.view.phone.panelinfophone', {
 			id:'datalistoff',
 			flex: 1
 		}
-		]
+		],
+		listeners: {
+			painted:function(e,d){
+				myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+				console.log(this.id + " painted");
+				
+			}
+		}
 	}
 });

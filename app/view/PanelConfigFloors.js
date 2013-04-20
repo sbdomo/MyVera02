@@ -8,7 +8,8 @@ Ext.define('myvera.view.PanelConfigFloors', {
 		itemId:"PanelConfigFloors",
 		itemTpl: '{ind} - {name}',
 		store: 'FloorsStore',
-		onItemDisclosure: true
+		onItemDisclosure: true,
+		variableHeights: false
 		//listeners:{
 		//	push:function(e,d){
 		//		Ext.getCmp('addViewButton').hide();

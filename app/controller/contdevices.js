@@ -14,6 +14,8 @@ Ext.define('myvera.controller.contdevices', {
 		loggedUserId: null,
 		logged: null,
 		ipvera: null,
+		//ajaxsynchro: null,
+		//dostopsynchro: false,
 		profilchoice: null,
 		tabshow: true,//Pour indiquer si isTab était déjà sur 0 (et ne pas mettre le message indiquant de penser à mettre un bouton dans les vues)
 		
@@ -118,9 +120,11 @@ Ext.define('myvera.controller.contdevices', {
 		//this.nbrtimer=0;
 		//this.nbrforce = 0;
 		//this.syncdate = 0;
+		//*******************
 		this.synccount=0;
 		this.autosync = true;
 		this.tabshow=true;
+		//*******************Debug mode
 		//var tabbarlabel = {
 		//    id: 'tabbarlabel',
                 //    docked: 'right',
@@ -169,7 +173,6 @@ Ext.define('myvera.controller.contdevices', {
 				else  this.getRetinaBt().setText(locale.getSt().button.retinamode);
 				this.getIsRetina().hide();
 				this.getRetinaBt().show();
-				
 				this.LogIn();
 				//this.startstore();
 			},
@@ -378,7 +381,7 @@ Ext.define('myvera.controller.contdevices', {
 		var syncheader = "";
 		syncheader = {'Authorization': 'Basic ' + this.loggedUserId};
 		var ipvera = this.ipvera;
-		Ext.Ajax.request({
+		this.ajaxsynchro= Ext.Ajax.request({
 			url: vera_url,
 			headers: syncheader,
 			method: 'GET',
@@ -395,6 +398,7 @@ Ext.define('myvera.controller.contdevices', {
 				minimumdelay: '1000'
 			},
 			success: function(result) {
+				this.ajaxsynchro=null;
 				var date = new Date();
 				console.log("Vera Sync : OK " + Ext.Date.format(date, 'h:i:s'));
 				var response = Ext.decode(result.responseText, true);
@@ -634,37 +638,47 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				}
 			},
 			failure: function(response) {
-				console.log("Vera Sync : Error");
-				this.synccount=this.synccount+1;
-				if(this.autosync==true&&nonewsync==false) {//&&syncstamp==this.syncdate
-					if(this.synccount<10) {
-						this.newsync(0, 0);//, syncstamp
-					} else {
-						//Ext.Msg.alert('Erreur','Synchronisation avec la Vera impossible ou interrompue');
-						Ext.Msg.confirm(locale.getSt().misc.error, locale.getSt().msg.nosynchro+" "+locale.getSt().msg.newtry, function(confirmed) {
-							if (confirmed == 'yes') {
-								//this.devicesync(0,0, nonewsync);
-								this.newsync(0, 0);//, syncstamp
-							}
-						}, this);
-					}
+				this.ajaxsynchro=null;
+				if(this.dostopsynchro) {
+					console.log("Vera Sync stop: " + newloadtime + ", " + newdataversion);
+					this.dostopsynchro=false;
+					this.newsync(newloadtime, newdataversion, 1000);
+					//alert("stop");
 				} else {
-					Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.nosynchro);
+					console.log("Vera Sync : Error");
+					//console.log(this.stopsynchro);
+					this.synccount=this.synccount+1;
+					if(this.autosync==true&&nonewsync==false) {//&&syncstamp==this.syncdate
+						if(this.synccount<10) {
+							this.newsync(0, 0);//, syncstamp
+						} else {
+							//Ext.Msg.alert('Erreur','Synchronisation avec la Vera impossible ou interrompue');
+							Ext.Msg.confirm(locale.getSt().misc.error, locale.getSt().msg.nosynchro+" "+locale.getSt().msg.newtry, function(confirmed) {
+									if (confirmed == 'yes') {
+										//this.devicesync(0,0, nonewsync);
+										this.newsync(0, 0);//, syncstamp
+									}
+							}, this);
+						}
+					} else {
+						Ext.Msg.alert(locale.getSt().misc.error, locale.getSt().msg.nosynchro);
+					}
 				}
-				
 				//setTimeout(this.devicesync(0,0),2000);
 			}//,
 			//callback: function(response) {
 			//	console.log("It's OK");
 			//}
 		});
+		//Ext.Ajax.abort(this.ajaxsynchro);
 	},
 	//onActivate: function() {
 	//    console.log('Main container is active');
 	//   },
 
 	//Sert à mettre un timer sur la synchro pour qu'elle s'arrête pendant la veille et reprenne ensuite
-	newsync: function(loadtime, dataversion) {//, timestamp
+	newsync: function(loadtime, dataversion, delay) {//, timestamp
+		if(!delay) delay=100;
 		var newsynctask = Ext.create('Ext.util.DelayedTask', function() {
 				//var date = new Date();
 				//console.log("New Sync Timer" + Ext.Date.format(date, 'h:i:s'));
@@ -673,7 +687,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 					this.devicesync(loadtime, dataversion);
 				//}
 		}, this);
-		newsynctask.delay(100);
+		newsynctask.delay(delay);
 	},
 	
 	
@@ -2071,7 +2085,15 @@ console.log("Debug: NewEnergyModeTarget="+ newvalue);
 		popup.show();
 	},
 	
+	stopsynchro: function() {
+		if(this.ajaxsynchro) {
+			this.dostopsynchro=true;
+			Ext.Ajax.abort(this.ajaxsynchro);
+		} else console.log("no synchro");
+	},
+	
 	widgetPopup: function(width, height, url) {
+		this.stopsynchro();
 		var popup=new Ext.Panel({
 			modal:true,
 			hideOnMaskTap: true,

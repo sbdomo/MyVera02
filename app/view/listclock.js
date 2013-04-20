@@ -12,6 +12,13 @@ Ext.define('myvera.view.listclock', {
 		//itemTpl:  '<tpl if="category==120||category==103">'+
 		// myvera.util.Templates.getTpllist() + '</tpl>',
 		emptyText: locale.getSt().misc.noclock,
-		store: 'devicesStore'
+		store: 'devicesStore',
+		listeners: {
+			painted:function(e,d){
+				myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+				console.log(this.id + " painted");
+				
+			}
+		}
 	}
 });

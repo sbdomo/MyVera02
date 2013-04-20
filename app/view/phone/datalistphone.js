@@ -107,7 +107,14 @@ Ext.define('myvera.view.phone.datalistphone', {
 			    	    title : locale.getSt().misc.noroom
 			    }
 			    ]
-		    }]
+		    }],
+		    //listeners: {
+		    	    //painted:function(e,d){
+				//myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+				//console.log(this.id + " first painted");
+				
+			    //}
+		    //}
 	    }
 	    ]
     },
@@ -120,6 +127,8 @@ Ext.define('myvera.view.phone.datalistphone', {
     toggleContainer2: function() {
 	    //var listInRoom = this.down('#listInRoom');
 	    this.setActiveItem(1);
+	    myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+	    console.log(this.id + " refresh");
     },
     
     onSelect: function(view, record) {
@@ -132,6 +141,8 @@ Ext.define('myvera.view.phone.datalistphone', {
 	    listInRoom.setItemTpl(tpl);
 	    listInRoom.refresh();
 	    this.setActiveItem(listInRoom);
+	    myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+	    console.log(this.id + " refresh");
         }
     
 });

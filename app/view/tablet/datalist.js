@@ -33,10 +33,10 @@ Ext.define('myvera.view.tablet.datalist', {
 		listeners: {
 			select: function(view, record) {
 				this.getParent().onSelect(view, record);
-			},
-			updatedata:function(e,d){
-				console.log('updatedata datalist-list');
-			}
+			}//,
+			//updatedata:function(e,d){
+			//	console.log('updatedata datalist-list');
+			//},	
 		}
 
 	    },
@@ -75,7 +75,15 @@ Ext.define('myvera.view.tablet.datalist', {
 				    }
 			    }
 			    ]
-		    }]
+		    }]//,
+		    //listeners: {
+		    	    //painted:function(e,d){
+				//myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+				//console.log(this.id + " first painted");
+				
+			    //}
+		    //}
+		    
 	    }
 	    ]
     },
@@ -98,7 +106,9 @@ Ext.define('myvera.view.tablet.datalist', {
 	    var tpl= '<tpl if="!(category==1001&&(subcategory==0||subcategory==3||subcategory==4))"><div <tpl if="room==' + record.get('id') + '"> class="devicecadre"<tpl else> style="display:none;"</tpl> >' + myvera.util.Templates.getTpllistfull()+ '</div></tpl>';
 	    
 	    listInRoom.setItemTpl(tpl);
+	    myvera.app.getController('myvera.controller.contdevices').stopsynchro();
 	    listInRoom.refresh();
+	    console.log(this.id + " refresh");
         }
     
 });
