@@ -6,27 +6,36 @@ $alert-color: #6ba00c;
 $tabs-bar-gradient: 'matte';
 $toolbar-gradient: 'glossy';
 
+// The following two lines import the default Sencha Touch theme. If you are building
+// a new theme, remove them and the add your own CSS on top of the base CSS (which
+// is already included in your app.json file).
+@import 'sencha-touch/default';
 @import 'sencha-touch/default/all';
 
-// You may remove any of the following modules that you
-// do not use in order to create a smaller css file.
-@include sencha-panel;
-@include sencha-buttons;
-@include sencha-sheet;
-@include sencha-picker;
-@include sencha-tabs;
-@include sencha-toolbar;
-@include sencha-toolbar-forms;
-@include sencha-indexbar;
-@include sencha-list;
-@include sencha-layout;
-@include sencha-carousel;
-@include sencha-form;
-@include sencha-msgbox;
+// Custom code goes here..
 
-// Your custom code goes here...
+// Examples of using the icon mixin:
+// @include icon('user');
+
+@include icon-font('Pictos', inline-font-files('pictos/pictos-web.woff', woff, 'pictos/pictos-web.ttf', truetype,'pictos/pictos-web.svg', svg));
+//@include icon-font('Pictos', inline-font-files('verapicto/verapicto.woff', woff, 'verapicto/verapicto.ttf', truetype,'verapicto/verapicto.svg', svg));
+@include icon('user', 'U', 'Pictos');
+@include icon('time', 't', 'Pictos');
+@include icon('info', 'i', 'Pictos');
+@include icon('home', 'H', 'Pictos');
+
+@include icon-font('VeraPictos', inline-font-files('verapicto/verapicto.woff', woff, 'verapicto/verapicto.ttf', truetype,'verapicto/verapicto.svg', svg));
+@include icon('tab1', 'a', 'VeraPictos');
+@include icon('tab2', 'b', 'VeraPictos');
+@include icon('tab3', 'c', 'VeraPictos');
+@include icon('tab4', 'd', 'VeraPictos');
+//@include icon('tab5', 'e', 'VeraPictos');
+//@include icon('tab6', 'f', 'VeraPictos');
+//@include icon('tab7', 'g', 'VeraPictos');
+//@include icon('tab8', 'h', 'VeraPictos');
+
+
 @include sencha-button-ui('decline', #bc3314, 'matte');
-@include pictos-iconmask('home');
 
 .bg {
 	.x-body {
