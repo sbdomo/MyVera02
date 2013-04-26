@@ -43,6 +43,7 @@ Ext.define('myvera.view.PanelImage', {
 				} else {
 					background='background:url(./resources/config/img/'+floor.get('path')+') no-repeat left top;';
 				}
+				myvera.app.getController('myvera.controller.contdevices').stopsynchro();
 				this.setStyle(background);
 				//this.getParent().down('image').setStyle(background);
 			}

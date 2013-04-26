@@ -4,7 +4,7 @@ Ext.define('myvera.view.PanelConfigItems', {
 	id:'PanelConfigItems',
 	//requires: ['myvera.store.ConfigDevicesStore'],
 	config: {
-		itemTpl: '<div class="listconfigimg" style="background-size: 18px; background-image: url(resources/images/indic/<tpl if="state==-4">dvert<tpl else>drouge</tpl>{retina}.png)">'+
+		itemTpl: '<div class="listconfigimg" style="background-image: url(resources/images/indic/<tpl if="state==-4">dvert<tpl else>drouge</tpl>{retina}.png)">'+
 		'<img style="height:40px; margin-left:20px;" src="resources/images/l<tpl if="icon!=null">{icon}'+
 		'<tpl elseif="category==4&&(subcategory==4||subcategory==1)">4{subcategory}'+
 		'<tpl elseif="category==120&&subcategory==1">121<tpl elseif="category==120&&subcategory==2">122'+

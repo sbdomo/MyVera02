@@ -8,6 +8,10 @@ Ext.define('myvera.view.datamove', {
 		store: 'devicesStore',
 		scrollable: null,
 		listeners:{
+			painted:function(e,d){
+				myvera.app.getController('myvera.controller.contdevices').stopsynchro();
+				console.log(this.id + " painted");
+			},
 			itemtouchstart: function(me, index, target, record, e, eOpts) {
 				console.log('element tap!');
 				//Ext.getCmp('carouselitemmove').toggleSwipe(false);
