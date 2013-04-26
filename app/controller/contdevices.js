@@ -1670,11 +1670,12 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 					if(floor.get('id')!=-1) {
 						//Pas de push si l'onglet n'existe pas (s'il a été supprimé par exemple)
 						if(items[floor.get('tab')]) {
-							if(myvera.app.isretina=="@2x"&&floor.get('pathretina')!="") {
+							if(myvera.app.isretina=="@2x"&&floor.get('pathretina')!=""&&floor.get('pathretina')!=null) {
 								background='background-size: '+floor.get('widthretina')+'px; background-image: url(./resources/config/img/'+floor.get('pathretina')+'); background-repeat: no-repeat; background-position: 0px 0px;';
 							} else {
 								background='background:url(./resources/config/img/'+floor.get('path')+') no-repeat left top;';
 							}
+							//console.log(floor.get('id')+" background:"+background);
 							items[floor.get('tab')].push({
 									xtype: 'dataplan',
 									id: ('vue' +floor.get('id')),

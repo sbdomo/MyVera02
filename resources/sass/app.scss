@@ -18,15 +18,6 @@ $toolbar-gradient: 'glossy';
 // @include icon('user');
 
 //@include icon-font('Pictos', inline-font-files('pictos/pictos-web.woff', woff, 'pictos/pictos-web.ttf', truetype,'pictos/pictos-web.svg', svg));
-//@include icon('user', 'U', 'Pictos');
-//@include icon('time', 't', 'Pictos');
-//@include icon('info', 'i', 'Pictos');
-//@include icon('home', 'H', 'Pictos');
-//@include icon('more', '.', 'Pictos');
-//@include icon('add', '&', 'Pictos');
-//@include icon('locate', '@', 'Pictos');
-//@include icon('refresh', '1', 'Pictos');
-//@include icon('trash', '#', 'Pictos');
 
 @include icon('user', '=');
 @include icon('time', '|');

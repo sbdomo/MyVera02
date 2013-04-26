@@ -487,6 +487,7 @@ Ext.define('myvera.controller.contconfig', {
 		var form = this.getPanelConfigFloor();
 		var formdata = form.getValues();
 		var contdevices = this.getApplication().getController('contdevices');
+		var contconfig = this.getApplication().getController('contconfig');
 		var syncheader = "";
 		syncheader={'Authorization': 'Basic ' + contdevices.loggedUserId};
 		var idfloor = "";
@@ -511,7 +512,8 @@ Ext.define('myvera.controller.contconfig', {
 					Ext.Viewport.setMasked(false);
 					if (response.success=="true") {
 						//contdevices.pushplans();
-						contdevices.pushviews();
+						//contdevices.pushviews();
+						contconfig.resettabs();
 						//if(response.result=="OK") {
 							Ext.getCmp('PanelConfigFloorsNavigation').pop();
 							Ext.Msg.alert(locale.getSt().misc.msg, locale.getSt().msg.updateview);
@@ -541,6 +543,7 @@ Ext.define('myvera.controller.contconfig', {
 		var form = this.getPanelConfigFloor();
 		var formdata = form.getValues();
 		var contdevices = this.getApplication().getController('contdevices');
+		var contconfig = this.getApplication().getController('contconfig');
 		var syncheader = "";
 		syncheader={'Authorization': 'Basic ' + contdevices.loggedUserId};
 		var idfloor = form.config.data.id;
@@ -589,7 +592,8 @@ Ext.define('myvera.controller.contconfig', {
 						}
 						
 						//contdevices.pushplans();
-						contdevices.pushviews();
+						//contdevices.pushviews();
+						contconfig.resettabs();
 						
 						Ext.Viewport.setMasked(false);
 						
