@@ -13,6 +13,7 @@ Ext.define('myvera.view.PanelConfigItems', {
 		grouped: true,
 		onItemDisclosure: true,
 		variableHeights: false,
+		useSimpleItems: true,
 		listeners: {
 			painted:function(e,d){
 				myvera.app.getController('myvera.controller.contdevices').stopsynchro();

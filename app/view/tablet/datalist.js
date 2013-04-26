@@ -4,7 +4,6 @@ Ext.define('myvera.view.tablet.datalist', {
     config: {
 	   layout:'card',
 	   //tpl: myvera.util.Templates.getTpllist(),
-	   
            items: [
 	   {
 		xtype: 'dataview',
@@ -46,6 +45,7 @@ Ext.define('myvera.view.tablet.datalist', {
 		    id: 'listInRoom',
 		    styleHtmlContent:true,
 		    itemCls:'deviceview',
+		    cls: 'carbon',
 		    disableSelection: true,
 		    emptyText: locale.getSt().misc.nodevice,
 		    store: 'devicesStore',

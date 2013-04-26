@@ -1615,7 +1615,8 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 				xtype: 'carouselplan',
 				id: ('tabvue' +tabview.get('id')),
 				title: tabview.get('name'),
-				iconCls: ('tab' +tabview.get('cls'))
+				//iconCls: ('tab' +tabview.get('cls'))
+				iconCls: String.fromCharCode(tabview.get('cls'))
 			});
 			//tabs.setActiveItem(0);
 				//}

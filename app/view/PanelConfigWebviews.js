@@ -23,7 +23,7 @@ Ext.define('myvera.view.PanelConfigWebviews', {
 					Ext.getCmp('PanelConfigNavigation').push({
 							xtype: 'PanelConfigWebview',
 							title: locale.getSt().title.edit,
-							layout: 'vbox',
+							//layout: 'vbox',
 							//tpl: '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/' + pathview + '"></div>',
 							data: record.getData()
 					});

@@ -10,7 +10,7 @@ Ext.define('myvera.model.CurrentUser', {
 			{name: 'isVueP', type: 'boolean', defaultValue: true},
 			{name: 'isReveil', type: 'boolean', defaultValue: true},
 			{name: 'isTab', type: 'boolean', defaultValue: true},
-			{name: 'profil', type: 'integer'},
+			{name: 'profil', type: 'int'},
 			{name: 'isRetina', type: 'string', defaultValue: ""},
 			{name: 'autoVue', type: 'boolean', defaultValue: false},
 			{name: 'autoBord', type: 'boolean', defaultValue: false}

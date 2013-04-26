@@ -107,7 +107,7 @@ Ext.define('myvera.view.phone.datalistphone', {
 			    	    title : locale.getSt().misc.noroom
 			    }
 			    ]
-		    }],
+		    }]//,
 		    //listeners: {
 		    	    //painted:function(e,d){
 				//myvera.app.getController('myvera.controller.contdevices').stopsynchro();

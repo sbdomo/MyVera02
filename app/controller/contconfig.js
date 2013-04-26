@@ -413,7 +413,7 @@ Ext.define('myvera.controller.contconfig', {
 			this.getConfigFloors().push({
 					xtype: 'PanelConfigFloor',
 					title: locale.getSt().title.edit,
-					layout: 'vbox',
+					//layout: 'vbox',
 					tpl: '<div style="text-align:center"><img style="width:290px" src="./resources/config/img/' + pathview + '"></div>',
 					data: record.getData()
 			});
@@ -427,7 +427,7 @@ Ext.define('myvera.controller.contconfig', {
 		this.getConfigFloors().push({
 			xtype: 'PanelConfigTab',
 			title: locale.getSt().title.edit,
-			layout: 'vbox',
+			//layout: 'vbox',
 			data: record.getData()
 		});
 	},

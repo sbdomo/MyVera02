@@ -13,7 +13,7 @@ Ext.define("myvera.view.tablet.Main", {
 			title: 'liste',
 			id:'datalist',
 			title: locale.getSt().title.board,
-			iconCls: 'tab1',
+			iconCls: 'home',
 			xtype: 'datalist'
 
 		},

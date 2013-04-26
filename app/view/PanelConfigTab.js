@@ -9,7 +9,7 @@ Ext.define('myvera.view.PanelConfigTab', {
 		name:'PanelConfigTab',
 		itemId:"PanelConfigTab",
 		//styleHtmlContent: true,
-		scrollable: 'vertical',
+		//scrollable: 'vertical',
 		defaults: {
 			labelWidth: '120px'
 		},
@@ -26,16 +26,21 @@ Ext.define('myvera.view.PanelConfigTab', {
 			label: locale.getSt().field.icon,
 			name:'cls',
 			itemId:'cls',
-			options: [
-			{text: '1', value:'1'},
-			{text: '2',  value: '2'},
-			{text: '3',  value: '3'},
-			{text: '4',  value: '4'},
-			{text: '5',  value: '5'},
-			{text: '6',  value: '6'},
-			{text: '7',  value: '7'},
-			{text: '8',  value: '8'}
-			]
+			inputCls: "tabfont",
+			//defaultType: 'panel',
+			defaultTabletPickerConfig: {
+				cls:'tabfont'
+			}//,
+//			options: [
+//			{text: 'a', value:'a'},
+//			{text: 'b', value: 'b'},
+//			{text: 'c', value: 'c'},
+//			{text: 'd', value: 'd'},
+//			{text: 'e', value: 'e'},
+//			{text: 'f', value: 'f'},
+//			{text: 'g', value: 'g'},
+//			{text: 'h', value: 'h'}
+//			]
 		},
 		{
 			xtype: 'textfield',
@@ -72,6 +77,26 @@ Ext.define('myvera.view.PanelConfigTab', {
 				e.down('#savetab').setText(locale.getSt().button.save);
 
 				e.down('#name').setValue(d.name);
+				
+				var options = [];
+				//console.log("a: "+"a".charCodeAt(0)); 
+				//de a à z
+				for($i=97;$i<=122;$i++) {
+					var newstr = String.fromCharCode($i);
+					options.push({text: newstr, value: $i});
+				}
+				//de A à Z
+				for($i=65;$i<=90;$i++) {
+					var newstr = String.fromCharCode($i);
+					options.push({text: newstr, value: $i});
+				}
+				//de 0 à 9
+				for($i=48;$i<=57;$i++) {
+					var newstr = String.fromCharCode($i);
+					options.push({text: newstr, value: $i});
+				}
+				e.down('#cls').setOptions(options);
+				
 				e.down('#cls').setValue(d.cls);
 				e.down('#ind').setValue(d.ind);
 			}

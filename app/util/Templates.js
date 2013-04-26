@@ -9,9 +9,8 @@ tplplan: '<tpl if="category==1000&&subcategory!=1">'+
 		 	'<div class="devicon">'+
 				'<img class="deviceImage" src="./resources/images/d'+
 					'<tpl if="icon!=null">{icon}<tpl else>1000</tpl>_0{retina}.png" />'+
-				'<img class="indic2" src="./resources/images/indic/'+
-					'<tpl if="state==-2">djaune<tpl elseif="state==-3">djaune<tpl else>vide</tpl>'+
-				'{retina}.png">'+
+				'<img class="<tpl if="state==-2">djaune2<tpl elseif="state==-3">djaune2<tpl else>indic2</tpl>"'+
+					' src="./resources/images/indic/vide.png">'+
 			'</div><div class="txtscene">'+
 		 		'<span class="scenemiddle"<tpl if="color!=null> style="color:#{color};"</tpl> >{name}</span><div>'+
 		 '</div>',
@@ -43,9 +42,9 @@ tplpanfin: '<tpl else> z-index: 6;" class="x-img x-floating">'+
 	    	'<tpl if="icon!=null">{icon}<tpl else>{category}{subcategory}</tpl>_0'+
 	    '<tpl else>0_0</tpl>{retina}.png" />'+
 	    
-	    '<tpl if="state==-2"><img class="indic" src="./resources/images/indic/djaune{retina}.png" />'+
-	    '<tpl elseif="state==-3"><img class="indic" src="./resources/images/indic/djaune{retina}.png" />'+
-	    '<tpl elseif="state==2"><img class="indic" src="./resources/images/indic/dalert{retina}.png" />'+
+	    '<tpl if="state==-2"><img class="djaune" src="./resources/images/indic/vide.png" />'+
+	    '<tpl elseif="state==-3"><img class="djaune" src="./resources/images/indic/vide.png" />'+
+	    '<tpl elseif="state==2"><img class="dalert" src="./resources/images/indic/vide.png" />'+
 	    '<tpl elseif="(category==4||category==103)&&armed==0"><img class="indic" src="./resources/images/indic/darm{retina}.png" />'+
 	    '<tpl elseif="category==120"><tpl if="armed==1&&var3==\'off\'"><img class="indic" src="./resources/images/indic/doff{retina}.png" />'+
 	    	'<tpl elseif="armed==0&&var3==\'off\'"><img class="indic" src="./resources/images/indic/darmoff{retina}.png" /><tpl elseif="armed==0&&var3==\'on\'"><img class="indic" src="./resources/images/indic/darm{retina}.png" /></tpl>'+
@@ -98,9 +97,8 @@ tpllisticon:'<div class="devicon">'+
 				'<tpl elseif="category==1001">'+
 					'<tpl if="icon!=null">{icon}<tpl else>{category}{subcategory}</tpl>_0'+
 	   			'<tpl else>0_0</tpl>{retina}.png" />'+
-	   			'<img class="indic2" src="./resources/images/indic/'+
-					'<tpl if="state==-2">djaune<tpl elseif="state==-3">djaune<tpl elseif="state==2">dalert<tpl else>vide</tpl>'+
-				'{retina}.png">'+
+	   			'<img class="<tpl if="state==-2">djaune2<tpl elseif="state==-3">djaune2<tpl elseif="state==2">dalert2<tpl else>indic2</tpl>"'+
+	   				'src="./resources/images/indic/vide.png">'+
 			'</div>',
 			
 tplfooter: '<div class="footer"><tpl if="watts != null&&category!=3&&category!=21"><span class="wattfooter">{watts} W</span>'+

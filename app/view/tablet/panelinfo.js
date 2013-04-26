@@ -4,6 +4,7 @@ Ext.define('myvera.view.tablet.panelinfo', {
 	xtype: 'panelinfo',
 	config: {
 		layout: 'vbox',
+		cls: 'carbon',
 		items: [
 		{
 			html: locale.getSt().misc.devices_on,
