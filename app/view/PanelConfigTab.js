@@ -28,8 +28,11 @@ Ext.define('myvera.view.PanelConfigTab', {
 			itemId:'cls',
 			inputCls: "tabfont",
 			//defaultType: 'panel',
+			defaultPhonePickerConfig: {
+				cls:'iconphonefont'
+			},
 			defaultTabletPickerConfig: {
-				cls:'tabfont'
+				cls:'icontabletfont'
 			}//,
 //			options: [
 //			{text: 'a', value:'a'},
@@ -91,10 +94,10 @@ Ext.define('myvera.view.PanelConfigTab', {
 					options.push({text: newstr, value: $i});
 				}
 				//de 0 à 9
-				for($i=48;$i<=57;$i++) {
-					var newstr = String.fromCharCode($i);
-					options.push({text: newstr, value: $i});
-				}
+				//for($i=48;$i<=57;$i++) {
+				//	var newstr = String.fromCharCode($i);
+				//	options.push({text: newstr, value: $i});
+				//}
 				e.down('#cls').setOptions(options);
 				
 				e.down('#cls').setValue(d.cls);

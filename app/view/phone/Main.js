@@ -17,7 +17,7 @@ Ext.define("myvera.view.phone.Main", {
 			title: 'liste',
 			id:'datalist',
 			title: locale.getSt().title.board,
-			iconCls: 'tab1',
+			iconCls: 'home',
 			xtype: 'datalistphone'
 
 		},
