@@ -406,7 +406,7 @@ Ext.define('myvera.controller.contdevices', {
 					var devices = Ext.getStore('devicesStore');
 					if (devices) {
 						//var tmp="";
-						for (idrecord in response.devices) {
+						for (var idrecord in response.devices) {
 							var device = devices.getById(response.devices[idrecord].id);
 							if (device) {
 								//Le status des Smart Virtual Thermostat - cat 105 n'est pas dans status
@@ -539,7 +539,7 @@ console.log("Debug: VT "+ device.get('name') + ": mode OCHA "+ device.get('statu
 						}
 						
 						//Pas de mise à jour des status car non utilisé (ne remonte pas toujours.
-						//for (idrecord in response.scenes) {
+						//for (var idrecord in response.scenes) {
 						//	device = devices.getById("s" + response.scenes[idrecord].id);
 						//	if (device) {
 								//Pas de synchro des champs active et comment car le sdata le remonte après le lancement d'une scène

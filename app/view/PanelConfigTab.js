@@ -84,19 +84,19 @@ Ext.define('myvera.view.PanelConfigTab', {
 				var options = [];
 				//console.log("a: "+"a".charCodeAt(0)); 
 				//de a à z
-				for($i=97;$i<=122;$i++) {
-					var newstr = String.fromCharCode($i);
-					options.push({text: newstr, value: $i});
+				for(var i=97; i<=122; i++) {
+					var newstr = String.fromCharCode(i);
+					options.push({text: newstr, value: i});
 				}
 				//de A à Z
-				for($i=65;$i<=90;$i++) {
-					var newstr = String.fromCharCode($i);
-					options.push({text: newstr, value: $i});
+				for(var i=65; i<=90; i++) {
+					var newstr = String.fromCharCode(i);
+					options.push({text: newstr, value: i});
 				}
 				//de 0 à 9
-				//for($i=48;$i<=57;$i++) {
-				//	var newstr = String.fromCharCode($i);
-				//	options.push({text: newstr, value: $i});
+				//for(var i=48;i<=57;i++) {
+				//	var newstr = String.fromCharCode(i);
+				//	options.push({text: newstr, value: i});
 				//}
 				e.down('#cls').setOptions(options);
 				

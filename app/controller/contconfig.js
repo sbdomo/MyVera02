@@ -797,7 +797,7 @@ Ext.define('myvera.controller.contconfig', {
 					if (response.success=="true") {
 						var RoomsStore = Ext.getStore('Rooms');
 						var listId = new Array();
-						for (idrecord in response.rooms) {
+						for (var idrecord in response.rooms) {
 							var result_room = response.rooms[idrecord];
 							var resultId=result_room.id;
 							if(resultId!=0) {

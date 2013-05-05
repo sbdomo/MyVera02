@@ -106,9 +106,9 @@ tplfooter: '<div class="footer"><tpl if="watts != null&&category!=3&&category!=2
 		'</tpl>' +
 		'<tpl if="comment!=\'\'&&comment!=null">{comment}<tpl else>&nbsp;</tpl>' + '</div>',
 
-tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
-'<img class="armed" src="./resources/images/indic/arm{armed}{retina}.png" /> '+
-				'</div>'+
+tplcontenu: 		'<tpl if="category==4&&armed!= null"><div class="floatleft">'+
+					'<img class="armed" src="./resources/images/indic/arm{armed}{retina}.png" /> '+
+					'</div>'+
 			'<tpl elseif="category==16"><div class="vargros"><tpl if="var1==null">&nbsp;<tpl else>{var1} %</tpl></div>'+
 			'<tpl elseif="category==17"><div class="vargros"><tpl if="var1==null">&nbsp;<tpl else>{var1} {var3}</tpl></div>'+
 			'<tpl elseif="category==18"><div class="vargros"><tpl if="var1==null">&nbsp;<tpl else>{var1} %</tpl></div>'+
@@ -116,13 +116,15 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 			'<tpl elseif="category==21"><div class="vargros"><tpl if="watts==null">&nbsp;<tpl else>{watts} W</tpl><br /><tpl if="var1!=null">{var1} kwh</tpl></div>'+
 			'<tpl elseif="category==101"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null">&nbsp;<tpl else>{var2}</tpl></div>'+
 			'<tpl elseif="category==102"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null">&nbsp;<tpl else>{var2}</tpl><br /><tpl if="var3==null">&nbsp;<tpl else>{var3}</tpl><br /><tpl if="var4==null">&nbsp;<tpl else>{var4}</tpl> <tpl if="var5==null">&nbsp;<tpl else>{var5}</tpl></div>'+
-			'<tpl elseif="category==103"><div><div class="longvar"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
-			'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/indic/arm{armed}{retina}.png" /></div></tpl></div>'+
+			'<tpl elseif="category==103"><div class="floatleft"><div class="longvar"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
+					'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/indic/arm{armed}{retina}.png" /></div></tpl></div>'+
 			'<tpl elseif="category==104">'+
+					'<div class="floatleft">'+
 					'<img class="i0" src="./resources/images/plugin/pw0_<tpl if="status==0">1<tpl else>0</tpl>{retina}.png" />'+
 					'&nbsp;&nbsp;&nbsp;<img class="i1" src="./resources/images/plugin/pw1_<tpl if="status==1">1<tpl else>0</tpl>{retina}.png" />'+
 					'&nbsp;&nbsp;&nbsp;<img class="i2" src="./resources/images/plugin/pw2_<tpl if="status==2">1<tpl else>0</tpl>{retina}.png" />'+
 					'&nbsp;&nbsp;&nbsp;<img class="i3" src="./resources/images/plugin/pw3_<tpl if="status==3">1<tpl else>0</tpl>{retina}.png" />'+
+					'</div>'+
 			'<tpl elseif="category==105">'+
 				'<div class="vargros">{var1}{camuser}</div><div class="varcenter">'+
 				'<tpl if="status==3">{var6} {campassword}<br/><tpl if="var4==\'Normal\'">{var2}<tpl else>{var3}</tpl>{camuser}'+
@@ -130,19 +132,22 @@ tplcontenu: '<tpl if="category==4&&armed!= null"><div>'+
 			'<tpl elseif="category==107"><div class="var"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl></div>'+
 			'<tpl elseif="category==108"><div class="var"><tpl if="camuser==null">&nbsp;<tpl else>{camuser}</tpl>'+
 				'<tpl if="campassword!=null"></br>{campassword}</tpl></div>'+
-			'<tpl elseif="category==120"><div><div class="clock1"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null||subcategory!=1">&nbsp;<tpl else>{var2}</tpl></div>'+
-			'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/indic/arm{armed}{retina}.png" /></div></tpl>'+
-					'<div class="clock3"><tpl if="var3==null">&nbsp;<tpl else><img width="42px" class="clocknext" src="./resources/images/indic/{var3}{retina}.png" /></tpl></div></div>'+
+			'<tpl elseif="category==120"><div class="floatleft">'+
+					'<div class="clock1"><tpl if="var1==null">&nbsp;<tpl else>{var1}</tpl><br /><tpl if="var2==null||subcategory!=1">&nbsp;<tpl else>{var2}</tpl></div>'+
+					'<tpl if="armed!= null"><div class="clock2"><img class="armed2" src="./resources/images/indic/arm{armed}{retina}.png" /></div></tpl>'+
+					'<div class="clock3"><tpl if="var3==null">&nbsp;<tpl else><img width="42px" class="clocknext" src="./resources/images/indic/{var3}{retina}.png" /></tpl></div>'+
+					'</div>'+
 			'<tpl elseif="category==2||category==8"><div>'+
-				'<div class="devicelevel1">'+
-					'<div class="lpourcent"><tpl if="level != null">{level} %<tpl else> </tpl></div>'+
-					'<img class="d25" src="./resources/images/indic/25<tpl if="level&gt;=25">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
-					'<img class="d50" src="./resources/images/indic/50<tpl if="level&gt;=50">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
-				'</div>'+
-				'<div class="devicelevel2">'+
-					'<img class="d75" src="./resources/images/indic/75<tpl if="level&gt;=75">on<tpl if="category==2">j</tpl></tpl>{retina}.png" /> '+
-					'<img class="d100" src="./resources/images/indic/100<tpl if="level==100">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
-				'</div>'+
+				'<div class="floatleft">'+
+					'<div class="devicelevel1">'+
+						'<div class="lpourcent"><tpl if="level != null">{level} %<tpl else> </tpl></div>'+
+						'<img class="d25" src="./resources/images/indic/25<tpl if="level&gt;=25">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
+						'<img class="d50" src="./resources/images/indic/50<tpl if="level&gt;=50">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
+					'</div>'+
+					'<div class="devicelevel2">'+
+						'<img class="d75" src="./resources/images/indic/75<tpl if="level&gt;=75">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
+						'<img class="d100" src="./resources/images/indic/100<tpl if="level==100">on<tpl if="category==2">j</tpl></tpl>{retina}.png" />'+
+					'</div>'+
 				'</div>'+
 			'</tpl>',
 
