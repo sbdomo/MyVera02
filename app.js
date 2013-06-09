@@ -25,7 +25,7 @@ Ext.application({
     controllers: [
         'Application','contdevices', 'contconfig'
 	],
-
+	
     requires: [
         'Ext.MessageBox',
 	'myvera.util.locale',
@@ -36,7 +36,7 @@ Ext.application({
     //views: ['Main'],
 
     profiles: ['Phone', 'Tablet'],
-    
+
     icon: {
         '57': 'resources/icons/Icon.png',
         '72': 'resources/icons/Icon~ipad.png',
@@ -45,7 +45,7 @@ Ext.application({
     },
     glossOnIcon: true,
     isIconPrecomposed: false,
-
+    
     startupImage: {
         '320x460': 'resources/startup/320x460.jpg',
         '640x920': 'resources/startup/640x920.png',
@@ -54,12 +54,12 @@ Ext.application({
         '1536x2008': 'resources/startup/1536x2008.png',
         '1496x2048': 'resources/startup/1496x2048.png'
     },
-    
+
     isretina: "",
     setIsretina: function(value) {
 	    this.isretina = value;
     },
-    
+
     launch: function() {
 	if(locale.getSt().lang!="en") {
 		var MB = Ext.MessageBox;
@@ -71,7 +71,7 @@ Ext.application({
 			YESNO: [MB.NO, MB.YES]
 		});
 	}
-	// Destroy the #appLoadingIndicator element
+        // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
@@ -84,7 +84,7 @@ Ext.application({
         Ext.Msg.confirm(
 		locale.getSt().msg.updateapp,
 		locale.getSt().msg.updatedone,
-            function(buttonId) {
+		function(buttonId) {
                 if (buttonId === 'yes') {
                     window.location.reload();
                 }
