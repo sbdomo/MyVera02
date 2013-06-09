@@ -43,7 +43,7 @@
         "appControllers": "",
         "appStores": "",
         "appViews": "",
-        "uniqueId": "59c55d73-f112-4316-92da-1854c3e932af"
+        "uniqueId": "29e57d8a-975c-49ba-82fb-708c0c5f1a26"
       }
     },
     "packager.json": {
@@ -60,7 +60,7 @@
         "appControllers": "",
         "appStores": "",
         "appViews": "",
-        "uniqueId": "59c55d73-f112-4316-92da-1854c3e932af"
+        "uniqueId": "29e57d8a-975c-49ba-82fb-708c0c5f1a26"
       }
     },
     "resources/sass/app.scss": {
@@ -77,7 +77,7 @@
         "appControllers": "",
         "appStores": "",
         "appViews": "",
-        "uniqueId": "59c55d73-f112-4316-92da-1854c3e932af"
+        "uniqueId": "29e57d8a-975c-49ba-82fb-708c0c5f1a26"
       }
     },
     "resources/sass/config.rb": {
@@ -94,7 +94,7 @@
         "appControllers": "",
         "appStores": "",
         "appViews": "",
-        "uniqueId": "59c55d73-f112-4316-92da-1854c3e932af"
+        "uniqueId": "29e57d8a-975c-49ba-82fb-708c0c5f1a26"
       }
     }
   }
